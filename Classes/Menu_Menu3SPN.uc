@@ -31,7 +31,7 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 	InfoTab = Menu_TabInfo(TabC.AddTab("Info", "3SPNRU-B1.Menu_TabInfo",, "General Information", DefaultToInfoTab));
 	StatsTab = Menu_TabRanks(TabC.AddTab("Ranks", "3SPNRU-B1.Menu_TabRanks",, "Ranks", false));
     MiscTab = Menu_TabMisc(TabC.AddTab("Miscellaneous", "3SPNRU-B1.Menu_TabMisc",, "Miscellaneous player options", !DefaultToInfoTab));
-    DamageTab = Menu_TabDamage(TabC.AddTab("Damage Visuals", "3SPNRU-B1.Menu_TabDamage",, "Damage Visual Configuration", false));
+    DamageTab = Menu_TabDamage(TabC.AddTab("Damage Visuals", "3SPNRU-B1.Menu_TabDamage",, "Damage Visuals Configuration", false));
     BSTab = Menu_TabBrightskins(TabC.AddTab("Brightskins & Models", "3SPNRU-B1.Menu_TabBrightskins",, "Brightskins configuration", false));
 	NamesTab = Menu_TabColoredNames(TabC.AddTab("Colored Names", "3SPNRU-B1.Menu_TabColoredNames",, "Colored Names", false));
 
@@ -42,7 +42,7 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
     if(MiscTab == None)
         log("Could not open tab Menu_TabMisc", '3SPN');
     if(DamageTab == None)
-        log("Could not open tab Menu_TabMisc", '3SPN');
+        log("Could not open tab Menu_TabDamage", '3SPN');
     if(BSTab == None)
         log("Could not open tab Menu_TabBrightskins", '3SPN');
 	if(NamesTab == None)
