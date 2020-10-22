@@ -19,9 +19,6 @@ static function IncrementKills(Controller Killer)
 
 defaultproperties
 {
-     BukkakeSound=Sound'3SPHorstALPHA001.Sounds.Bukkake'
+     BukkakeSound=Sound'3SPNRU-B1.Sounds.Bukkake'
      AwardLevel=5
-     DeathString="%k ???| ?Bio Rifle ???| %o"
-     FemaleSuicide="%o ?Suicide Bio"
-     MaleSuicide="%o ?Suicide Bio"
 }

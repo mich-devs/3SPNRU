@@ -68,8 +68,8 @@ static function Color GetColor (optional int Switch, optional PlayerReplicationI
 
 defaultproperties
 {
-     SuddenDeathSound=Sound'3SPHorstALPHA001.Sounds.sudden_death'
-     MatchPointSound=Sound'3SPHorstALPHA001.Sounds.MatchPoint'
+     SuddenDeathSound=Sound'3SPNRU-B1.Sounds.sudden_death'
+     MatchPointSound=Sound'3SPNRU-B1.Sounds.MatchPoint'
      RedTeamScores="Red Haidressers Score"
      BlueTeamScores="Blue Haidressers Score"
      MatchPoint="Match Round - FIGHT!"

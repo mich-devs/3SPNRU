@@ -71,7 +71,7 @@ var config int  LightningAmmo;
 var config bool EnableNewNet;
 var TAM_Mutator MutTAM;
 /* newnet */
-
+var config bool bDamageIndicator;
 //var config bool ServerLinkEnabled;
 
 var config String ShieldTextureName;
@@ -155,7 +155,8 @@ function InitGameReplicationInfo()
     Misc_BaseGRI(GameReplicationInfo).NetUpdateTime = Level.TimeSeconds - 1;
 	
 	Misc_BaseGRI(GameReplicationInfo).Acronym = Acronym;
-	Misc_BaseGRI(GameReplicationInfo).EnableNewNet = EnableNewNet;	
+	Misc_BaseGRI(GameReplicationInfo).EnableNewNet = EnableNewNet;
+	Misc_BaseGRI(GameReplicationInfo).bDamageIndicator = bDamageIndicator;	
   
   Misc_BaseGRI(GameReplicationInfo).ShieldTextureName = ShieldTextureName;  
   Misc_BaseGRI(GameReplicationInfo).FlagTextureName = FlagTextureName;  
@@ -212,6 +213,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("3SPN", "LightningAmmo", "Lightning Ammunition", 0, 69, "Text", "3;0:999",, True);
 
     PI.AddSetting("3SPN", "EnableNewNet", "Enable New Net", 0, 80, "Check");
+    PI.AddSetting("3SPN", "bDamageIndicator", "Enable Damage Indicator", 0, 401, "Check"); 
 }
 
 static event string GetDescriptionText(string PropName)
@@ -252,7 +254,8 @@ static event string GetDescriptionText(string PropName)
         case "RocketAmmo":          return "Amount of Rocket Ammunition to give in a round.";
         case "LightningAmmo":       return "Amount of Lightning Ammunition to give in a round.";
 
-		case "EnableNewNet":		return "Make enhanced netcode available for players.";		
+		case "EnableNewNet":		return "Make enhanced netcode available for players.";
+        case "bDamageIndicator":    return "Make the numeric damage indicator available for players.";		
 	}
 
     return Super.GetDescriptionText(PropName);
@@ -473,8 +476,13 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
     local int RealDamage;
     local float Score;
 
-    if(bEndOfRound /*|| LockTime > 0*/)
+    local vector EyeHeight;
+    
+    if(bEndOfRound || LockTime > 0)
         return 0;
+    
+    if(injured != None && injured.SpawnTime > Level.TimeSeconds)
+        return 0; 
 
     if(DamageType == Class'DamTypeSuperShockBeam')
         return Super.ReduceDamage(Damage, injured, instigatedBy, HitLocation, Momentum, DamageType);
@@ -489,7 +497,7 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
         if(injured == instigatedBy)
         {
             OldDamage = Misc_PRI(instigatedBy.PlayerReplicationInfo).AllyDamage;
-            
+
             RealDamage = OldDamage + Damage;
 
             if(class<DamType_Camping>(DamageType) != None || class<DamType_Overtime>(DamageType) != None)
@@ -514,7 +522,7 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
                         Misc_Player(instigatedBy.Controller).NewFriendlyDamage -= int(Misc_Player(instigatedBy.Controller).NewFriendlyDamage);
                     }
                 }
-                PRI.Score -= Score * 0.01;
+                PRI.Score = FMax(int(PRI.Score / 10000.0) * 10000, PRI.Score - Score * 0.01);
                 instigatedBy.Controller.AwardAdrenaline((-Score * 0.10) * AdrenalinePerDamage);
             }
 
@@ -543,14 +551,19 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
                         Misc_Player(instigatedBy.Controller).NewEnemyDamage -= int(Misc_Player(instigatedBy.Controller).NewEnemyDamage);
                     }
 
-                    if(instigatedBy.FastTrace(injured.Location))
+                    EyeHeight.z = instigatedBy.EyeHeight;
+                    if(Misc_Player(instigatedBy.Controller) != None)
+                    {
                         Misc_Player(instigatedBy.Controller).HitDamage += Score;
+                        Misc_Player(instigatedBy.Controller).bHitContact = FastTrace(injured.Location, instigatedBy.Location + EyeHeight);
+                        Misc_Player(instigatedBy.Controller).HitPawn = injured;
+                    }
                 }
                 PRI.Score += Score * 0.01;
                 instigatedBy.Controller.AwardAdrenaline((Score * 0.10) * AdrenalinePerDamage);
             }
 
-            if(Damage > (injured.Health + injured.ShieldStrength + 50) && 
+            if(Damage > (injured.Health + injured.ShieldStrength + 50) &&
                 Damage / (injured.Health + injured.ShieldStrength) > 2)
             {
                 PRI.OverkillCount++;
@@ -911,9 +924,9 @@ function bool AddBot(optional string botName)
 function string SwapDefaultCombo(string ComboName)
 {
     if(ComboName ~= "xGame.ComboSpeed")
-        return "3SPHorstALPHA001.Misc_ComboSpeed";
+        return "3SPNRU-B1.Misc_ComboSpeed";
     else if(ComboName ~= "xGame.ComboBerserk")
-        return "3SPHorstALPHA001.Misc_ComboBerserk";
+        return "3SPNRU-B1.Misc_ComboBerserk";
 
     return ComboName;
 }
@@ -1712,6 +1725,7 @@ defaultproperties
      bKickExcessiveCampers=True
      bSpecExcessiveCampers=True
      LockTime=4
+     bDamageIndicator=True
      AssaultAmmo=999
      AssaultGrenades=5
      BioAmmo=20
@@ -1725,22 +1739,22 @@ defaultproperties
      ShowServerName=True
      FlagTextureEnabled=True
      FlagTextureShowAcronym=True
-     OvertimeSound=Sound'3SPHorstALPHA001.Sounds.overtime'
+     OvertimeSound=Sound'3SPNRU-B1.Sounds.overtime'
      ADR_MinorError=-5.000000
-     LoginMenuClass="3SPHorstALPHA001.Menu_TAMLoginMenu"
-     LocalStatsScreenClass=Class'3SPHorstALPHA001.Misc_StatBoard'
-     DefaultPlayerClassName="3SPHorstALPHA001.Misc_Pawn"
-     ScoreBoardType="3SPHorstALPHA001.AM_Scoreboard"
-     HUDType="3SPHorstALPHA001.AM_HUD"
-     MapListType="3SPHorstALPHA001.MapListArenaMaster"
+     LoginMenuClass="3SPNRU-B1.Menu_TAMLoginMenu"
+     LocalStatsScreenClass=Class'3SPNRU-B1.Misc_StatBoard'
+     DefaultPlayerClassName="3SPNRU-B1.Misc_Pawn"
+     ScoreBoardType="3SPNRU-B1.AM_Scoreboard"
+     HUDType="3SPNRU-B1.AM_HUD"
+     MapListType="3SPNRU-B1.MapListArenaMaster"
      GoalScore=5
      MaxLives=1
      TimeLimit=0
-     DeathMessageClass=Class'3SPHorstALPHA001.Misc_DeathMessage'
-     MutatorClass="3SPHorstALPHA001.TAM_Mutator"
-     PlayerControllerClassName="3SPHorstALPHA001.Misc_Player"
-     GameReplicationInfoClass=Class'3SPHorstALPHA001.TAM_GRI'
-     GameName="ArenaMaster v3"
+     DeathMessageClass=Class'3SPNRU-B1.Misc_DeathMessage'
+     MutatorClass="3SPNRU-B1.TAM_Mutator"
+     PlayerControllerClassName="3SPNRU-B1.Misc_Player"
+     GameReplicationInfoClass=Class'3SPNRU-B1.TAM_GRI'
+     GameName="ArenaMaster RU - Beta 1"
      Description="One life per round. Don't waste it"
      Acronym="AM"
 }

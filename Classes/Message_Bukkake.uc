@@ -36,7 +36,7 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     BukkakeSound=Sound'3SPHorstALPHA001.Sounds.Bukkake'
+     BukkakeSound=Sound'3SPNRU-B1.Sounds.Bukkake'
      YouGaveBukkake="YOU GAVE A BUKKAKE!"
      PlayerGaveBukkake="SPLASHED A BUKKAKE!"
      bIsUnique=True

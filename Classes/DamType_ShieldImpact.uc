@@ -31,7 +31,4 @@ static function IncrementKills(Controller Killer)
 defaultproperties
 {
      AwardLevel=1
-     DeathString="%k ÿÿÿ| €ÿHUMILIATING ÿÿÿ| %o"
-     FemaleSuicide="%o €ÿSuicide Shield Gun"
-     MaleSuicide="%o €ÿSuicide Shield Gun"
 }

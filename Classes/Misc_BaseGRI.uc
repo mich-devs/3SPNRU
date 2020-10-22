@@ -36,6 +36,7 @@ var bool bDisableBerserk;
 var int  TimeOuts;
 
 var bool EnableNewNet;
+var bool bDamageIndicator;
 
 var string ShieldTextureName;
 var string FlagTextureName;
@@ -63,7 +64,7 @@ replication
         OTInterval, CampThreshold, bKickExcessiveCampers, bSpecExcessiveCampers, bForceRUP, ForceRUPMinPlayers,
         TimeOuts, Acronym, EnableNewNet, ShieldTextureName, ShowServerName,
         FlagTextureEnabled, FlagTextureName, ScoreboardRedTeamName, ScoreboardBlueTeamName, FlagTextureShowAcronym, SoundAloneName,
-        SoundSpawnProtectionName,UseZAxisRadar;
+        SoundSpawnProtectionName,UseZAxisRadar,bDamageIndicator;
 
     reliable if(!bNetInitial && bNetDirty && Role == ROLE_Authority)
         RoundMinute;
@@ -282,6 +283,6 @@ simulated function Timer()
 
 defaultproperties
 {
-     Version="3spHorst_v0.2_alpha"
+     Version="3SPNRU-Beta1"
      EnableNewNet=True
 }

@@ -26,7 +26,4 @@ static function IncrementKills(Controller Killer)
 defaultproperties
 {
      AwardLevel=8
-     DeathString="%k ???| ?Rocket Launcher ???| %o"
-     FemaleSuicide="%o ? is a Martyr"
-     MaleSuicide="%o ? is a Martyr"
 }

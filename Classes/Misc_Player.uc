@@ -19,6 +19,13 @@ var config bool bDisableAmmoRegen;
 var config bool bShowTeamInfo;          // show teams info on the HUD
 var config bool bExtendedInfo;          // show extra teammate info
 
+var config enum EDamageIndicator
+	{
+		Disabled,
+		Centered,
+		Floating
+	} DamageIndicator;
+
 var config bool bMatchHUDToSkins;       // sets HUD color to brightskins color
 /* HUD related */
 
@@ -50,7 +57,13 @@ var float NewFriendlyDamage;            // friendly damage done
 var float NewEnemyDamage;               // enemy damage done
 
 var int HitDamage;
+var bool bHitContact;
+var Pawn HitPawn;
+
 var int LastDamage;
+
+var int SumDamage;
+var float SumDamageTime;
 
 var config bool bDisableAnnouncement;
 var config bool bAutoScreenShot;
@@ -159,7 +172,7 @@ replication
         ClientSendSniperStats, ClientSendComboStats, ClientSendMiscStats;
 
     reliable if(bNetDirty && Role == ROLE_Authority)
-        HitDamage, bSeeInvis;
+        HitDamage, bHitContact, HitPawn, bSeeInvis;
 
     reliable if( Role==ROLE_Authority && !bDemoRecording )
         PlayCustomRewardAnnouncement, PlayStatusAnnouncementReliable;
@@ -382,12 +395,12 @@ function CheckInitialMenu()
 	}
 }
 
-event PlayerTick(float DeltaTime)
+function PlayerTick(float DeltaTime)
 {
+    local int Damage;
+    
     Super.PlayerTick(DeltaTime);
 
-	CheckInitialMenu();
-	
 	if(Pawn!=None)
 	{
 		// if we have a pawn, we must be looking at it
@@ -409,18 +422,40 @@ event PlayerTick(float DeltaTime)
 		UpdateEndCeremony(DeltaTime);
 		return;
 	}
-	
+
     if(Pawn == None || !bUseHitSounds || HitDamage == LastDamage)
     {
         LastDamage = HitDamage;
         return;
     }
 
-    if(HitDamage < LastDamage)
-        Pawn.PlaySound(soundHitFriendly,, soundHitVolume,,,(48 / (LastDamage - HitDamage)), false);
-    else
-        Pawn.PlaySound(soundHit,, soundHitVolume,,,(48 / (HitDamage - LastDamage)), false);
-
+    if(HitDamage != LastDamage)
+    {
+        Damage = HitDamage - LastDamage;
+        
+        if(bHitContact)
+        {
+            if(HitDamage < LastDamage)
+                Pawn.PlaySound(soundHitFriendly,, soundHitVolume,,,(48 / (-Damage)), false);
+            else
+                Pawn.PlaySound(soundHit,, soundHitVolume,,,(48 / Damage), false);
+        }
+        
+        if(HitPawn != None && Misc_BaseGRI(GameReplicationInfo).bDamageIndicator)
+        {
+            if (DamageIndicator == Centered)
+            {
+                if ( (Level.TimeSeconds - SumDamageTime > 1) || (SumDamage > 0 ^^ Damage > 0) )
+                    SumDamage = 0;
+                SumDamage += Damage;
+                SumDamageTime = Level.TimeSeconds;
+            }
+            
+            if(DamageIndicator == Floating)
+                class'Emitter_Damage'.static.ShowDamage(HitPawn, HitPawn.Location, Damage);        
+        }        
+    }
+    
     LastDamage = HitDamage;
 }
 
@@ -662,7 +697,7 @@ simulated function InitInputSystem()
 	C = Level.GetLocalPlayerController();
 	if(C != None)
 	{
-		C.Player.InteractionMaster.AddInteraction("3SPHorstALPHA001.Menu_Interaction", C.Player);
+		C.Player.InteractionMaster.AddInteraction("3SPNRU-B1.Menu_Interaction", C.Player);
 	}
 }
 
@@ -1099,9 +1134,9 @@ function bool CanDoCombo(class<Combo> ComboClass)
 function ServerDoCombo(class<Combo> ComboClass)
 {
     if(class<ComboBerserk>(ComboClass) != None)
-        ComboClass = class<Combo>(DynamicLoadObject("3SPHorstALPHA001.Misc_ComboBerserk", class'Class'));
+        ComboClass = class<Combo>(DynamicLoadObject("3SPNRU-B1.Misc_ComboBerserk", class'Class'));
     else if(class<ComboSpeed>(ComboClass) != None && class<Misc_ComboSpeed>(ComboClass) == None)
-        ComboClass = class<Combo>(DynamicLoadObject("3SPHorstALPHA001.Misc_ComboSpeed", class'Class'));
+        ComboClass = class<Combo>(DynamicLoadObject("3SPNRU-B1.Misc_ComboSpeed", class'Class'));
 
     if(Adrenaline < ComboClass.default.AdrenalineCost)
         return;
@@ -1367,7 +1402,7 @@ exec function Menu3SPN()
 	r.Pitch = 0;
 	SetRotation(r);
 
-	ClientOpenMenu("3SPHorstALPHA001.Menu_Menu3SPN");
+	ClientOpenMenu("3SPNRU-B1.Menu_Menu3SPN");
 }
 
 exec function ToggleTeamInfo()
@@ -2048,13 +2083,13 @@ defaultproperties
      BlueAllyModel="Jakob"
      bAnnounceOverkill=True
      bUseHitSounds=True
-     SoundHit=Sound'3SPHorstALPHA001.Sounds.HitSound'
+     SoundHit=Sound'3SPNRU-B1.Sounds.HitSound'
      SoundHitFriendly=Sound'MenuSounds.denied1'
      SoundHitVolume=0.600000
-     SoundAlone=Sound'3SPHorstALPHA001.Sounds.alone'
+     SoundAlone=Sound'3SPNRU-B1.Sounds.alone'
      SoundAloneVolume=1.000000
      SoundUnlock=Sound'NewWeaponSounds.Newclickgrenade'
-     SoundSpawnProtection=Sound'3SPHorstALPHA001.Sounds.Bleep'
+     SoundSpawnProtection=Sound'3SPNRU-B1.Sounds.Bleep'
      bEnableEnhancedNetCode=True
      ShowInitialMenu=2
      Menu3SPNKey=IK_F7
@@ -2113,7 +2148,7 @@ defaultproperties
      AutoSyncSettings=True
      LastSettingsLoadTimeSeconds=-100.000000
      LastSettingsSaveTimeSeconds=-100.000000
-     PlayerReplicationInfoClass=Class'3SPHorstALPHA001.Misc_PRI'
+     PlayerReplicationInfoClass=Class'3SPNRU-B1.Misc_PRI'
      Adrenaline=0.100000
      AdrenalineMax=120.000000
 }

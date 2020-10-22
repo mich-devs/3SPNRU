@@ -58,7 +58,7 @@ static function int GetFontSize (int Switch, PlayerReplicationInfo RelatedPRI1, 
 
 defaultproperties
 {
-     firstblood=Sound'3SPHorstALPHA001.Sounds.firstblood'
+     firstblood=Sound'3SPNRU-B1.Sounds.firstblood'
      YouHaveFirstBlood="! F I R S T  B L O O D !"
      HasFirstBlood="Has The First Blood"
      bIsUnique=True

@@ -277,8 +277,35 @@ simulated function DrawTimer(Canvas C)
 	DrawNumericWidget( C, TimerSeconds, DigitsBig);
 }
 
+simulated function DrawDamageIndicators(Canvas C)
+{
+    local float XL, YL;
+    local string Name;
+    
+    Super.DrawDamageIndicators(C);
+    
+    if(bHideHud || Misc_Player(PlayerOwner) == None || Misc_Player(PlayerOwner).DamageIndicator != Centered)
+        return;
+
+    if(Misc_Player(PlayerOwner).SumDamageTime + 1 <= Level.TimeSeconds)
+        return;
+    
+    if(C.ClipX >= 1600)
+        C.Font = GetFontSizeIndex(C, -2);
+    else
+        C.Font = GetFontSizeIndex(C, -1);
+
+    C.DrawColor = class'Emitter_Damage'.static.ColorRamp(Misc_Player(PlayerOwner).SumDamage);
+    C.DrawColor.A = Clamp(int(((Misc_Player(PlayerOwner).SumDamageTime + 1) - Level.TimeSeconds) * 200), 1, 200);
+
+    Name = string(Misc_Player(PlayerOwner).SumDamage);
+    C.StrLen(Name, XL, YL);
+    C.SetPos((C.ClipX - XL) * 0.5, (C.ClipY - YL) * 0.46);
+    C.DrawTextClipped(Name);
+}
+
 defaultproperties
 {
      TeamTex=Texture'HUDContent.Generic.HUD'
-     TrackedPlayer=Texture'3SPHorstALPHA001.textures.chair'
+     TrackedPlayer=Texture'3SPNRU-B1.textures.chair'
 }

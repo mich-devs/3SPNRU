@@ -857,14 +857,6 @@ simulated event DrawScoreBoard(Canvas C)
                 MiscY += MiscH;
             }
 			
-			 if(TmpPRI.rocketsuicide > 0 )
-            {
-                C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawText("Martyr"$MakeColorCode(HUDClass.default.GoldColor * 0.7)$"x"$TmpPRI.rocketsuicide);
-				C.DrawText("kacke");
-                MiscY += MiscH;
-            }
-			
 			if(TmpPRI.RoxCount >= 7)
 			{
 				C.SetPos(MiscX + TextX, MiscY + TextY);
@@ -1094,5 +1086,5 @@ simulated event DrawScoreBoard(Canvas C)
 defaultproperties
 {
      Box=Texture'Engine.WhiteSquareTexture'
-     BaseTex=Texture'3SPHorstALPHA001.textures.Scoreboard_old'
+     BaseTex=Texture'3SPNRU-B1.textures.Scoreboard_old'
 }

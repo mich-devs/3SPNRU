@@ -523,66 +523,6 @@ simulated function DrawSpawnEffect (Canvas C)
   }
 }
 
-simulated function PostRender (Canvas C)
-{
-  Super.PostRender(C);
-  CullDeathMessages();
-  if ( PlayerOwner.bBehindView )
-  {
-    return;
-  }
-  DrawSpawnEffect(C);
-  if (  !bHideHUD && (Misc_PRI(PlayerOwner.PlayerReplicationInfo) != None) )
-  {
-    DrawDamageIndicator(C,Misc_PRI(PlayerOwner.PlayerReplicationInfo));
-  }
-}
-
-simulated function DrawDamageIndicator (Canvas C, Misc_PRI PRI)
-{
-  local float XL;
-  local float YL;
-  local string Name;
-
-  if ( PRI == None )
-  {
-    return;
-  }
-  if ( PRI.DamageTime + 1 < Level.TimeSeconds )
-  {
-    if ( bHadFlakhug )
-    {
-      bHadFlakhug = False;
-    }
-    if ( bHadAirRox )
-    {
-      bHadAirRox = False;
-    }
-    if ( bHadTerminator )
-    {
-      bHadTerminator = False;
-    }
-    return;
-  }
-  C.Font = GetFontSizeIndex(C,-1);
-  if ( PRI.CurrentDamage < 0 )
-  {
-    Name = string( -PRI.CurrentDamage);
-  } else {
-    Name = string(PRI.CurrentDamage);
-  }
-  C.StrLen(Name,XL,YL);
-  C.SetPos((C.ClipX - XL) * 0.5,(C.ClipY - YL) * Class'Message_HitDamage'.Default.PosY);
-  C.DrawColor = Class'Message_HitDamage'.static.GetColor(PRI.CurrentDamage);
-  C.DrawColor.A = int((PRI.DamageTime + 1 - Level.TimeSeconds) * 255);
-  C.DrawTextClipped(Name);
-  if ( (PRI.CurrentDamage > 0) && (PRI.CurrentWeaponNum > 0) )
-  
-  {
-    DrawDamageAwards(PRI.CurrentDamage2,PRI.CurrentWeaponNum);
-  }
-}
-
 simulated function DrawDamageAwards (int Damage, byte WeaponNum)
 {
   if (  !bHadFlakhug && (WeaponNum == 7) && (Damage >= 110) )
@@ -1538,11 +1478,38 @@ function NewDraw2DLocationDot(Canvas C, vector Loc, int CenterX, int CenterY, in
     C.DrawTile(LocationDot, dotSize, dotSize, 340, 432, 78, 78);
 }
 
+simulated function DrawDamageIndicators(Canvas C)
+{
+    local float XL, YL;
+    local string Name;
+    
+    Super.DrawDamageIndicators(C);
+    
+    if(bHideHud || Misc_Player(PlayerOwner) == None || Misc_Player(PlayerOwner).DamageIndicator != Centered)
+        return;
+
+    if(Misc_Player(PlayerOwner).SumDamageTime + 1 <= Level.TimeSeconds)
+        return;
+    
+    if(C.ClipX >= 1600)
+        C.Font = GetFontSizeIndex(C, -2);
+    else
+        C.Font = GetFontSizeIndex(C, -1);
+
+    C.DrawColor = class'Emitter_Damage'.static.ColorRamp(Misc_Player(PlayerOwner).SumDamage);
+    C.DrawColor.A = Clamp(int(((Misc_Player(PlayerOwner).SumDamageTime + 1) - Level.TimeSeconds) * 200), 1, 200);
+
+    Name = string(Misc_Player(PlayerOwner).SumDamage);
+    C.StrLen(Name, XL, YL);
+    C.SetPos((C.ClipX - XL) * 0.5, (C.ClipY - YL) * 0.46);
+    C.DrawTextClipped(Name);
+}
+
 defaultproperties
 {
      TeamTex=Texture'HUDContent.Generic.HUD'
-     Hudzaxis=Texture'3SPHorstALPHA001.textures.Hudzaxis'
-     TrackedPlayer=Texture'3SPHorstALPHA001.textures.chair'
+     Hudzaxis=Texture'3SPNRU-B1.textures.Hudzaxis'
+     TrackedPlayer=Texture'3SPNRU-B1.textures.chair'
      FullHealthColor=(B=200,G=100,A=255)
      NameColor=(B=200,G=200,R=200,A=255)
      LocationColor=(G=130,R=175,A=255)

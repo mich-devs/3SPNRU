@@ -4,6 +4,7 @@ var GUITabControl TabC;
 var Menu_TabColoredNames NamesTab;
 var Menu_TabBrightskins BSTab;
 var Menu_TabMisc MiscTab;
+var Menu_TabDamage DamageTab;
 var Menu_TabInfo InfoTab;
 var Menu_TabRanks StatsTab;
 var UT2k3TabPanel AdminTab;
@@ -27,17 +28,20 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 	GUITitleBar(Controls[1]).Caption = "3SPN"@class'Misc_BaseGRI'.default.Version@"Configuration";	
 		
     TabC = GUITabControl(Controls[2]);
-	InfoTab = Menu_TabInfo(TabC.AddTab("Info", "3SPHorstALPHA001.Menu_TabInfo",, "General Information", DefaultToInfoTab));
-	StatsTab = Menu_TabRanks(TabC.AddTab("Ranks", "3SPHorstALPHA001.Menu_TabRanks",, "Ranks", false));
-    MiscTab = Menu_TabMisc(TabC.AddTab("Miscellaneous", "3SPHorstALPHA001.Menu_TabMisc",, "Miscellaneous player options", !DefaultToInfoTab));
-    BSTab = Menu_TabBrightskins(TabC.AddTab("Brightskins & Models", "3SPHorstALPHA001.Menu_TabBrightskins",, "Brightskins configuration", false));
-	NamesTab = Menu_TabColoredNames(TabC.AddTab("Colored Names", "3SPHorstALPHA001.Menu_TabColoredNames",, "Colored Names", false));
+	InfoTab = Menu_TabInfo(TabC.AddTab("Info", "3SPNRU-B1.Menu_TabInfo",, "General Information", DefaultToInfoTab));
+	StatsTab = Menu_TabRanks(TabC.AddTab("Ranks", "3SPNRU-B1.Menu_TabRanks",, "Ranks", false));
+    MiscTab = Menu_TabMisc(TabC.AddTab("Miscellaneous", "3SPNRU-B1.Menu_TabMisc",, "Miscellaneous player options", !DefaultToInfoTab));
+    DamageTab = Menu_TabDamage(TabC.AddTab("Damage Visuals", "3SPNRU-B1.Menu_TabDamage",, "Damage Visual Configuration", false));
+    BSTab = Menu_TabBrightskins(TabC.AddTab("Brightskins & Models", "3SPNRU-B1.Menu_TabBrightskins",, "Brightskins configuration", false));
+	NamesTab = Menu_TabColoredNames(TabC.AddTab("Colored Names", "3SPNRU-B1.Menu_TabColoredNames",, "Colored Names", false));
 
 	if(InfoTab == None)
 		log("Count not open tab Menu_TabInfo", '3SPN');
 	if(StatsTab == None)
 		log("Count not open tab Menu_TabRanks", '3SPN');
     if(MiscTab == None)
+        log("Could not open tab Menu_TabMisc", '3SPN');
+    if(DamageTab == None)
         log("Could not open tab Menu_TabMisc", '3SPN');
     if(BSTab == None)
         log("Could not open tab Menu_TabBrightskins", '3SPN');
@@ -46,14 +50,14 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 	
 	if(bAdmin)
 	{
-		TournamentAdminTab = Menu_TabTournamentAdmin(TabC.AddTab("Tournament Admin", "3SPHorstALPHA001.Menu_TabTournamentAdmin",, "Tournament", false));
+		TournamentAdminTab = Menu_TabTournamentAdmin(TabC.AddTab("Tournament Admin", "3SPNRU-B1.Menu_TabTournamentAdmin",, "Tournament", false));
  
 		if(PlayerOwner().Level.GRI!=None)
 		{
 			if(PlayerOwner().Level.GRI.bTeamGame)
-				AdminTab = Menu_TabTAMAdmin(TabC.AddTab("Admin", "3SPHorstALPHA001.Menu_TabTAMAdmin",, "Admin/Server configuration", false));
+				AdminTab = Menu_TabTAMAdmin(TabC.AddTab("Admin", "3SPNRU-B1.Menu_TabTAMAdmin",, "Admin/Server configuration", false));
 			else
-				AdminTab = Menu_TabAMAdmin(TabC.AddTab("Admin", "3SPHorstALPHA001.Menu_TabAMAdmin",, "Admin/Server configuration", false));
+				AdminTab = Menu_TabAMAdmin(TabC.AddTab("Admin", "3SPNRU-B1.Menu_TabAMAdmin",, "Admin/Server configuration", false));
 		}
 		
 		if(AdminTab == None)
@@ -111,7 +115,7 @@ defaultproperties
          WinHeight=0.800000
          RenderWeight=0.000003
      End Object
-     Controls(0)=GUIImage'3SPHorstALPHA001.Menu_Menu3SPN.MenuBack'
+     Controls(0)=GUIImage'3SPNRU-B1.Menu_Menu3SPN.MenuBack'
 
      Begin Object Class=GUITitleBar Name=MenuTitle
          Effect=FinalBlend'InterfaceContent.Menu.CO_Final'
@@ -121,7 +125,7 @@ defaultproperties
          bBoundToParent=True
          bScaleToParent=True
      End Object
-     Controls(1)=GUITitleBar'3SPHorstALPHA001.Menu_Menu3SPN.MenuTitle'
+     Controls(1)=GUITitleBar'3SPNRU-B1.Menu_Menu3SPN.MenuTitle'
 
      Begin Object Class=GUITabControl Name=Tabs
          bDockPanels=True
@@ -135,10 +139,12 @@ defaultproperties
          bAcceptsInput=True
          OnActivate=Tabs.InternalOnActivate
      End Object
-     Controls(2)=GUITabControl'3SPHorstALPHA001.Menu_Menu3SPN.Tabs'
-
+     Controls(2)=GUITabControl'3SPNRU-B1.Menu_Menu3SPN.Tabs'
+ 
      WinTop=0.089000
      WinLeft=0.100000
      WinWidth=0.800000
      WinHeight=0.775000
+	 
+	 DefaultToInfoTab=False
 }

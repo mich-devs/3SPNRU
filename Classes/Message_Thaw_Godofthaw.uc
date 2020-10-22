@@ -35,7 +35,7 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     GodOfThawSound=Sound'3SPHorstALPHA001.Sounds.GodOfThaw'
+     GodOfThawSound=Sound'3SPNRU-B1.Sounds.GodOfThaw'
      YouAreGodOfThaw="GOD OF THAW!"
      PlayerIsGodOfThaw="IS THE GOD OF THAW!"
      bIsUnique=True
