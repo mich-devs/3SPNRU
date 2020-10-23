@@ -169,27 +169,27 @@ simulated function string GetServerSkillText ()
     return "ÿ(Min.2 Players)";
 	
   }
-  if ( ServerSkill < 3 )
+  if ( ServerSkill < 1 )
   {
     return "ÿ€No-Skill ÿÿÿ(ÿ€" $ Class'Misc_PRI'.static.GetFormattedPPR(ServerSkill) $ "ÿÿÿ)";
   }
-  if ( ServerSkill < 4 )
+  if ( ServerSkill < 1.8 )
   {
     return "ÿÿ@Low ÿÿÿ(ÿÿ@" $ Class'Misc_PRI'.static.GetFormattedPPR(ServerSkill) $ "ÿÿÿ)";
   }
-  if ( ServerSkill < 5 )
+  if ( ServerSkill < 2.1 )
   {
     return "€ÿMid ÿÿÿ(€ÿ" $ Class'Misc_PRI'.static.GetFormattedPPR(ServerSkill) $ "ÿÿÿ)";
   }
-  if ( ServerSkill < 6 )
+  if ( ServerSkill < 2.25 )
   {
     return "€ÿGood ÿÿÿ(€ÿ" $ Class'Misc_PRI'.static.GetFormattedPPR(ServerSkill) $ "ÿÿÿ)";
   }
-  if ( ServerSkill < 7 )
+  if ( ServerSkill < 2.7 )
   {
     return "€ÿHigh ÿÿÿ(€ÿ" $ Class'Misc_PRI'.static.GetFormattedPPR(ServerSkill) $ "ÿÿÿ)";
   }
-  if ( ServerSkill > 7 )
+  if ( ServerSkill > 3.1 )
   {
     return "€ÿInsane ÿÿÿ(€ÿ" $ Class'Misc_PRI'.static.GetFormattedPPR(ServerSkill) $ "ÿÿÿ)";
   }

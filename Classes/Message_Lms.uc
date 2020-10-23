@@ -37,10 +37,11 @@ static function string GetString (optional int Switch, optional PlayerReplicatio
 defaultproperties
 {
      finishmcsound=Sound'3SPNRU-B1.Sounds.last_man_standing'
-     LmsString="Last Man Standing - Do it!!"
+     LmsString="Last Man Standing"
      bIsUnique=True
      bFadeMessage=True
      DrawColor=(B=243,G=246,R=165)
-     PosY=0.120000
+     PosY=0.075000
+     StackMode=SM_Down
      FontSize=1
 }

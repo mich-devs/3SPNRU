@@ -41,7 +41,7 @@ defaultproperties
      PlayerIsScorcher="IS A SCORCHER!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=0,G=150)
      StackMode=SM_Down
      PosY=0.100000

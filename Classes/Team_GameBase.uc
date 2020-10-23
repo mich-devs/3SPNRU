@@ -3048,23 +3048,13 @@ function PunishCamper(Controller C, Misc_Pawn P, Misc_PRI PRI)
     {
         pri.CampCount++;
         pri.ConsecutiveCampCount++;
-		
-		
-		 if(bSpecExcessiveCampers && pri.ConsecutiveCampCount >= 4)
-        {
-                     
-			PlayerController(c).BecomeSpectator();
-			BroadcastLocalizedMessage(Class'Message_Camper');
-			
-        }
-		
+
         if(bKickExcessiveCampers && pri.ConsecutiveCampCount >= 4)
         {
-            log("Kicking Camper (Possibly Idle): "$c.PlayerReplicationInfo.PlayerName);
+            //log("Kicking Camper (Possibly Idle): "$c.PlayerReplicationInfo.PlayerName);
             AccessControl.DefaultKickReason = AccessControl.IdleKickReason;
             AccessControl.KickPlayer(PlayerController(c));
             AccessControl.DefaultKickReason = AccessControl.Default.DefaultKickReason;
-			
         }
     }
 }

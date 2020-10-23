@@ -36,7 +36,7 @@ defaultproperties
      plopptex="P L O P P"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=224,G=58,R=196)
      StackMode=SM_Down
      PosY=0.150000

@@ -290,22 +290,22 @@ function LoadPlayerDataStats()
 }
 
 
-simulated event ReceiveLocalizedMessage (Class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
-{
-  if ( (Level.NetMode == 1) || (GameReplicationInfo == None) )
-  {
-    return;
-  }
-  if ( Message == Class'KillingSpreeMessage' )
-  {
-    Message = Class'Message_KillingSpree';
-  }
-  Message.static.ClientReceive(self,Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject);
-  if ( Message.static.IsConsoleMessage(Switch) && (Player != None) && (Player.Console != None) )
-  {
-    Player.Console.Message(Message.static.GetString(Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject),0.0);
-  }
-}
+//simulated event ReceiveLocalizedMessage (Class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
+//{
+//  if ( (Level.NetMode == 1) || (GameReplicationInfo == None) )
+// {
+//    return;
+//  }
+//  if ( Message == Class'KillingSpreeMessage' )
+//  {
+//    Message = Class'Message_KillingSpree';
+//  }
+//  Message.static.ClientReceive(self,Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject);
+//  if ( Message.static.IsConsoleMessage(Switch) && (Player != None) && (Player.Console != None) )
+//  {
+//    Player.Console.Message(Message.static.GetString(Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject),0.0);
+//  }
+//}
 
 function LoadPlayerData()
 {

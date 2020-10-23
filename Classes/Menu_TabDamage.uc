@@ -11,13 +11,13 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
     if(MP == None)
         return;
             
-            moCheckBox(Controls[1]).StandardHeight = 0.0;
+            moCheckBox(Controls[23]).StandardHeight = 0.0;
 			moCheckBox(Controls[1]).DisableMe();
-            moCheckBox(Controls[2]).StandardHeight = 0.0;
+            moCheckBox(Controls[24]).StandardHeight = 0.0;
 			moCheckBox(Controls[2]).DisableMe();
-            GUILabel(Controls[3]).StandardHeight = 0.0;
-            moCheckBox(Controls[1]).Checked(MP.DamageIndicator == Centered);
-            moCheckBox(Controls[2]).Checked(MP.DamageIndicator == Floating);
+            GUILabel(Controls[26]).StandardHeight = 0.0;
+            moCheckBox(Controls[23]).Checked(MP.DamageIndicator == Centered);
+            moCheckBox(Controls[24]).Checked(MP.DamageIndicator == Floating);
         }
 
 function OnChange(GUIComponent C)
@@ -31,13 +31,13 @@ function OnChange(GUIComponent C)
     if(moCheckBox(c) != None)
     {
         b = moCheckBox(c).IsChecked();
-        if(c == Controls[1])
+        if(c == Controls[23])
         {
             if (b)
             {
                 MP.DamageIndicator = Centered;
                 class'Misc_Player'.default.DamageIndicator = Centered;
-                moCheckBox(Controls[2]).MyCheckBox.bChecked = false;
+                moCheckBox(Controls[24]).MyCheckBox.bChecked = false;
             }
             else
             {
@@ -46,13 +46,13 @@ function OnChange(GUIComponent C)
             }
         }                
 
-        else if(c == Controls[2])
+        else if(c == Controls[24])
         {
             if (b)
             {
                 MP.DamageIndicator = Floating;
                 class'Misc_Player'.default.DamageIndicator = Floating;
-                moCheckBox(Controls[1]).MyCheckBox.bChecked = false;
+                moCheckBox(Controls[23]).MyCheckBox.bChecked = false;
             }
             else
             {
@@ -68,6 +68,15 @@ function OnChange(GUIComponent C)
 // Decompiled with UE Explorer.
 defaultproperties
 {
+     Begin Object Class=GUIImage Name=TabBackground
+         Image=Texture'InterfaceContent.Menu.ScoreBoxA'
+         ImageColor=(B=0,G=0,R=0)
+         ImageStyle=ISTY_Stretched
+         WinHeight=1.000000
+         bNeverFocus=True
+     End Object
+     Controls(0)=GUIImage'3SPNRU-B1.Menu_TabDamage.TabBackground'
+
     begin object name=DamageCheck class=moCheckBox
         Caption="Centered"
         OnCreateComponent=DamageCheck.InternalOnCreateComponent
@@ -77,7 +86,8 @@ defaultproperties
         WinWidth=0.150
         OnChange=OnChange
     object end
-    // Reference: moCheckBox'Menu_TabMisc.DamageCheck'
+    Controls(23)=moCheckBox'3SPNRU-B1.Menu_TabDamage.DamageCheck'
+    // Reference: moCheckBox'Menu_TabDamage.DamageCheck'
 
     begin object name=DamageCheck2 class=moCheckBox
         Caption="Floating"
@@ -88,7 +98,8 @@ defaultproperties
         WinWidth=0.150
         OnChange=OnChange
     object end
-    // Reference: moCheckBox'Menu_TabMisc.DamageCheck2'
+//    Controls(24)=moCheckBox'3SPNRU-B1.Menu_TabDamage.DamageCheck2'
+    // Reference: moCheckBox'Menu_TabDamage.DamageCheck2'
 
     begin object name=DamageLabel class=GUILabel
         Caption="Damage indicator"
@@ -99,5 +110,6 @@ defaultproperties
         bStandardized=true
         StandardHeight=0.030
     object end
-    // Reference: GUILabel'Menu_TabMisc.DamageLabel'
+//    Controls(26)=GUILabel'3SPNRU-B1.Menu_TabDamage.DamageLabel
+    // Reference: GUILabel'Menu_TabDamage.DamageLabel'
 }

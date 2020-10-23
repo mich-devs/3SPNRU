@@ -1356,14 +1356,6 @@ function PunishCamper(Controller C, Misc_Pawn P, Misc_PRI PRI)
         pri.bWarned = true;
         return;
     }
-	
-	 if(bSpecExcessiveCampers && pri.ConsecutiveCampCount >= 4)
-        {
-                     
-			PlayerController(c).BecomeSpectator();
-			BroadcastLocalizedMessage(Class'Message_Camper');
-			
-        }
 
     if(Level.NetMode == NM_DedicatedServer && pri.Ping * 4 < 999)
     {

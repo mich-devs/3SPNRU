@@ -16,7 +16,7 @@ defaultproperties
      FinalKillText="Final Kill"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=243,G=246,R=165)
      PosY=0.320000
 }

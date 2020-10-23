@@ -41,7 +41,7 @@ defaultproperties
      PlayerIsDarkHorse="IS   A   D A R K   H O R S E!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=150,G=0,R=50)
      StackMode=SM_Down
      PosY=0.675000

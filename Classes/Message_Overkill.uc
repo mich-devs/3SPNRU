@@ -37,5 +37,5 @@ defaultproperties
      bFadeMessage=True
      DrawColor=(B=0)
      StackMode=SM_Down
-     PosY=0.100000
+     PosY=0.200000
 }

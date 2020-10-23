@@ -41,7 +41,7 @@ defaultproperties
      PlayerIsCombowhore="IS   A   C O M B O  W H O R E"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=224,G=58,R=196)
      StackMode=SM_Down
      PosY=0.100000

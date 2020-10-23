@@ -70,16 +70,16 @@ defaultproperties
 {
      SuddenDeathSound=Sound'3SPNRU-B1.Sounds.sudden_death'
      MatchPointSound=Sound'3SPNRU-B1.Sounds.MatchPoint'
-     RedTeamScores="Red Haidressers Score"
-     BlueTeamScores="Blue Haidressers Score"
-     MatchPoint="Match Round - FIGHT!"
-     SuddenDeath="Sudden Death"
+     RedTeamScores="Red Team Scores"
+     BlueTeamScores="Blue Team Scores"
+     MatchPoint="THIS IS MATCH POINT ROUND!"
+     SuddenDeath="-- Teams are Tied! -- "
      RedTeamColor=(R=255,A=255)
      BlueTeamColor=(B=255,A=255)
      bIsUnique=True
      bIsConsoleMessage=False
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=243,G=246,R=165)
      PosY=0.450000
 }

@@ -55,6 +55,6 @@ defaultproperties
      PlayerIsTeamKiller="IS A TEAM KILLER"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=0,G=0)
 }

@@ -63,6 +63,6 @@ defaultproperties
      HasFirstBlood="Has The First Blood"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(G=20,R=20)
 }

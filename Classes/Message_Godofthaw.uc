@@ -40,7 +40,7 @@ defaultproperties
      PlayerIsGodOfThaw="IS THE GOD OF THAW!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(R=0)
      StackMode=SM_Down
      PosY=0.100000

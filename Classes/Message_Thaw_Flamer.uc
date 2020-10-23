@@ -41,7 +41,7 @@ defaultproperties
      PlayerIsFlamer="IS A FLAMER!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=167,G=90)
      StackMode=SM_Down
      PosY=0.100000

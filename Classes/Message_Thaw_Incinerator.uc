@@ -41,7 +41,7 @@ defaultproperties
      PlayerIsIncinerator="IS AN INCINERATOR!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=0,G=50)
      StackMode=SM_Down
      PosY=0.100000

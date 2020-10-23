@@ -36,6 +36,6 @@ defaultproperties
      PlayerIsGatling="Is a M I N I G U N    N O O B"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(R=128)
 }
