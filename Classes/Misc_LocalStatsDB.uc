@@ -27,8 +27,8 @@ var const string ConfigName;
 var config private string PlayerName;
 var config private int RankedScore;
 var config private int TopScore;
-var config private int Money;
-var config private int Moneyreal;
+//var config private int Money;
+//var config private int Moneyreal;
 var config private array<PlayerRecord> Rec;
 
 
@@ -122,20 +122,20 @@ static function float Decimal (float Num)
   }
 }
 
-function Readgeld (out int Moneyreal) {
-
-Moneyreal = Moneyreal;
-
-}
-
-function ReadStats (out float Rank, out float PointsToRankUp, out float AvgPPR, out array<float> PPRList, out int Moneyreal)
+//function Readgeld (out int Moneyreal) {
+//
+//Moneyreal = Moneyreal;
+//
+//}
+//
+function ReadStats (out float Rank, out float PointsToRankUp, out float AvgPPR, out array<float> PPRList)
 {
   local int i;
   local int j;
 
   Rank = RankedScore / 2000 + 0.5;
   Rank = FMin(Rank / (30 - 0),1.0);
-  Moneyreal = Money;
+//  Moneyreal = Money;
   if ( Rank < 1 )
   {
     PointsToRankUp = 2000.0 - RankedScore % 2000;
@@ -208,9 +208,9 @@ function float CalculateStatData (string Time, int TimeRange, name StatType, nam
       case 'Deaths':
       Data = Rec[i].Deaths;
       break;
-	  case 'Money':
-      Data = Money;
-      break;
+//	  case 'Money':
+//      Data = Money;
+//     break;
       default:
     }
     switch (Aggregate)
@@ -245,11 +245,11 @@ function int GetTopScore ()
   return TopScore;
 }
 
-function int GetMoney ()
-{
-  return Money;
-}
-
+//function int GetMoney ()
+//{
+//  return Money;
+//}
+//
 function bool IsOutDated (string Time)
 {
   local int i;

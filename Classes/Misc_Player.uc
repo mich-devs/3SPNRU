@@ -271,7 +271,7 @@ function LoadPlayerDataStats()
   MPRI.Rank = PlayerData.Rank;
   MPRI.AvgPPR = PlayerData.AvgPPR;
   MPRI.PointsToRankUp = PlayerData.PointsToRankUp;
-  MPRI.Moneyreal = PlayerData.Moneyreal;
+//  MPRI.Moneyreal = PlayerData.Moneyreal;
   PPRListLength = Min(30,PlayerData.PPRListLength);
   MPRI.PPRListLength = PPRListLength;
   idx = 0;

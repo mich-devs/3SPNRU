@@ -414,7 +414,7 @@ simulated event DrawScoreBoard(Canvas C)
       PointsStr = "Make Some Points To See How Close You Are To Rank Up! ";
      
     }else {
-      PointsStr = "You Need " $ string(int(OwnerPRI.PointsToRankUp))  $ " Points To Grow your Dick " $ string(int(OwnerPRI.Rank * 30) + 1 ) $ " Inches " $  "You donated:"  $ "€ÿ" $ string(OwnerPRI.Moneyreal) $  "€ÿ euro <3";
+      PointsStr = "You Need " $ string(int(OwnerPRI.PointsToRankUp))  $ " for the next Rank! " $ string(int(OwnerPRI.Rank * 30) + 1 );
     }																							
   }
 	
@@ -516,9 +516,9 @@ simulated event DrawScoreBoard(Canvas C)
       {
         if ( Len(OwnerPRI.PlayerName) > Len(ViewPRI.PlayerName) )
         {
-			if(OwnerPRI.Moneyreal > 0)
-				{Name = OwnerPRI.PlayerName @"d";}
-          Name = OwnerPRI.PlayerName;
+//			if(OwnerPRI.Moneyreal > 0)
+//				{Name = OwnerPRI.PlayerName @"d";}
+//          Name = OwnerPRI.PlayerName;
         } else {
 		  
           Name = ViewPRI.PlayerName;
