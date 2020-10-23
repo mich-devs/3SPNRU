@@ -8,7 +8,7 @@ Fix for flak shell.
 ******************************************************************************/
 
 
-class WormboFlakShell extends FlakShell;
+class WormboFlakShell extends NewNet_FlakShell;
 
 
 //=============================================================================
