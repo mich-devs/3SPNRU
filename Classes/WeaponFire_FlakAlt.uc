@@ -8,4 +8,5 @@ event ModeDoFire()
 
 defaultproperties
 {
+    ProjectileClass=class'WormboFlakShell'
 }
