@@ -1,7 +1,7 @@
 class Misc_StatBoard extends DMStatsScreen;
 
 
-#exec TEXTURE IMPORT NAME=Scoreboard_old FILE=Textures\Scoreboard_old.dds GROUP=Textures MIPS=Off ALPHA=1 DXT=5
+#exec TEXTURE IMPORT NAME=Scoreboard_old FILE=Textures\Scoreboard_old.tga GROUP=Textures MIPS=Off ALPHA=1 DXT=5
 
 var Texture Box;
 var Texture BaseTex;

@@ -799,17 +799,17 @@ function int GetTimeoutState(PlayerController caller)
     return 0;
 }
 
-function BroadcastLocalized (Actor Sender, Class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
-{
-  
-  if ( Message == Class'FirstBloodMessage' )
-  {
-    Message = Class'Message_FirstBlood';
-	
-	
-  }
-  BroadcastHandler.AllowBroadcastLocalized(Sender,Message,Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject);
-}
+//function BroadcastLocalized (Actor Sender, Class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
+//{
+// 
+//  if ( Message == Class'FirstBloodMessage' )
+//  {
+//    Message = Class'Message_FirstBlood';
+//	
+//	
+//  }
+//  BroadcastHandler.AllowBroadcastLocalized(Sender,Message,Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject);
+//}
 // check if a team has timeouts left, and if so, pause the game at the end of the current round
 function CallTimeout(PlayerController caller)
 {

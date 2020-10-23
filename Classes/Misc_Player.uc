@@ -2144,7 +2144,6 @@ defaultproperties
      colorname(17)=(B=255,G=255,R=255,A=255)
      colorname(18)=(B=255,G=255,R=255,A=255)
      colorname(19)=(B=255,G=255,R=255,A=255)
-     ColoredName(0)=(SavedColor[0]=(A=255),SavedColor[1]=(A=255),SavedColor[2]=(R=255,A=255),SavedColor[3]=(A=255),SavedColor[4]=(A=255),SavedColor[5]=(A=255),SavedColor[6]=(A=255),SavedColor[7]=(A=255),SavedColor[8]=(A=255),SavedColor[9]=(B=255,G=255,R=255,A=255),SavedColor[10]=(B=255,G=255,R=255,A=255),SavedColor[11]=(B=255,G=255,R=255,A=255),SavedColor[12]=(B=255,G=255,R=255,A=255),SavedColor[13]=(B=255,G=255,R=255,A=255),SavedColor[14]=(B=255,G=255,R=255,A=255),SavedColor[15]=(B=255,G=255,R=255,A=255),SavedColor[16]=(B=255,G=255,R=255,A=255),SavedColor[17]=(B=255,G=255,R=255,A=255),SavedColor[18]=(B=255,G=255,R=255,A=255),SavedColor[19]=(B=255,G=255,R=255,A=255),SavedName="RU°MYTHIC")
      AutoSyncSettings=True
      LastSettingsLoadTimeSeconds=-100.000000
      LastSettingsSaveTimeSeconds=-100.000000
