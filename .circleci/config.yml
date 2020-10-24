@@ -1,10 +1,10 @@
-version: 2.1 # Use version 2.1 to enable orb usage.
+version: 2.2
 
 orbs:
-  win: circleci/windows@2.2.0 # The Windows orb give you everything you need to start using the Windows executor.
+  win: circleci/windows@2.2.0
 
 jobs:
-  build: # name of your job
+  build:
     executor:
       name: win/default # executor type
       size: "small"
