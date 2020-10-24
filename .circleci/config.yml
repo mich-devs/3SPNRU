@@ -13,5 +13,5 @@ jobs:
     steps:
       - checkout
       - run:
-        name: "Compile 3SPN"
-        command: ucc make
+          name: "Compile 3SPN"
+          command: ucc make
