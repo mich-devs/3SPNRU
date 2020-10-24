@@ -7,7 +7,7 @@ jobs:
   build:
     executor:
       name: win/default # executor type
-      size: small
+      size: medium
       shell: bash.exe
 
     steps:
