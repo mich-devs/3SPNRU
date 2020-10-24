@@ -2124,30 +2124,31 @@ defaultproperties
      WhiteColor=(B=255,G=255,R=255,A=255)
      bAllowColoredMessages=True
      bEnableColoredNamesInTalk=True
-     colorname(0)=(A=255)
-     colorname(1)=(A=255)
-     colorname(2)=(R=255,A=255)
-     colorname(3)=(A=255)
-     colorname(4)=(A=255)
-     colorname(5)=(A=255)
-     colorname(6)=(A=255)
-     colorname(7)=(A=255)
-     colorname(8)=(A=255)
-     colorname(9)=(B=255,G=255,R=255,A=255)
-     colorname(10)=(B=255,G=255,R=255,A=255)
-     colorname(11)=(B=255,G=255,R=255,A=255)
-     colorname(12)=(B=255,G=255,R=255,A=255)
-     colorname(13)=(B=255,G=255,R=255,A=255)
-     colorname(14)=(B=255,G=255,R=255,A=255)
-     colorname(15)=(B=255,G=255,R=255,A=255)
-     colorname(16)=(B=255,G=255,R=255,A=255)
-     colorname(17)=(B=255,G=255,R=255,A=255)
-     colorname(18)=(B=255,G=255,R=255,A=255)
-     colorname(19)=(B=255,G=255,R=255,A=255)
-     AutoSyncSettings=True
-     LastSettingsLoadTimeSeconds=-100.000000
-     LastSettingsSaveTimeSeconds=-100.000000
-     PlayerReplicationInfoClass=Class'3SPNRU-B1.Misc_PRI'
-     Adrenaline=0.100000
-     AdrenalineMax=120.000000
+    CurrentSelectedColoredName=255
+    ColorName(0)=(R=255,G=255,B=255,A=255)
+    ColorName(1)=(R=255,G=255,B=255,A=255)
+    ColorName(2)=(R=255,G=255,B=255,A=255)
+    ColorName(3)=(R=255,G=255,B=255,A=255)
+    ColorName(4)=(R=255,G=255,B=255,A=255)
+    ColorName(5)=(R=255,G=255,B=255,A=255)
+    ColorName(6)=(R=255,G=255,B=255,A=255)
+    ColorName(7)=(R=255,G=255,B=255,A=255)
+    ColorName(8)=(R=255,G=255,B=255,A=255)
+    ColorName(9)=(R=255,G=255,B=255,A=255)
+    ColorName(10)=(R=255,G=255,B=255,A=255)
+    ColorName(11)=(R=255,G=255,B=255,A=255)
+    ColorName(12)=(R=255,G=255,B=255,A=255)
+    ColorName(13)=(R=255,G=255,B=255,A=255)
+    ColorName(14)=(R=255,G=255,B=255,A=255)
+    ColorName(15)=(R=255,G=255,B=255,A=255)
+    ColorName(16)=(R=255,G=255,B=255,A=255)
+    ColorName(17)=(R=255,G=255,B=255,A=255)
+    ColorName(18)=(R=255,G=255,B=255,A=255)
+    ColorName(19)=(R=255,G=255,B=255,A=255)     
+    AutoSyncSettings=True
+    LastSettingsLoadTimeSeconds=-100
+    LastSettingsSaveTimeSeconds=-100	
+    PlayerReplicationInfoClass=Class'3SPNRU-B1.Misc_PRI'
+    Adrenaline=0.100000
+    AdrenalineMax=120.000000
 }

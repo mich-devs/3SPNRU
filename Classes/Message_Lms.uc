@@ -40,8 +40,13 @@ defaultproperties
      LmsString="Last Man Standing"
      bIsUnique=True
      bFadeMessage=True
-     DrawColor=(B=243,G=246,R=165)
+     DrawColor=(B=206,G=178,R=138)
      PosY=0.075000
+     FontSize=-1
+     Lifetime=2
      StackMode=SM_Down
-     FontSize=1
+//     DrawColor=(B=243,G=246,R=165)
+//     PosY=0.075000
+//     StackMode=SM_Down
+//     FontSize=1
 }

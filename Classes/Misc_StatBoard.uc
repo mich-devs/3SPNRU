@@ -414,7 +414,7 @@ simulated event DrawScoreBoard(Canvas C)
       PointsStr = "Make Some Points To See How Close You Are To Rank Up! ";
      
     }else {
-      PointsStr = "You Need " $ string(int(OwnerPRI.PointsToRankUp))  $ " for the next Rank! " $ string(int(OwnerPRI.Rank * 30) + 1 );
+      PointsStr = "You Are -> " $ string(int(OwnerPRI.PointsToRankUp))  $ " <-Points away from the NEXT Rank! ";
     }																							
   }
 	

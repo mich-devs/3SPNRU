@@ -10,16 +10,29 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
     MP = Misc_Player(PlayerOwner());
     if(MP == None)
         return;
-
-    //moCheckBox(Controls[1]).StandardHeight = 0.0;
-	//moCheckBox(Controls[1]).DisableMe();
-    //moCheckBox(Controls[2]).StandardHeight = 0.0;
-	//moCheckBox(Controls[2]).DisableMe();
-    //GUILabel(Controls[3]).StandardHeight = 0.0;
-
-    moCheckBox(Controls[2]).Checked(MP.DamageIndicator == Centered);
-    moCheckBox(Controls[3]).Checked(MP.DamageIndicator == Floating);
-}
+		
+		if(!GRI.bDamageIndicator && GRI.Level.NetMode != NM_Standalone)
+        {
+            moCheckBox(Controls[2]).StandardHeight = 0.0;
+			moCheckBox(Controls[2]).DisableMe();
+            moCheckBox(Controls[3]).StandardHeight = 0.0;
+			moCheckBox(Controls[3]).DisableMe();
+            //GUILabel(Controls[1).StandardHeight = 0.0;
+        }
+        else
+        {
+            moCheckBox(Controls[2]).Checked(MP.DamageIndicator == Centered);
+            moCheckBox(Controls[3]).Checked(MP.DamageIndicator == Floating);
+        }
+    }
+//    //moCheckBox(Controls[1]).StandardHeight = 0.0;
+//	//moCheckBox(Controls[1]).DisableMe();
+//   //moCheckBox(Controls[2]).StandardHeight = 0.0;
+//	//moCheckBox(Controls[2]).DisableMe();
+//    GUILabel(Controls[1]).StandardHeight = 0.0;
+//    moCheckBox(Controls[2]).Checked(MP.DamageIndicator == Centered);
+//    moCheckBox(Controls[3]).Checked(MP.DamageIndicator == Floating);
+//}
 
 function OnChange(GUIComponent C)
 {
@@ -38,7 +51,7 @@ function OnChange(GUIComponent C)
             {
                 MP.DamageIndicator = Centered;
                 class'Misc_Player'.default.DamageIndicator = Centered;
-                moCheckBox(Controls[3]).MyCheckBox.bChecked = false;
+                moCheckBox(Controls[2]).MyCheckBox.bChecked = false;
             }
             else
             {
@@ -53,7 +66,7 @@ function OnChange(GUIComponent C)
             {
                 MP.DamageIndicator = Floating;
                 class'Misc_Player'.default.DamageIndicator = Floating;
-                moCheckBox(Controls[2]).MyCheckBox.bChecked = false;
+                moCheckBox(Controls[3]).MyCheckBox.bChecked = false;
             }
             else
             {
@@ -79,7 +92,7 @@ defaultproperties
      Controls(0)=GUIImage'3SPNRU-B1.Menu_TabDamage.TabBackground'
 
     Begin Object Class=GUILabel Name=DamageLabel 
-        Caption="Damage indicator"
+        Caption="Damage Indicators"
         TextColor=(R=255,G=255,B=255,A=255)
         WinTop=0.040
         WinLeft=0.175

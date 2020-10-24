@@ -326,6 +326,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("3SPN", "SecsPerRound", "How Many Seconds Per Round", 0, Weight++, "Text", "3;0:999");
     PI.AddSetting("3SPN", "OTDamage", "Overtime Damage", 0, Weight++, "Text", "3;0:999");
     PI.AddSetting("3SPN", "OTInterval", "Overtime Damage Interval", 0, Weight++, "Text", "3;0:999");
+	PI.AddSetting("3SPN", "EndOfRoundDelay", "End of Round Delay", 0, 22, "Text", "3;0:999");
 
     PI.AddSetting("3SPN", "CampThreshold", "Camp Area", 0, Weight++, "Text", "8;0:999",, True);
     PI.AddSetting("3SPN", "bKickExcessiveCampers", "Kick Excessive Campers", 0, Weight++, "Check",,, True);
@@ -401,6 +402,7 @@ static event string GetDescriptionText(string PropName)
       case "SecsPerRound":        return "Round time limit before overtime in seconds (default 120).";
       case "OTDamage":            return "The amount of damage all players while in OT.";
       case "OTInterval":          return "The interval at which OT damage is given.";
+	  case "EndOfRoundDelay":     return "The amount of delay in seconds between rounds (default 2)";
 
       case "CampThreshold":       return "The area a player must stay in to be considered camping.";
       case "bKickExcessiveCampers": return "Kick players that camp 4 consecutive times.";
@@ -429,7 +431,7 @@ static event string GetDescriptionText(string PropName)
       case "LightningAmmo":       return "Amount of Lightning Ammunition to give in a round.";
 
       case "EnableNewNet":                  return "Make enhanced netcode available for players.";
-      case "bDamageIndicator":    return "Make the numeric damage indicator available for players.";
+      case "bDamageIndicator":    return "Enable or Disable the Damage Indicators for players";
       case "EndCeremonyEnabled":            return "Enable End Ceremony";
       case "AllowPersistentStatsWithBots":  return "Allow Persistent Stats With Bots";
       case "RoundCanTie":                   return "Rounds Can Tie";
@@ -3846,7 +3848,7 @@ defaultproperties
      FlakAmmo=15
      RocketAmmo=12
      LightningAmmo=15
-     EndOfRoundDelay=5
+     EndOfRoundDelay=2
      EndOfRoundTime=10
      RoundCanTie=True
      EnableNewNet=True

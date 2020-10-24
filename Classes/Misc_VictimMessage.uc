@@ -41,6 +41,9 @@ defaultproperties
      YouWereKilledBy="Killed You With"
      KilledByTrailer=" "
      Lifetime=2
-     DrawColor=(B=255,G=20,R=20)
-     PosY=0.420000
+     DrawColor=(B=0,G=0,R=255)
+     PosY=0.250000
+	 FontSize=1
+	 bIsUnique=True
+     bFadeMessage=True
 }

@@ -23,5 +23,6 @@ static function IncrementKills(Controller Killer)
 
 defaultproperties
 {
+     DeathString="%o's cranium was made extra crispy by %k's lightning gun."
      AwardLevel=5
 }

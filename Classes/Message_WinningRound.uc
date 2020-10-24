@@ -72,14 +72,14 @@ defaultproperties
      MatchPointSound=Sound'3SPNRU-B1.Sounds.MatchPoint'
      RedTeamScores="Red Team Scores"
      BlueTeamScores="Blue Team Scores"
-     MatchPoint="THIS IS MATCH POINT ROUND!"
+     MatchPoint="THIS IS A MATCH POINT ROUND!"
      SuddenDeath="-- Teams are Tied! -- "
      RedTeamColor=(R=255,A=255)
      BlueTeamColor=(B=255,A=255)
      bIsUnique=True
      bIsConsoleMessage=False
      bFadeMessage=True
-     Lifetime=3
+     Lifetime=1.5
      DrawColor=(B=243,G=246,R=165)
      PosY=0.450000
 }
