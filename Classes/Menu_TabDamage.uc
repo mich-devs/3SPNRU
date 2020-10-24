@@ -11,15 +11,14 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
     if(MP == None)
         return;
 
-/*
-    moCheckBox(Controls[1]).StandardHeight = 0.0;
-	moCheckBox(Controls[1]).DisableMe();
-    moCheckBox(Controls[2]).StandardHeight = 0.0;
-	moCheckBox(Controls[2]).DisableMe();
-    GUILabel(Controls[3]).StandardHeight = 0.0;
-    */
-    moCheckBox(Controls[1]).Checked(MP.DamageIndicator == Centered);
-    moCheckBox(Controls[2]).Checked(MP.DamageIndicator == Floating);
+    //moCheckBox(Controls[1]).StandardHeight = 0.0;
+	//moCheckBox(Controls[1]).DisableMe();
+    //moCheckBox(Controls[2]).StandardHeight = 0.0;
+	//moCheckBox(Controls[2]).DisableMe();
+    //GUILabel(Controls[3]).StandardHeight = 0.0;
+
+    moCheckBox(Controls[2]).Checked(MP.DamageIndicator == Centered);
+    moCheckBox(Controls[3]).Checked(MP.DamageIndicator == Floating);
 }
 
 function OnChange(GUIComponent C)
@@ -33,13 +32,13 @@ function OnChange(GUIComponent C)
     if(moCheckBox(c) != None)
     {
         b = moCheckBox(c).IsChecked();
-        if(c == Controls[1])
+        if(c == Controls[2])
         {
             if (b)
             {
                 MP.DamageIndicator = Centered;
                 class'Misc_Player'.default.DamageIndicator = Centered;
-                moCheckBox(Controls[2]).MyCheckBox.bChecked = false;
+                moCheckBox(Controls[3]).MyCheckBox.bChecked = false;
             }
             else
             {
@@ -48,13 +47,13 @@ function OnChange(GUIComponent C)
             }
         }                
 
-        else if(c == Controls[2])
+        else if(c == Controls[3])
         {
             if (b)
             {
                 MP.DamageIndicator = Floating;
                 class'Misc_Player'.default.DamageIndicator = Floating;
-                moCheckBox(Controls[1]).MyCheckBox.bChecked = false;
+                moCheckBox(Controls[2]).MyCheckBox.bChecked = false;
             }
             else
             {
@@ -79,36 +78,36 @@ defaultproperties
      End Object
      Controls(0)=GUIImage'3SPNRU-B1.Menu_TabDamage.TabBackground'
 
-    Begin Object Class=moCheckBox Name=DamageCheck
-        Caption="Centered"
-        OnCreateComponent=DamageCheck.InternalOnCreateComponent
-        Hint="Shows numeric damage as centered value when you hit an enemy."
-        WinTop=0.560
-        WinLeft=0.750
-        WinWidth=0.150
-        OnChange=OnChange
+    Begin Object Class=GUILabel Name=DamageLabel 
+        Caption="Damage indicator"
+        TextColor=(R=255,G=255,B=255,A=255)
+        WinTop=0.040
+        WinLeft=0.175
+        WinWidth=0.600
+        bStandardized=true
+        StandardHeight=0.030
     End Object
-    Controls(1)=moCheckBox'3SPNRU-B1.Menu_TabDamage.DamageCheck'
+    Controls(1)=GUILabel'3SPNRU-B1.Menu_TabDamage.DamageLabel'
 
-    Begin Object Class=moCheckBox Name=DamageCheck2
-        Caption="Floating"
-        OnCreateComponent=DamageCheck2.InternalOnCreateComponent
-        Hint="Shows numeric damage as floating near players when you hit an enemy."
-        WinTop=0.610
-        WinLeft=0.750
-        WinWidth=0.150
+    Begin Object Class=moCheckBox Name=DamageCheck
+        Caption="Enable centered damage numbers."
+        OnCreateComponent=DamageCheck.InternalOnCreateComponent
+        Hint="Shows numeric damage centered on your screen when you hit an enemy."
+        WinTop=0.095
+        WinLeft=0.200
+        WinWidth=0.600
         OnChange=OnChange
     End Object
     Controls(2)=moCheckBox'3SPNRU-B1.Menu_TabDamage.DamageCheck'
 
-    Begin Object Class=GUILabel Name=DamageLabel 
-        Caption="Damage indicator"
-        TextColor=(R=255,G=255,B=255,A=255)
-        WinTop=0.560
-        WinLeft=0.520
-        WinWidth=0.210
-        bStandardized=true
-        StandardHeight=0.030
+    Begin Object Class=moCheckBox Name=DamageCheck2
+        Caption="Enable floating damage numbers."
+        OnCreateComponent=DamageCheck2.InternalOnCreateComponent
+        Hint="Shows numeric damage floating near players when you hit an enemy."
+        WinTop=0.140
+        WinLeft=0.200
+        WinWidth=0.600
+        OnChange=OnChange
     End Object
-    Controls(3)=GUILabel'3SPNRU-B1.Menu_TabDamage.DamageLabel'
+    Controls(3)=moCheckBox'3SPNRU-B1.Menu_TabDamage.DamageCheck2'
 }
