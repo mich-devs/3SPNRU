@@ -1,0 +1,17 @@
+version: 2.2
+
+orbs:
+  win: circleci/windows@2.2.0
+
+jobs:
+  build:
+    executor:
+      name: win/default # executor type
+      size: "small"
+      shell: "bash.exe"
+
+    steps:
+      - checkout
+      - run:
+        name: "Compile 3SPN"
+        command: ucc make
