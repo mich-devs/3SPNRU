@@ -14,27 +14,18 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 		if(!GRI.bDamageIndicator && GRI.Level.NetMode != NM_Standalone)
         {
             moCheckBox(Controls[2]).StandardHeight = 0.0;
-			moCheckBox(Controls[2]).DisableMe();
+			moCheckBox(Controls[23]).DisableMe();
             moCheckBox(Controls[3]).StandardHeight = 0.0;
-			moCheckBox(Controls[3]).DisableMe();
-            //GUILabel(Controls[1).StandardHeight = 0.0;
+			moCheckBox(Controls[24]).DisableMe();
+            GUILabel(Controls[1]).StandardHeight = 0.0;
         }
         else
         {
             moCheckBox(Controls[2]).Checked(MP.DamageIndicator == Centered);
             moCheckBox(Controls[3]).Checked(MP.DamageIndicator == Floating);
         }
-    }
-//    //moCheckBox(Controls[1]).StandardHeight = 0.0;
-//	//moCheckBox(Controls[1]).DisableMe();
-//   //moCheckBox(Controls[2]).StandardHeight = 0.0;
-//	//moCheckBox(Controls[2]).DisableMe();
-//    GUILabel(Controls[1]).StandardHeight = 0.0;
-//    moCheckBox(Controls[2]).Checked(MP.DamageIndicator == Centered);
-//    moCheckBox(Controls[3]).Checked(MP.DamageIndicator == Floating);
-//}
-
-function OnChange(GUIComponent C)
+}
+/*function OnChange(GUIComponent C)
 {
     local bool b;
     local Misc_Player MP;
@@ -57,6 +48,49 @@ function OnChange(GUIComponent C)
             {
                 MP.DamageIndicator = Disabled;
                 class'Misc_Player'.default.DamageIndicator = Disabled;
+            moCheckBox(Controls[3]).StandardHeight = 0.0;
+			moCheckBox(Controls[3]).DisableMe();
+            //GUILabel(Controls[1).StandardHeight = 0.0;
+        }
+        else
+        {
+            moCheckBox(Controls[2]).Checked(MP.DamageIndicator == Centered);
+            moCheckBox(Controls[3]).Checked(MP.DamageIndicator == Floating);
+        }
+    }
+//    //moCheckBox(Controls[1]).StandardHeight = 0.0;
+//	//moCheckBox(Controls[1]).DisableMe();
+//   //moCheckBox(Controls[2]).StandardHeight = 0.0;
+//	//moCheckBox(Controls[2]).DisableMe();
+//    GUILabel(Controls[1]).StandardHeight = 0.0;
+//    moCheckBox(Controls[2]).Checked(MP.DamageIndicator == Centered);
+//    moCheckBox(Controls[3]).Checked(MP.DamageIndicator == Floating);
+//}
+*/
+
+function OnChange(GUIComponent C)
+{
+    local bool b;
+    local Misc_Player MP;
+    MP = Misc_Player(PlayerOwner());
+    if(MP == None)
+        return;
+
+    if(moCheckBox(c) != None)
+    {
+        b = moCheckBox(c).IsChecked();
+        if(c == Controls[2])
+        {
+            if (b)
+            {
+                MP.DamageIndicator = Centered;
+                class'Misc_Player'.default.DamageIndicator = Centered;
+                moCheckBox(Controls[2]).MyCheckBox.bChecked = true;
+            }
+            else
+            {
+                MP.DamageIndicator = Disabled;
+                class'Misc_Player'.default.DamageIndicator = Disabled;
             }
         }                
 
@@ -66,7 +100,7 @@ function OnChange(GUIComponent C)
             {
                 MP.DamageIndicator = Floating;
                 class'Misc_Player'.default.DamageIndicator = Floating;
-                moCheckBox(Controls[3]).MyCheckBox.bChecked = false;
+                moCheckBox(Controls[3]).MyCheckBox.bChecked = true;
             }
             else
             {
