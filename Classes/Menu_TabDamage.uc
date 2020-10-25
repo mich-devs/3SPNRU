@@ -14,9 +14,9 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 		if(!GRI.bDamageIndicator && GRI.Level.NetMode != NM_Standalone)
         {
             moCheckBox(Controls[2]).StandardHeight = 0.0;
-			moCheckBox(Controls[23]).DisableMe();
+			moCheckBox(Controls[2]).DisableMe();
             moCheckBox(Controls[3]).StandardHeight = 0.0;
-			moCheckBox(Controls[24]).DisableMe();
+			moCheckBox(Controls[3]).DisableMe();
             GUILabel(Controls[1]).StandardHeight = 0.0;
         }
         else
