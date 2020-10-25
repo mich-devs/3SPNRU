@@ -50,8 +50,10 @@ var int             LockTime;               // time left until weapons get unloc
 var int             NextRoundTime;          // time left until the next round starts
 var int             CurrentRound;           // the current round number (0 = game hasn't started)
 var int             RoundStartTime;
+
 var int             RoundsToWin;            // rounds needed to win
 /* round related */
+
 /* weapon related */
 var config bool bModifyShieldGun;     // use the modified shield gun (higher shield jumps) 
 var config int  AssaultAmmo;
@@ -153,8 +155,8 @@ function InitGameReplicationInfo()
     Misc_BaseGRI(GameReplicationInfo).NetUpdateTime = Level.TimeSeconds - 1;
 	
 	Misc_BaseGRI(GameReplicationInfo).Acronym = Acronym;
-	Misc_BaseGRI(GameReplicationInfo).EnableNewNet = EnableNewNet;
-	Misc_BaseGRI(GameReplicationInfo).bDamageIndicator = bDamageIndicator;	
+	Misc_BaseGRI(GameReplicationInfo).EnableNewNet = EnableNewNet;	
+	Misc_BaseGRI(GameReplicationInfo).bDamageIndicator = bDamageIndicator;																			
   
   Misc_BaseGRI(GameReplicationInfo).ShieldTextureName = ShieldTextureName;  
   Misc_BaseGRI(GameReplicationInfo).FlagTextureName = FlagTextureName;  
@@ -211,7 +213,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("3SPN", "LightningAmmo", "Lightning Ammunition", 0, 69, "Text", "3;0:999",, True);
 
     PI.AddSetting("3SPN", "EnableNewNet", "Enable New Net", 0, 80, "Check");
-    PI.AddSetting("3SPN", "bDamageIndicator", "Enable Damage Indicator", 0, 401, "Check"); 
+    PI.AddSetting("3SPN", "bDamageIndicator", "Enable Damage Indicator", 0, 401, "Check"); 																						   
 }
 
 static event string GetDescriptionText(string PropName)
@@ -252,8 +254,8 @@ static event string GetDescriptionText(string PropName)
         case "RocketAmmo":          return "Amount of Rocket Ammunition to give in a round.";
         case "LightningAmmo":       return "Amount of Lightning Ammunition to give in a round.";
 
-		case "EnableNewNet":		return "Make enhanced netcode available for players.";
-        case "bDamageIndicator":    return "Make the numeric damage indicator available for players.";		
+		case "EnableNewNet":		return "Make enhanced netcode available for players.";		
+        case "bDamageIndicator":    return "Make the numeric damage indicator available for players.";																												
 	}
 
     return Super.GetDescriptionText(PropName);
@@ -366,7 +368,7 @@ function ParseOptions(string Options)
 
     InOpt = ParseOption(Options, "LightningAmmo");
     if(InOpt != "")
-        LightningAmmo = int(InOpt);
+        LightningAmmo = int(InOpt);  								   
 }
 
 function SpawnRandomPickupBases()
@@ -510,13 +512,9 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
     local int RealDamage;
     local float Score;
 
-    local vector EyeHeight;
-    
-    if(bEndOfRound || LockTime > 0)
+    local vector EyeHeight;						   
+    if(bEndOfRound /*|| LockTime > 0*/)
         return 0;
-    
-    if(injured != None && injured.SpawnTime > Level.TimeSeconds)
-        return 0; 
 
     if(DamageType == Class'DamTypeSuperShockBeam')
         return Super.ReduceDamage(Damage, injured, instigatedBy, HitLocation, Momentum, DamageType);
@@ -531,7 +529,7 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
         if(injured == instigatedBy)
         {
             OldDamage = Misc_PRI(instigatedBy.PlayerReplicationInfo).AllyDamage;
-
+            
             RealDamage = OldDamage + Damage;
 
             if(class<DamType_Camping>(DamageType) != None || class<DamType_Overtime>(DamageType) != None)
@@ -556,7 +554,7 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
                         Misc_Player(instigatedBy.Controller).NewFriendlyDamage -= int(Misc_Player(instigatedBy.Controller).NewFriendlyDamage);
                     }
                 }
-                PRI.Score = FMax(int(PRI.Score / 10000.0) * 10000, PRI.Score - Score * 0.01);
+                PRI.Score -= Score * 0.01;
                 instigatedBy.Controller.AwardAdrenaline((-Score * 0.10) * AdrenalinePerDamage);
             }
 
@@ -597,7 +595,7 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
                 instigatedBy.Controller.AwardAdrenaline((Score * 0.10) * AdrenalinePerDamage);
             }
 
-            if(Damage > (injured.Health + injured.ShieldStrength + 50) &&
+            if(Damage > (injured.Health + injured.ShieldStrength + 50) && 
                 Damage / (injured.Health + injured.ShieldStrength) > 2)
             {
                 PRI.OverkillCount++;
@@ -958,9 +956,9 @@ function bool AddBot(optional string botName)
 function string SwapDefaultCombo(string ComboName)
 {
     if(ComboName ~= "xGame.ComboSpeed")
-        return "3SPNRU-B1.Misc_ComboSpeed";
+        return "3SPHorstALPHA001.Misc_ComboSpeed";
     else if(ComboName ~= "xGame.ComboBerserk")
-        return "3SPNRU-B1.Misc_ComboBerserk";
+        return "3SPHorstALPHA001.Misc_ComboBerserk";
 
     return ComboName;
 }
@@ -1390,6 +1388,14 @@ function PunishCamper(Controller C, Misc_Pawn P, Misc_PRI PRI)
         pri.bWarned = true;
         return;
     }
+	
+	 if(bSpecExcessiveCampers && pri.ConsecutiveCampCount >= 4)
+        {
+                     
+			PlayerController(c).BecomeSpectator();
+			BroadcastLocalizedMessage(Class'Message_Camper');
+			
+        }
 
     if(Level.NetMode == NM_DedicatedServer && pri.Ping * 4 < 999)
     {
@@ -1751,7 +1757,7 @@ defaultproperties
      bKickExcessiveCampers=True
      bSpecExcessiveCampers=True
      LockTime=4
-     bDamageIndicator=True
+     bDamageIndicator=True			   
      AssaultAmmo=999
      AssaultGrenades=5
      BioAmmo=20
@@ -1780,7 +1786,7 @@ defaultproperties
      MutatorClass="3SPNRU-B1.TAM_Mutator"
      PlayerControllerClassName="3SPNRU-B1.Misc_Player"
      GameReplicationInfoClass=Class'3SPNRU-B1.TAM_GRI'
-     GameName="ArenaMaster RU - Beta 1"
+     GameName="3SPNRU-B1 AM"
      Description="One life per round. Don't waste it"
      Acronym="AM"
 }
