@@ -50,10 +50,8 @@ var int             LockTime;               // time left until weapons get unloc
 var int             NextRoundTime;          // time left until the next round starts
 var int             CurrentRound;           // the current round number (0 = game hasn't started)
 var int             RoundStartTime;
-var int             EndOfRoundDelay;        // adds the ini setting endofrounddelay to webadmin.
 var int             RoundsToWin;            // rounds needed to win
 /* round related */
-
 /* weapon related */
 var config bool bModifyShieldGun;     // use the modified shield gun (higher shield jumps) 
 var config int  AssaultAmmo;
@@ -188,7 +186,6 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("3SPN", "SecsPerRound", "How Many Seconds Per Round", 0, 20, "Text", "3;0:999");
     PI.AddSetting("3SPN", "OTDamage", "Overtime Damage", 0, 21, "Text", "3;0:999");
     PI.AddSetting("3SPN", "OTInterval", "Overtime Damage Interval", 0, 22, "Text", "3;0:999");
-	PI.AddSetting("3SPN", "EndOfRoundDelay", "End of Round Delay", 0, 22, "Text", "3;0:999");
 
     PI.AddSetting("3SPN", "CampThreshold", "Camp Area", 0, 30, "Text", "3;0:999",, True);
     PI.AddSetting("3SPN", "bKickExcessiveCampers", "Kick Excessive Campers", 0, 31, "Check",,, True);
@@ -228,7 +225,6 @@ static event string GetDescriptionText(string PropName)
         case "SecsPerRound":        return "Round time limit before overtime in seconds (default 120).";
         case "OTDamage":            return "The amount of damage all players while in OT.";
         case "OTInterval":          return "The interval at which OT damage is given.";
-		case "EndOfRoundDelay":     return "The amount of delay in seconds between rounds (default 2)";
             
         case "MaxHealth":           return "The maximum amount of health and armor a player can have.";
 
@@ -315,7 +311,6 @@ function ParseOptions(string Options)
     if(InOpt != "")
         bSpecExcessiveCampers = bool(InOpt);
 	
-	
     InOpt = ParseOption(Options, "DisableSpeed");
     if(InOpt != "")
         bDisableSpeed = bool(InOpt);
@@ -335,6 +330,43 @@ function ParseOptions(string Options)
     InOpt = ParseOption(Options, "RandomPickups");
     if(InOpt != "")
         bRandomPickups = bool(InOpt);
+		
+		InOpt = ParseOption(Options, "AssaultAmmo");
+    if(InOpt != "")
+        AssaultAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "AssaultGrenades");
+    if(InOpt != "")
+        AssaultGrenades = int(InOpt);
+
+    InOpt = ParseOption(Options, "BioAmmo");
+    if(InOpt != "")
+        BioAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "ShockAmmo");
+    if(InOpt != "")
+        ShockAmmo = int(InOpt);
+							
+    InOpt = ParseOption(Options, "LinkAmmo");
+   																							  
+    if(InOpt != "")
+        LinkAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "MiniAmmo");
+    if(InOpt != "")
+        MiniAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "FlakAmmo");
+    if(InOpt != "")
+        FlakAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "RocketAmmo");
+    if(InOpt != "")
+        RocketAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "LightningAmmo");
+    if(InOpt != "")
+        LightningAmmo = int(InOpt);
 }
 
 function SpawnRandomPickupBases()
@@ -1549,7 +1581,7 @@ function EndRound(PlayerReplicationInfo Scorer)
 
     if(Scorer == None)
     {
-		NextRoundTime = 7;
+		NextRoundTime = 2;
         return;
     }
 			
@@ -1574,7 +1606,7 @@ function EndRound(PlayerReplicationInfo Scorer)
             }
         }
 
-        NextRoundTime = 7;
+        NextRoundTime = 2;
     }
 }
 
@@ -1714,7 +1746,6 @@ defaultproperties
      SecsPerRound=120
      OTDamage=5
      OTInterval=3
-	 EndOfRoundDelay=2
      CampThreshold=400.000000
      CampInterval=5
      bKickExcessiveCampers=True
