@@ -818,10 +818,10 @@ simulated event DrawScoreBoard(Canvas C)
             if(TmpPRI.GoalsScored > 2)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawText(HatTrick);
+                C.DrawTextClipped(HatTrick);
                 MiscY += MiscH;
             }
-
+			
             if(TmpPRI.FlawlessCount > 0)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);

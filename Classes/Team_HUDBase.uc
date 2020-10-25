@@ -6,8 +6,8 @@ class Team_HUDBase extends HudCTeamDeathmatch
 
 var Texture TeamTex;
 var Texture Hudzaxis;
-var(Announce) bool bHadFlakhug;
-var(Announce) bool bHadAirRox;
+//var(Announce) bool bHadFlakhug;
+//var(Announce) bool bHadAirRox;
 var(Announce) bool bHadTerminator;
 var Material TrackedPlayer;
 var int OldRoundTime;
@@ -523,7 +523,7 @@ simulated function DrawSpawnEffect (Canvas C)
   }
 }
 
-simulated function DrawDamageAwards (int Damage, byte WeaponNum)
+/*simulated function DrawDamageAwards (int Damage, byte WeaponNum)
 {
   if (  !bHadFlakhug && (WeaponNum == 7) && (Damage >= 110) )
   {
@@ -540,8 +540,8 @@ simulated function DrawDamageAwards (int Damage, byte WeaponNum)
     bHadTerminator = True;
     LocalizedMessage(Class'Message_FlakFuck',3);
   }
-  
 }
+*/  
 simulated function DrawResWarningIcon (Canvas C)
 {
   local float XL;

@@ -1,5 +1,5 @@
 class Message_FlakFuck extends LocalMessage;
-#exec AUDIO IMPORT FILE=Sounds\finishmc.wav GROUP=Sounds
+/*#exec AUDIO IMPORT FILE=Sounds\finishmc.wav GROUP=Sounds
 var Sound flack;
 var(Message) localized string FlagFuck;
 var(Message) localized string Roxx;
@@ -56,3 +56,4 @@ defaultproperties
      DrawColor=(B=80,G=80,R=0)
      PosY=0.320000
 }
+*/

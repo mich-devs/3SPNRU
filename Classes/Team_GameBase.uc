@@ -537,8 +537,45 @@ function ParseOptions(string Options)
     InOpt = ParseOption(Options, "Timeouts");
     if(InOpt != "")
         Timeouts = int(InOpt);
-}
+		
+	InOpt = ParseOption(Options, "AssaultAmmo");
+    if(InOpt != "")
+        AssaultAmmo = int(InOpt);
 
+    InOpt = ParseOption(Options, "AssaultGrenades");
+    if(InOpt != "")
+        AssaultGrenades = int(InOpt);
+
+    InOpt = ParseOption(Options, "BioAmmo");
+    if(InOpt != "")
+        BioAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "ShockAmmo");
+    if(InOpt != "")
+        ShockAmmo = int(InOpt);
+							
+    InOpt = ParseOption(Options, "LinkAmmo");
+   																							  
+    if(InOpt != "")
+        LinkAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "MiniAmmo");
+    if(InOpt != "")
+        MiniAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "FlakAmmo");
+    if(InOpt != "")
+        FlakAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "RocketAmmo");
+    if(InOpt != "")
+        RocketAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "LightningAmmo");
+    if(InOpt != "")
+        LightningAmmo = int(InOpt);
+}		   
+									 
 event InitGame(string Options, out string Error)
 {
   local class<TournamentModuleBase> TMClass;
@@ -1126,7 +1163,7 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
 			
 			
 			if(Damage > (injured.Health + injured.ShieldStrength + 50) && 
-                Damage / (injured.Health + injured.ShieldStrength) > 2 && DamageType != class'DamType_Rocket')
+                Damage / (injured.Health + injured.ShieldStrength) > 2 && DamageType != class'DamType_Headshot' && DamageType != class'DamTypeSniperHeadShot')
             {
                 PRI.OverkillCount++;
                 SpecialEvent(PRI, "Overkill");
@@ -1136,7 +1173,7 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                 // overkill
             }
 
-            if((PRI.CurrentDamage > 120) && (DamageType == class'DamTypeShockBeam' || DamageType == class'DamType_ShockBeam'))
+            if((PRI.CurrentDamage > 90) && (DamageType == class'DamTypeShockBeam' || DamageType == class'DamType_ShockBeam' && DamageType != class'DamType_ShockCombo' && DamageType != class'DamTypeShockCombo'))
             {
               
 
@@ -3372,7 +3409,6 @@ function EndRound(PlayerReplicationInfo Scorer)
     Teams[WinningTeamIndex].Score += 1;
     AnnounceScoreReliable(WinningTeamIndex);
 
-
   if (  ++TeamScoreDelta[WinningTeamIndex] == 3 )
   {
   
@@ -3391,7 +3427,7 @@ function EndRound(PlayerReplicationInfo Scorer)
       
       C = C.nextController;
       goto JL02EE;
-    }
+	  }
   }
 
 

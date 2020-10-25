@@ -253,8 +253,8 @@ function InitWeapons(int AssaultAmmo,int AssaultGrenades,int BioAmmo,int ShockAm
 	{
 		class'NewNet_BioGlob'.default.MyDamageType = class'DamType_BioGlob';
 		class'NewNet_FlakChunk'.default.MyDamageType = class'DamType_FlakChunk';
-		class'WormboFlakShell'.default.MyDamageType = class'DamType_FlakShell';
-		class'WormboRocketProj'.default.MyDamageType = class'DamType_Rocket';
+		class'NewNet_FlakShell'.default.MyDamageType = class'DamType_FlakShell';
+		class'NewNet_RocketProj'.default.MyDamageType = class'DamType_Rocket';
 		class'NewNet_SeekingRocketProj'.default.MyDamageType = class'DamType_RocketHoming';
 		
 		

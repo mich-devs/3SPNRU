@@ -782,7 +782,7 @@ simulated function PlayCustomRewardAnnouncement(sound ASound, byte AnnouncementL
 
 	if((AnnouncementLevel > AnnouncerLevel) || (RewardAnnouncer == None))
 		return;
-	if(!bForce && (Level.TimeSeconds - LastPlaySound < 1))
+	if(!bForce && (Level.TimeSeconds - LastPlaySound < 1.5))
 		return;
     LastPlaySound = Level.TimeSeconds;  // so voice messages won't overlap
 	LastPlaySpeech = Level.TimeSeconds;	// don't want chatter to overlap announcements

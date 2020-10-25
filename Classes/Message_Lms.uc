@@ -42,8 +42,8 @@ defaultproperties
      bFadeMessage=True
      DrawColor=(B=206,G=178,R=138)
      PosY=0.075000
-     FontSize=-1
-     Lifetime=2
+     FontSize=0
+     Lifetime=2.5
      StackMode=SM_Down
 //     DrawColor=(B=243,G=246,R=165)
 //     PosY=0.075000
