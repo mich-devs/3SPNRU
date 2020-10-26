@@ -967,9 +967,9 @@ function bool AddBot(optional string botName)
 function string SwapDefaultCombo(string ComboName)
 {
     if(ComboName ~= "xGame.ComboSpeed")
-        return "3SPHorstALPHA001.Misc_ComboSpeed";
+        return "3SPNRU-B1.Misc_ComboSpeed";
     else if(ComboName ~= "xGame.ComboBerserk")
-        return "3SPHorstALPHA001.Misc_ComboBerserk";
+        return "3SPNRU-B1.Misc_ComboBerserk";
 
     return ComboName;
 }
@@ -1797,7 +1797,7 @@ defaultproperties
      MutatorClass="3SPNRU-B1.TAM_Mutator"
      PlayerControllerClassName="3SPNRU-B1.Misc_Player"
      GameReplicationInfoClass=Class'3SPNRU-B1.TAM_GRI'
-     GameName="3SPNRU-B1 AM"
+     GameName="ArenaMaster RU - Beta 1"
      Description="One life per round. Don't waste it"
      Acronym="AM"
 }
