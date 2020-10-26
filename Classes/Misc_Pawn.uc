@@ -362,11 +362,14 @@ simulated function string GetDefaultCharacter()
 
     MyTeam = GetTeamNum();
     if(MyTeam == 255)
-        return CheckAndGetCharacter();
+        MyTeam = 0;
 
     P = Level.GetLocalPlayerController();
-    if(P != None && P.PlayerReplicationInfo != None)
+    if(P != None && P.PlayerReplicationInfo != None && !P.PlayerReplicationInfo.bOnlySpectator)
     {
+        if(P.Pawn == self)
+            return Super.GetDefaultCharacter();
+
         OwnerTeam = P.GetTeamNum();
 
         if(class'Misc_Player'.default.bUseTeamModels || OwnerTeam == 255)
@@ -431,11 +434,14 @@ simulated function bool ForceDefaultCharacter()
 
     MyTeam = GetTeamNum();
     if(MyTeam == 255)
-        return Super.ForceDefaultCharacter();
+        MyTeam = 0;
 
     P = Level.GetLocalPlayerController();
-    if(P != None && P.PlayerReplicationInfo != None)
+    if(P != None && P.PlayerReplicationInfo != None && !P.PlayerReplicationInfo.bOnlySpectator)
     {
+        if(P.Pawn == self)
+            return Super.ForceDefaultCharacter();
+
         OwnerTeam = P.GetTeamNum();
 
         if(class'Misc_Player'.default.bUseTeamModels || OwnerTeam == 255)

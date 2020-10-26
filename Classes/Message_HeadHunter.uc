@@ -55,5 +55,5 @@ defaultproperties
      PlayerIsHeadHunter="Is A Head Hunter"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=3
+     Lifetime=1
 }

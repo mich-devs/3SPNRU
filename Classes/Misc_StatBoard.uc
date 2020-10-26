@@ -790,7 +790,7 @@ simulated event DrawScoreBoard(Canvas C)
             if(TmpPRI.combocount >= Class'DamType_ShockCombo'.Default.AwardLevel)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawText("ComboHorst");
+                C.DrawText("Combo Whore");
                 MiscY += MiscH;
             }
 
@@ -804,7 +804,7 @@ simulated event DrawScoreBoard(Canvas C)
 			if(TmpPRI.LinkCount >= Class'DamType_LinkShaft'.Default.AwardLevel)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawText("Link Shaft");
+                C.DrawText("Link Shafter");
                 MiscY += MiscH;
             }
 
@@ -881,7 +881,7 @@ simulated event DrawScoreBoard(Canvas C)
 			if(TmpPRI.MinigunCount >= 3)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawText("Mini Noob");
+                C.DrawText("Minigun KING");
                 MiscY += MiscH;
             }
 

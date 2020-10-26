@@ -36,6 +36,6 @@ defaultproperties
      PlayerIsLinkShafter="Is A Link Shafter"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=3
+     Lifetime=1
      DrawColor=(R=128)
 }

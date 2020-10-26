@@ -32,10 +32,10 @@ static simulated function ClientReceive (PlayerController P, optional int Switch
 defaultproperties
 {
      MiniSound=Sound'3SPNRU-B1.Sounds.guun'
-     YouAreGatling="M I N I G U N    N O O B"
-     PlayerIsGatling="Is a M I N I G U N    N O O B"
+     YouAreGatling="M I N I G U N    K I N G"
+     PlayerIsGatling="Is a M I N I G U N    K I N G"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=3
+     Lifetime=1
      DrawColor=(R=128)
 }

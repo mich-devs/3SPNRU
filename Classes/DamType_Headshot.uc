@@ -1,4 +1,4 @@
-class DamType_HeadShot extends IDDamTypeSniperHeadShot;
+class DamType_HeadShot extends DamTypeSniperHeadShot;
 
 var int AwardLevel;
 

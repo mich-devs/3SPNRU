@@ -43,7 +43,7 @@ defaultproperties
      Secondmessa="Is A Grenadier"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=3
+     Lifetime=1
      DrawColor=(B=0,G=0)
      StackMode=SM_Down
      PosY=0.100000

@@ -41,7 +41,7 @@ defaultproperties
      PlayerGaveBukkake="SPLASHED A BUKKAKE!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=3
+     Lifetime=1
      DrawColor=(B=93,G=220,R=126)
      StackMode=SM_Down
      PosY=0.100000

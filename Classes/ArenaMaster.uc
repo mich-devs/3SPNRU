@@ -596,7 +596,7 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
             }
 
             if(Damage > (injured.Health + injured.ShieldStrength + 50) && 
-                Damage / (injured.Health + injured.ShieldStrength) > 2)
+                Damage / (injured.Health + injured.ShieldStrength) > 2 && DamageType != class'DamType_Headshot' && DamageType != class'DamTypeSniperHeadShot')
             {
                 PRI.OverkillCount++;
                 SpecialEvent(PRI, "Overkill");
@@ -604,6 +604,17 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
                 if(Misc_Player(instigatedBy.Controller) != None)
                     Misc_Player(instigatedBy.Controller).ReceiveLocalizedMessage(class'Message_Overkill');
                 // overkill
+				
+								if ((Damage > 200) && ((DamageType == class'DamTypeBioGlob') || (DamageType == class'DamType_BioGlob')))
+            {
+               // PRI.OverkillCount++;
+               // SpecialEvent(PRI, "Overkill");
+
+                if(Misc_Player(instigatedBy.Controller) != None)
+                    Misc_Player(instigatedBy.Controller).ReceiveLocalizedMessage(class'Message_Bio',1);
+            }
+                // overkill
+				
             }
 
             /* hitstats */
@@ -1587,7 +1598,7 @@ function EndRound(PlayerReplicationInfo Scorer)
 
     if(Scorer == None)
     {
-		NextRoundTime = 2;
+		NextRoundTime = 3;
         return;
     }
 			
@@ -1612,7 +1623,7 @@ function EndRound(PlayerReplicationInfo Scorer)
             }
         }
 
-        NextRoundTime = 2;
+        NextRoundTime = 3;
     }
 }
 

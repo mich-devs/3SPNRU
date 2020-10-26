@@ -170,7 +170,7 @@ var config bool FlagTextureShowAcronym;
 var config string SoundAloneName;
 var config string SoundSpawnProtectionName;
 
-var config bool AllowServerSaveSettings;
+//var config bool AllowServerSaveSettings;
 
 var config bool AlwaysRestartServerWhenEmpty;
 
@@ -370,7 +370,7 @@ static function FillPlayInfo(PlayInfo PI)
 
     PI.AddSetting("3SPN", "EnforceMaxPlayers", "Enforce Maximum Number Of Players (Tournament)", 0, Weight++, "Check");
 
-    PI.AddSetting("3SPN", "AllowServerSaveSettings", "Allow Caching Player's 3SPN Settings On The Server", 0, Weight++, "Check");
+//    PI.AddSetting("3SPN", "AllowServerSaveSettings", "Allow Caching Player's 3SPN Settings On The Server", 0, Weight++, "Check");
     PI.AddSetting("3SPN", "AlwaysRestartServerWhenEmpty", "Always Restart Server When The Last Player Leaves", 0, Weight++, "Check");
 
     PI.AddSetting("3SPN", "ScoreboardCommunityName", "Scoreboard Community Name", 0, Weight++, "Text", "80",, True);
@@ -453,7 +453,7 @@ static event string GetDescriptionText(string PropName)
       case "ServerLinkPassword":       return "ServerLink Password";
       case "EndCeremonyStatsEnabled":  return "Enable End Ceremony Stats List (ServerLink)";
 
-      case "AllowServerSaveSettings":       return "Allow Caching Player's 3SPN Settings On The Server";
+//      case "AllowServerSaveSettings":       return "Allow Caching Player's 3SPN Settings On The Server";
       case "AlwaysRestartServerWhenEmpty":  return "Always Restart Server When The Last Player Leaves";
 
       case "ScoreboardCommunityName":  return "Scoreboard Community Name";
@@ -970,7 +970,7 @@ function ScoreKill(Controller Killer, Controller Other)
     Super.ScoreKill(Killer, Other);
 }
 
-function BroadcastDeathMessage (Controller Killer, Controller Other, Class<DamageType> DamageType)
+/* function BroadcastDeathMessage (Controller Killer, Controller Other, Class<DamageType> DamageType)
 {
   if ( DamageType == Class'DamTypeShieldImpact' )
   {
@@ -1022,6 +1022,7 @@ function BroadcastDeathMessage (Controller Killer, Controller Other, Class<Damag
   }
   Super.BroadcastDeathMessage(Killer,Other,DamageType);
 }
+*/
 
 function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector HitLocation, 
                           out vector Momentum, class<DamageType> DamageType)
@@ -1173,7 +1174,7 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                 // overkill
             }
 
-            if((PRI.CurrentDamage > 90) && (DamageType == class'DamTypeShockBeam' || DamageType == class'DamType_ShockBeam' && DamageType != class'DamType_ShockCombo' && DamageType != class'DamTypeShockCombo'))
+/*            if((PRI.CurrentDamage > 90) && (DamageType == class'DamTypeShockBeam' || DamageType == class'DamType_ShockBeam' && DamageType != class'DamType_ShockCombo' && DamageType != class'DamTypeShockCombo'))
             {
               
 
@@ -1181,6 +1182,7 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                     Misc_Player(instigatedBy.Controller).ReceiveLocalizedMessage(class'Message_Shockpress',1);
                 // overkill
             }
+*/
 			
 				if ((Damage > 200) && ((DamageType == class'DamTypeBioGlob') || (DamageType == class'DamType_BioGlob')))
             {
@@ -3428,11 +3430,7 @@ function EndRound(PlayerReplicationInfo Scorer)
       C = C.nextController;
       goto JL02EE;
 	  }
-  }
-
-
-
-
+ }
 
     // check for darkhorse
     if(DarkHorse != None && DarkHorse.PlayerReplicationInfo != None && DarkHorse.PlayerReplicationInfo == Scorer)
@@ -3906,7 +3904,7 @@ defaultproperties
      ShowServerName=True
      FlagTextureEnabled=True
      FlagTextureShowAcronym=True
-     AllowServerSaveSettings=True
+//     AllowServerSaveSettings=True
      OvertimeSound=Sound'3SPNRU-B1.Sounds.overtime'
      UseZAxisRadar=True
      bScoreTeamKills=False

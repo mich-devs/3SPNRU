@@ -1916,16 +1916,12 @@ function ServerLoadSettings()
 {
 	local Misc_PlayerSettings PlayerSettings;  
   local Team_GameBase TeamGame;
+  local ArenaMaster ArenaMaster;
   
 	foreach DynamicActors(class'Team_GameBase', TeamGame)
-		break; 
+	foreach DynamicActors(class'ArenaMaster', ArenaMaster)
+	break; 
     
-  if(!TeamGame.AllowServerSaveSettings)
-  {
-		Log("Loading settings disabled for player "$PlayerReplicationInfo.PlayerName);
-		ClientSettingsResult(6, PlayerReplicationInfo.PlayerName);
-    return;
-  }
     
   PlayerSettings = class'Misc_PlayerSettings'.static.LoadPlayerSettings(self);
 	if(PlayerSettings != None && PlayerSettings.Existing == True)
@@ -1943,17 +1939,12 @@ function ServerLoadSettings()
 function ServerSaveSettings(Misc_PlayerSettings.BrightSkinsSettings BrightSkins, Misc_PlayerSettings.ColoredNamesSettings ColoredNames, Misc_PlayerSettings.MiscSettings Misc)
 {
 	local Misc_PlayerSettings PlayerSettings;
-  local Team_GameBase TeamGame; 
+  local Team_GameBase TeamGame;
+  local ArenaMaster ArenaMaster;  
   
 	foreach DynamicActors(class'Team_GameBase', TeamGame)
-		break; 
-    
-  if(!TeamGame.AllowServerSaveSettings)
-  {
-		Log("Loading settings disabled for player "$PlayerReplicationInfo.PlayerName);
-		ClientSettingsResult(6, PlayerReplicationInfo.PlayerName);
-    return;
-  }
+	foreach DynamicActors(class'ArenaMaster', ArenaMaster)
+		break;     
     
   PlayerSettings = class'Misc_PlayerSettings'.static.LoadPlayerSettings(self);   
 	if(PlayerSettings != None)
