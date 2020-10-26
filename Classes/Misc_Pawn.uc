@@ -365,7 +365,7 @@ simulated function string GetDefaultCharacter()
         MyTeam = 0;
 
     P = Level.GetLocalPlayerController();
-    if(P != None && P.PlayerReplicationInfo != None && !P.PlayerReplicationInfo.bOnlySpectator)
+    if(P != None && P.PlayerReplicationInfo != None)
     {
         if(P.Pawn == self)
             return Super.GetDefaultCharacter();
@@ -437,7 +437,7 @@ simulated function bool ForceDefaultCharacter()
         MyTeam = 0;
 
     P = Level.GetLocalPlayerController();
-    if(P != None && P.PlayerReplicationInfo != None && !P.PlayerReplicationInfo.bOnlySpectator)
+    if(P != None && P.PlayerReplicationInfo != None)
     {
         if(P.Pawn == self)
             return Super.ForceDefaultCharacter();
