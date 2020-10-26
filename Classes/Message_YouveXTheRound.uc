@@ -50,9 +50,11 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
+     WonTheRound="YOU'VE WON THE ROUND!"
+     LostTheRound="YOU'VE LOST THE ROUND!"
      bIsUnique=True
      bIsConsoleMessage=False
      bFadeMessage=True
      StackMode=SM_Down
-     PosY=0.150000
+     PosY=0.300000
 }

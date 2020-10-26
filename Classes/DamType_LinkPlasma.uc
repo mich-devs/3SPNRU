@@ -7,15 +7,6 @@
  *******************************************************************************/
 class DamType_LinkPlasma extends DamTypeLinkPlasma;
 
-static function IncrementKills(Controller Killer)
-{
-    class'DamType_LinkShaft'.static.IncrementKills(Killer);
-    //return;    
-}
-
 defaultproperties
 {
-     DeathString="%k ???| ?Link Gun ???| %o"
-     FemaleSuicide="%o ?Suicide Link Gun"
-     MaleSuicide="%o ?Suicide Link Gun"
 }

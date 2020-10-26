@@ -1,4 +1,4 @@
-class DamType_HeadShot extends IDDamTypeSniperHeadShot;
+class DamType_HeadShot extends DamTypeSniperHeadShot;
 
 var int AwardLevel;
 
@@ -23,8 +23,6 @@ static function IncrementKills(Controller Killer)
 
 defaultproperties
 {
+     DeathString="%o's cranium was made extra crispy by %k's lightning gun."
      AwardLevel=5
-     DeathString="%k ???| ???H E A D S H O T ???| %o"
-     FemaleSuicide="%o ???Suicide H E A D S H O T"
-     MaleSuicide="%o ???Suicide H E A D S H O T"
 }

@@ -38,12 +38,12 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     RocketManSound=Sound'3SPHorstALPHA001.Sounds.RocketMan'
+     RocketManSound=Sound'3SPNRU-B1.Sounds.RocketMan'
      YouAreRocketMan="H U M I L I A T I O N"
      PlayerIsRocketMan="IS A SHIELDER!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=0,G=0)
      StackMode=SM_Down
      PosY=0.100000

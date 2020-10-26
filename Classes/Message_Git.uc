@@ -35,12 +35,12 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     GitSound=Sound'3SPHorstALPHA001.Sounds.git'
+     GitSound=Sound'3SPNRU-B1.Sounds.git'
      YouAreGit="YOU GIT!"
      PlayerIsGit="IS A GIT!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=0,G=0)
      StackMode=SM_Down
      PosY=0.100000

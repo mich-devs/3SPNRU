@@ -29,8 +29,5 @@ static function IncrementKills(Controller Killer)
 
 defaultproperties
 {
-     AwardLevel=3
-     DeathString="%k ???| ?Link Shaft ???| %o"
-     FemaleSuicide="%o ?Suicide Link Shaft"
-     MaleSuicide="%o ?Suicide Link Shaft"
+     AwardLevel=5
 }

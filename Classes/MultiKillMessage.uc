@@ -48,13 +48,13 @@ static function int GetFontSize (int Switch, PlayerReplicationInfo RelatedPRI1, 
 
 defaultproperties
 {
-     KillString(0)="Double Kill"
-     KillString(1)="Multi Kill"
-     KillString(2)="Mega Kill"
-     KillString(3)="ULTRA KILL"
-     KillString(4)="! M O N S T E R  K I L L !"
-     KillString(5)="!! L U D I C R O U S !!"
-     KillString(6)="!!! H O L Y  S H I T !!!"
+     KillString(0)="Double Kill!"
+     KillString(1)="Multi Kill!"
+     KillString(2)="Mega Kill!!"
+     KillString(3)="ULTRA KILL!!"
+     KillString(4)="M O N S T E R  K I L L !!!"
+     KillString(5)="L U D I C R O U S !!!"
+     KillString(6)="H O L Y  S H I T !"
      KillSoundName(0)="Double_Kill"
      KillSoundName(1)="MultiKill"
      KillSoundName(2)="MegaKill"
@@ -64,6 +64,8 @@ defaultproperties
      KillSoundName(6)="HolyShit_F"
      bIsUnique=True
      bFadeMessage=True
-     DrawColor=(G=0,R=0)
-     PosY=0.200000
+     DrawColor=(R=255,B=0,G=0)
+     StackMode=SM_Down
+     PosY=0.242000
+     FontSize=2
 }

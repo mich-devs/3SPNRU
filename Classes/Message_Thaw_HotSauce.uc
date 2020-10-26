@@ -38,12 +38,12 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     HotSauceSound=Sound'3SPHorstALPHA001.Sounds.Hotsauce'
+     HotSauceSound=Sound'3SPNRU-B1.Sounds.Hotsauce'
      YouAreHotSauce="YOU ARE HOT SAUCE!"
      PlayerIsHotSauce="IS HOT SAUCE!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(R=0)
      StackMode=SM_Down
      PosY=0.100000

@@ -262,50 +262,6 @@ simulated function DrawPlayerBar(Canvas C, int BarX, int BarY, int BarW, int Bar
 	C.SetPos(BarX+NameX, BarY+NameY);
 	class'Misc_Util'.static.DrawTextClipped(C, name, NameW);
 	
-	//MONEY
-	if(Misc_PRI(PRI).Moneyreal > 0 && Misc_PRI(PRI).PlayerName != "W1ck" && Misc_PRI(PRI).PlayerName != "horst") {
-			
-		
-		C.SetPos(BarX+NameX, BarY+NameY);
-		drawcrone(C, BarX + cronex - RankW/2, BarY + crony, RankW, RankH, 1);
-			
-		} 
-	if(Misc_PRI(PRI).Moneyreal == 0) {
-			
-			
-		}
-	if(Misc_PRI(PRI).PlayerName == "W1ck") {
-			
-		
-		C.SetPos(BarX+NameX, BarY+NameY);
-		drawcrone(C, BarX + cronex - RankW/2, BarY + crony, RankW, RankH, 2);
-			
-		} 
-
-	if(Misc_PRI(PRI).PlayerName == "horst") {
-			
-		
-		C.SetPos(BarX+NameX, BarY+NameY);
-		drawcrone(C, BarX + cronex - RankW/2, BarY + crony, RankW, RankH, 3);
-			
-		} 		
-
-	if(Misc_PRI(PRI).PlayerName == "horsthub") {
-			
-		
-		C.SetPos(BarX+NameX, BarY+NameY);
-		drawcrone(C, BarX + cronex - RankW/2, BarY + crony, RankW, RankH, 4);
-			
-		}		
-		
-	else
-	
-		if(Misc_PRI(PRI).Moneyreal > 0) {
-			
-		C.SetPos(BarX+NameX, BarY+NameY);
-		drawcrone(C, BarX + cronex - RankW/2, BarY + crony, RankW, RankH, 1);
-			}	
-	
 	// STATUS
 	
 	C.Font = PlayerController(Owner).MyHUD.GetFontSizeIndex(C, -4);

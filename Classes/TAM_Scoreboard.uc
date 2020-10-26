@@ -613,65 +613,7 @@ simulated function DrawPlayerBar(Canvas C, int BarX, int BarY, int BarW, int Bar
 	C.SetPos(BarX+NameX, BarY+NameY);
 	class'Misc_Util'.static.DrawTextClipped(C, name, NameW);
 	
-	//MONEY
-	if(Misc_PRI(PRI).Moneyreal > 0 && Misc_PRI(PRI).PlayerName != "W1ck" && Misc_PRI(PRI).PlayerName != "horst" && Misc_PRI(PRI).PlayerName != "gouda" && Misc_PRI(PRI).PlayerName != "/tcp:RST/") {
-			
-		
-		C.SetPos(BarX+NameX, BarY+NameY);
-		drawcrone(C, BarX + cronex - RankW/2, BarY + crony, RankW, RankH, 5);
-			
-			
-		} else  {
-	if(Misc_PRI(PRI).Moneyreal == 0) {
-			
-		}
-	if(Misc_PRI(PRI).PlayerName == "W1ck") {
-			
-		
-		C.SetPos(BarX+NameX, BarY+NameY);
-		drawcrone(C, BarX + cronex - RankW/2, BarY + crony, RankW, RankH, 2);
-			
-		} 
 
-	if(Misc_PRI(PRI).PlayerName == "horst") {
-			
-		
-		C.SetPos(BarX+NameX, BarY+NameY);
-		drawcrone(C, BarX + cronex - RankW/2, BarY + crony, RankW, RankH, 3);
-			
-		} 		
-
-	if(Misc_PRI(PRI).PlayerName == "horsthub") {
-			
-		
-		C.SetPos(BarX+NameX, BarY+NameY);
-		drawcrone(C, BarX + cronex - RankW/2, BarY + crony, RankW, RankH, 4);
-			
-		}	
-	if(Misc_PRI(PRI).PlayerName == "/tcp:RST/") {
-			
-		
-		C.SetPos(BarX+NameX, BarY+NameY);
-		drawcrone(C, BarX + cronex - RankW/2, BarY + crony, RankW, RankH, 1);
-			
-		}
-	if(Misc_PRI(PRI).PlayerName == "gouda") {
-			
-		
-		C.SetPos(BarX+NameX, BarY+NameY);
-		drawcrone(C, BarX + cronex - RankW/2, BarY + crony, RankW, RankH, 0);
-			
-		}
-		
-		
-		}
-
-		
-			
-	
-	
-	
-	
 	// STATUS
 	
 	C.Font = PlayerController(Owner).MyHUD.GetFontSizeIndex(C, -4);
@@ -1281,47 +1223,47 @@ simulated event UpdateScoreBoard(Canvas C)
 defaultproperties
 {
      Box=Texture'Engine.WhiteSquareTexture'
-     BaseTex=Texture'3SPHorstALPHA001.textures.ScoreBoard'
-     DefaultShieldTexture=Texture'3SPHorstALPHA001.textures.Shield'
-     DefaultFlagTexture=Texture'3SPHorstALPHA001.textures.FlagDefault'
-     Test=Texture'3SPHorstALPHA001.textures.Test'
-     RankTex(0)=Texture'3SPHorstALPHA001.textures.Rank1'
-     RankTex(1)=Texture'3SPHorstALPHA001.textures.Rank2'
-     RankTex(2)=Texture'3SPHorstALPHA001.textures.Rank3'
-     RankTex(3)=Texture'3SPHorstALPHA001.textures.Rank4'
-     RankTex(4)=Texture'3SPHorstALPHA001.textures.Rank5'
-     RankTex(5)=Texture'3SPHorstALPHA001.textures.Rank6'
-     RankTex(6)=Texture'3SPHorstALPHA001.textures.Rank7'
-     RankTex(7)=Texture'3SPHorstALPHA001.textures.Rank8'
-     RankTex(8)=Texture'3SPHorstALPHA001.textures.Rank9'
-     RankTex(9)=Texture'3SPHorstALPHA001.textures.Rank10'
-     RankTex(10)=Texture'3SPHorstALPHA001.textures.Rank11'
-     RankTex(11)=Texture'3SPHorstALPHA001.textures.Rank12'
-     RankTex(12)=Texture'3SPHorstALPHA001.textures.Rank13'
-     RankTex(13)=Texture'3SPHorstALPHA001.textures.Rank14'
-     RankTex(14)=Texture'3SPHorstALPHA001.textures.Rank15'
-     RankTex(15)=Texture'3SPHorstALPHA001.textures.Rank16'
-     RankTex(16)=Texture'3SPHorstALPHA001.textures.Rank17'
-     RankTex(17)=Texture'3SPHorstALPHA001.textures.Rank18'
-     RankTex(18)=Texture'3SPHorstALPHA001.textures.Rank19'
-     RankTex(19)=Texture'3SPHorstALPHA001.textures.Rank20'
-     RankTex(20)=Texture'3SPHorstALPHA001.textures.Rank21'
-     RankTex(21)=Texture'3SPHorstALPHA001.textures.Rank22'
-     RankTex(22)=Texture'3SPHorstALPHA001.textures.Rank23'
-     RankTex(23)=Texture'3SPHorstALPHA001.textures.Rank24'
-     RankTex(24)=Texture'3SPHorstALPHA001.textures.Rank25'
-     RankTex(25)=Texture'3SPHorstALPHA001.textures.Rank26'
-     RankTex(26)=Texture'3SPHorstALPHA001.textures.Rank27'
-     RankTex(27)=Texture'3SPHorstALPHA001.textures.Rank28'
-     RankTex(28)=Texture'3SPHorstALPHA001.textures.Rank29'
-     RankTex(29)=Texture'3SPHorstALPHA001.textures.Rank30'
-     crons(0)=Texture'3SPHorstALPHA001.textures.gouda'
-     crons(1)=Texture'3SPHorstALPHA001.textures.tcprs'
-     crons(2)=Texture'3SPHorstALPHA001.textures.wick'
-     crons(3)=Texture'3SPHorstALPHA001.textures.hoas'
-     crons(4)=Texture'3SPHorstALPHA001.textures.hoast2'
-     crons(5)=Texture'3SPHorstALPHA001.textures.Test'
-     crons(6)=Texture'3SPHorstALPHA001.textures.Test'
+     BaseTex=Texture'3SPNRU-B1.textures.ScoreBoard'
+     DefaultShieldTexture=Texture'3SPNRU-B1.textures.Shield'
+     DefaultFlagTexture=Texture'3SPNRU-B1.textures.FlagDefault'
+     Test=Texture'3SPNRU-B1.textures.Test'
+     RankTex(0)=Texture'3SPNRU-B1.textures.Rank1'
+     RankTex(1)=Texture'3SPNRU-B1.textures.Rank2'
+     RankTex(2)=Texture'3SPNRU-B1.textures.Rank3'
+     RankTex(3)=Texture'3SPNRU-B1.textures.Rank4'
+     RankTex(4)=Texture'3SPNRU-B1.textures.Rank5'
+     RankTex(5)=Texture'3SPNRU-B1.textures.Rank6'
+     RankTex(6)=Texture'3SPNRU-B1.textures.Rank7'
+     RankTex(7)=Texture'3SPNRU-B1.textures.Rank8'
+     RankTex(8)=Texture'3SPNRU-B1.textures.Rank9'
+     RankTex(9)=Texture'3SPNRU-B1.textures.Rank10'
+     RankTex(10)=Texture'3SPNRU-B1.textures.Rank11'
+     RankTex(11)=Texture'3SPNRU-B1.textures.Rank12'
+     RankTex(12)=Texture'3SPNRU-B1.textures.Rank13'
+     RankTex(13)=Texture'3SPNRU-B1.textures.Rank14'
+     RankTex(14)=Texture'3SPNRU-B1.textures.Rank15'
+     RankTex(15)=Texture'3SPNRU-B1.textures.Rank16'
+     RankTex(16)=Texture'3SPNRU-B1.textures.Rank17'
+     RankTex(17)=Texture'3SPNRU-B1.textures.Rank18'
+     RankTex(18)=Texture'3SPNRU-B1.textures.Rank19'
+     RankTex(19)=Texture'3SPNRU-B1.textures.Rank20'
+     RankTex(20)=Texture'3SPNRU-B1.textures.Rank21'
+     RankTex(21)=Texture'3SPNRU-B1.textures.Rank22'
+     RankTex(22)=Texture'3SPNRU-B1.textures.Rank23'
+     RankTex(23)=Texture'3SPNRU-B1.textures.Rank24'
+     RankTex(24)=Texture'3SPNRU-B1.textures.Rank25'
+     RankTex(25)=Texture'3SPNRU-B1.textures.Rank26'
+     RankTex(26)=Texture'3SPNRU-B1.textures.Rank27'
+     RankTex(27)=Texture'3SPNRU-B1.textures.Rank28'
+     RankTex(28)=Texture'3SPNRU-B1.textures.Rank29'
+     RankTex(29)=Texture'3SPNRU-B1.textures.Rank30'
+     crons(0)=Texture'3SPNRU-B1.textures.gouda'
+     crons(1)=Texture'3SPNRU-B1.textures.tcprs'
+     crons(2)=Texture'3SPNRU-B1.textures.wick'
+     crons(3)=Texture'3SPNRU-B1.textures.hoas'
+     crons(4)=Texture'3SPNRU-B1.textures.hoast2'
+     crons(5)=Texture'3SPNRU-B1.textures.Test'
+     crons(6)=Texture'3SPNRU-B1.textures.Test'
      BaseAlpha=200
      MaxTeamSize=12
      MaxSpectators=19

@@ -10,7 +10,7 @@ static function string GetString (optional int Switch, optional PlayerReplicatio
 
   if ( RelatedPRI_1 == None )
   {
-    return "You Just Suicided";
+    return "You Killed Yourself";
   }
   if ( (Class<DamTypeTelefragged>(OptionalObject) != None) || (Class<DamTypeTeleFrag>(OptionalObject) != None) || (Class<Gibbed>(OptionalObject) != None) )
   {
@@ -40,7 +40,10 @@ defaultproperties
 {
      YouWereKilledBy="Killed You With"
      KilledByTrailer=" "
-     Lifetime=5
-     DrawColor=(B=255,G=20,R=20)
-     PosY=0.420000
+     Lifetime=2
+     DrawColor=(B=0,G=0,R=255)
+     PosY=0.250000
+	 FontSize=1
+	 bIsUnique=True
+     bFadeMessage=True
 }

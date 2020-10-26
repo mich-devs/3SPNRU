@@ -38,12 +38,12 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     HabeneroSound=Sound'3SPHorstALPHA001.Sounds.Habenero'   //todo: get correct Habenaro.wav
+     HabeneroSound=Sound'3SPNRU-B1.Sounds.Habenero'   //todo: get correct Habenaro.wav
      YouAreHabenero="YOU ARE A HABENERO!"
      PlayerIsHabenero="IS A HABENERO!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(R=0)
      StackMode=SM_Down
      PosY=0.100000

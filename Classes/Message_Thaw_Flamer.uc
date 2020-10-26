@@ -36,12 +36,12 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     FlamerSound=Sound'3SPHorstALPHA001.Sounds.flamer'
+     FlamerSound=Sound'3SPNRU-B1.Sounds.flamer'
      YouAreFlamer="YOU ARE A FLAMER!"
      PlayerIsFlamer="IS A FLAMER!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=167,G=90)
      StackMode=SM_Down
      PosY=0.100000

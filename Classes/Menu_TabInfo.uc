@@ -40,7 +40,7 @@ defaultproperties
          bNeverFocus=True
          OnPreDraw=SectionBackgObj.InternalPreDraw
      End Object
-     SectionBackg=AltSectionBackground'3SPHorstALPHA001.Menu_TabInfo.SectionBackgObj'
+     SectionBackg=AltSectionBackground'3SPNRU-B1.Menu_TabInfo.SectionBackgObj'
 
      Begin Object Class=GUIScrollTextBox Name=TextBoxObj
          bNoTeletype=True
@@ -55,27 +55,28 @@ defaultproperties
          bScaleToParent=True
          bNeverFocus=True
      End Object
-     TextBox=GUIScrollTextBox'3SPHorstALPHA001.Menu_TabInfo.TextBoxObj'
+     TextBox=GUIScrollTextBox'3SPNRU-B1.Menu_TabInfo.TextBoxObj'
 
      InfoText(0)="Greetings!"
      InfoText(1)="======="
      InfoText(2)="þ"
-     InfoText(3)="This seems to be the first time you are running 3SPN [3SPNVersion], please take a moment to update your settings!"
+     InfoText(3)="This seems to be the first time you are running [3SPNVersion], please take a moment to update your settings!"
      InfoText(4)="þ"
      InfoText(5)="NOTE: Your settings have been automatically retrieved from the server if they have been previously saved. Your future settings will be saved on this server automatically and restored on 3SPN updates or UT reinstalls. This behavior can be disabled in the Misc panel. The settings are saved for your PLAYERNAME, so if you change it, you must save the settings again for them to be found later."
      InfoText(6)="þ"
      InfoText(7)="You can always access the 3SPN configuration menu later by pressing [Menu3SPNKey] or typing 'menu3spn' in the console."
      InfoText(8)="þ"
-     InfoText(61)="Send bug reports and feedback to hagis@oneoddsock.co.uk"
+     InfoText(61)="Send bug reports and feedback / Suggestions to Hv#7982 on Discord"
      InfoText(69)="þ"
-     InfoText(70)="Thanks goes to:"
-     InfoText(71)=" "
-     InfoText(72)="  * Aaron Everitt and Joel Moffatt for UTComp."
-     InfoText(73)="  * Michael Massey, Eric Chavez, Mike Hillard, Len Bradley and Steven Phillips for 3SPN."
-     InfoText(74)="  * Shaun Goeppinger for Necro."
-     InfoText(75)="  * void at www.combowhore.com for many many enhancements to 3SPN."
-     InfoText(76)="  * Beltamaxx for his great ideas, inspiration and encouragement."
-     InfoText(77)="  * SoL�Lizard for 3SPN changes and support."
-     InfoText(78)=" "
-     InfoText(79)="All without whom this mutator would not be possible!"
+     InfoText(70)="Special Thanks & CREDITS go to:"
+     InfoText(71)="  * Aaron Everitt and Joel Moffatt for UTComp."
+     InfoText(72)="  * Michael Massey, Eric Chavez, Mike Hillard, Len Bradley and Steven Phillips for 3SPN."
+     InfoText(73)="  * Shaun Goeppinger for Necro."
+     InfoText(74)="  * void at www.combowhore.com for many many enhancements to 3SPN."
+     InfoText(75)="  * Beltamaxx for his great ideas, inspiration and encouragement."
+     InfoText(76)="  * SoL�Lizard for 3SPN changes and support."
+     InfoText(77)="  * Attila, Horst & InhumanAimz for their work on 3SPN "
+     InfoText(78)="  * Hv, f00l, Mythic, Nolja for the 3SPN RU Version "
+     InfoText(79)="  * The RU Community for their testing, patience, and feedback."
+     InfoText(80)="All without whom this mutator and its adjustments would not be possible!"
 }

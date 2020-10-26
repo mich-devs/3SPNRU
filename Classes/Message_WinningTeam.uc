@@ -47,11 +47,11 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     RedTeamWon="RED HAIRDRESSER IS THE WINNER!"
-     BlueTeamWon="BLUE HAIRDRESSER IS THE WINNER!"
+     RedTeamWon="Red Team has Won!"
+     BlueTeamWon="Blue Team has Won!"
      bIsUnique=True
      bIsConsoleMessage=False
      StackMode=SM_Down
-     PosY=0.150000
+     PosY=0.200000
      FontSize=2
 }

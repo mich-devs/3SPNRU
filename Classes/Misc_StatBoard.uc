@@ -1,7 +1,7 @@
 class Misc_StatBoard extends DMStatsScreen;
 
 
-#exec TEXTURE IMPORT NAME=Scoreboard_old FILE=Textures\Scoreboard_old.dds GROUP=Textures MIPS=Off ALPHA=1 DXT=5
+#exec TEXTURE IMPORT NAME=Scoreboard_old FILE=Textures\Scoreboard_old.tga GROUP=Textures MIPS=Off ALPHA=1 DXT=5
 
 var Texture Box;
 var Texture BaseTex;
@@ -414,7 +414,7 @@ simulated event DrawScoreBoard(Canvas C)
       PointsStr = "Make Some Points To See How Close You Are To Rank Up! ";
      
     }else {
-      PointsStr = "You Need " $ string(int(OwnerPRI.PointsToRankUp))  $ " Points To Grow your Dick " $ string(int(OwnerPRI.Rank * 30) + 1 ) $ " Inches " $  "You donated:"  $ "€ÿ" $ string(OwnerPRI.Moneyreal) $  "€ÿ euro <3";
+      PointsStr = "You Are -> " $ string(int(OwnerPRI.PointsToRankUp))  $ " <-Points away from the NEXT Rank! ";
     }																							
   }
 	
@@ -516,9 +516,9 @@ simulated event DrawScoreBoard(Canvas C)
       {
         if ( Len(OwnerPRI.PlayerName) > Len(ViewPRI.PlayerName) )
         {
-			if(OwnerPRI.Moneyreal > 0)
-				{Name = OwnerPRI.PlayerName @"d";}
-          Name = OwnerPRI.PlayerName;
+//			if(OwnerPRI.Moneyreal > 0)
+//				{Name = OwnerPRI.PlayerName @"d";}
+//          Name = OwnerPRI.PlayerName;
         } else {
 		  
           Name = ViewPRI.PlayerName;
@@ -790,7 +790,7 @@ simulated event DrawScoreBoard(Canvas C)
             if(TmpPRI.combocount >= Class'DamType_ShockCombo'.Default.AwardLevel)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawText("ComboHorst");
+                C.DrawText("Combo Whore");
                 MiscY += MiscH;
             }
 
@@ -804,7 +804,7 @@ simulated event DrawScoreBoard(Canvas C)
 			if(TmpPRI.LinkCount >= Class'DamType_LinkShaft'.Default.AwardLevel)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawText("Link Shaft");
+                C.DrawText("Link Shafter");
                 MiscY += MiscH;
             }
 
@@ -818,10 +818,10 @@ simulated event DrawScoreBoard(Canvas C)
             if(TmpPRI.GoalsScored > 2)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawText(HatTrick);
+                C.DrawTextClipped(HatTrick);
                 MiscY += MiscH;
             }
-
+			
             if(TmpPRI.FlawlessCount > 0)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);
@@ -857,14 +857,6 @@ simulated event DrawScoreBoard(Canvas C)
                 MiscY += MiscH;
             }
 			
-			 if(TmpPRI.rocketsuicide > 0 )
-            {
-                C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawText("Martyr"$MakeColorCode(HUDClass.default.GoldColor * 0.7)$"x"$TmpPRI.rocketsuicide);
-				C.DrawText("kacke");
-                MiscY += MiscH;
-            }
-			
 			if(TmpPRI.RoxCount >= 7)
 			{
 				C.SetPos(MiscX + TextX, MiscY + TextY);
@@ -889,7 +881,7 @@ simulated event DrawScoreBoard(Canvas C)
 			if(TmpPRI.MinigunCount >= 3)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawText("Mini Noob");
+                C.DrawText("Minigun KING");
                 MiscY += MiscH;
             }
 
@@ -1094,5 +1086,5 @@ simulated event DrawScoreBoard(Canvas C)
 defaultproperties
 {
      Box=Texture'Engine.WhiteSquareTexture'
-     BaseTex=Texture'3SPHorstALPHA001.textures.Scoreboard_old'
+     BaseTex=Texture'3SPNRU-B1.textures.Scoreboard_old'
 }

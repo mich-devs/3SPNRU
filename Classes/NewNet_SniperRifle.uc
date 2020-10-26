@@ -252,5 +252,5 @@ function bool IsReasonable(Vector V)
 
 defaultproperties
 {
-     FireModeClass(0)=Class'3SPHorstALPHA001.NewNet_SniperFire'
+     FireModeClass(0)=Class'3SPNRU-B1.NewNet_SniperFire'
 }

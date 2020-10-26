@@ -4,10 +4,6 @@ class Team_GameBase extends TeamGame
 
 #exec OBJ LOAD FILE=TeamSymbols.utx
 #exec AUDIO IMPORT FILE="Sounds\Overtime.wav" GROUP=Sounds
-#exec AUDIO IMPORT FILE="Sounds\selfk.wav" GROUP=Sounds
-#exec AUDIO IMPORT FILE=Sounds\selfk.wav GROUP=Sounds
-#exec SOUND IMPORT NAME=RocketSuicide FILE=Sounds\selfk.wav GROUP=Sounds 
-#exec AUDIO IMPORT FILE=Sounds\selfk.wav GROUP=Sounds
 
 var Sound RocketSuicide;
 /* general and misc */
@@ -106,6 +102,8 @@ var config bool EnableNewNet;
 var TAM_Mutator MutTAM;
 /* newnet */
 
+var config bool bDamageIndicator;
+
 var int WinningTeamIndex;
 var array<Controller> EndCeremonyRankings;
 struct SEndCeremonyInfo
@@ -172,7 +170,7 @@ var config bool FlagTextureShowAcronym;
 var config string SoundAloneName;
 var config string SoundSpawnProtectionName;
 
-var config bool AllowServerSaveSettings;
+//var config bool AllowServerSaveSettings;
 
 var config bool AlwaysRestartServerWhenEmpty;
 
@@ -243,6 +241,7 @@ function InitGameReplicationInfo()
 
     Misc_BaseGRI(GameReplicationInfo).Acronym = Acronym;
     Misc_BaseGRI(GameReplicationInfo).EnableNewNet = EnableNewNet;
+	Misc_BaseGRI(GameReplicationInfo).bDamageIndicator = bDamageIndicator;
 
     Misc_BaseGRI(GameReplicationInfo).ShieldTextureName = ShieldTextureName;
     Misc_BaseGRI(GameReplicationInfo).FlagTextureName = FlagTextureName;
@@ -327,6 +326,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("3SPN", "SecsPerRound", "How Many Seconds Per Round", 0, Weight++, "Text", "3;0:999");
     PI.AddSetting("3SPN", "OTDamage", "Overtime Damage", 0, Weight++, "Text", "3;0:999");
     PI.AddSetting("3SPN", "OTInterval", "Overtime Damage Interval", 0, Weight++, "Text", "3;0:999");
+	PI.AddSetting("3SPN", "EndOfRoundDelay", "End of Round Delay", 0, 22, "Text", "3;0:999");
 
     PI.AddSetting("3SPN", "CampThreshold", "Camp Area", 0, Weight++, "Text", "8;0:999",, True);
     PI.AddSetting("3SPN", "bKickExcessiveCampers", "Kick Excessive Campers", 0, Weight++, "Check",,, True);
@@ -355,6 +355,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("3SPN", "LightningAmmo", "Lightning Ammunition", 0, Weight++, "Text", "3;0:999",, True);
 
     PI.AddSetting("3SPN", "EnableNewNet", "Enable New Net", 0, Weight++, "Check");
+    PI.AddSetting("3SPN", "bDamageIndicator", "Enable Damage Indicator", 0, 401, "Check");  
     PI.AddSetting("3SPN", "EndCeremonyEnabled", "Enable End Ceremony", 0, Weight++, "Check");
     PI.AddSetting("3SPN", "RoundCanTie", "Rounds Can Tie", 0, Weight++, "Check");
     PI.AddSetting("3SPN", "bSpawnProtectionOnRez", "Enable Spawn Protection After Resurrection", 0, Weight++, "Check");
@@ -369,7 +370,7 @@ static function FillPlayInfo(PlayInfo PI)
 
     PI.AddSetting("3SPN", "EnforceMaxPlayers", "Enforce Maximum Number Of Players (Tournament)", 0, Weight++, "Check");
 
-    PI.AddSetting("3SPN", "AllowServerSaveSettings", "Allow Caching Player's 3SPN Settings On The Server", 0, Weight++, "Check");
+//    PI.AddSetting("3SPN", "AllowServerSaveSettings", "Allow Caching Player's 3SPN Settings On The Server", 0, Weight++, "Check");
     PI.AddSetting("3SPN", "AlwaysRestartServerWhenEmpty", "Always Restart Server When The Last Player Leaves", 0, Weight++, "Check");
 
     PI.AddSetting("3SPN", "ScoreboardCommunityName", "Scoreboard Community Name", 0, Weight++, "Text", "80",, True);
@@ -401,6 +402,7 @@ static event string GetDescriptionText(string PropName)
       case "SecsPerRound":        return "Round time limit before overtime in seconds (default 120).";
       case "OTDamage":            return "The amount of damage all players while in OT.";
       case "OTInterval":          return "The interval at which OT damage is given.";
+	  case "EndOfRoundDelay":     return "The amount of delay in seconds between rounds (default 2)";
 
       case "CampThreshold":       return "The area a player must stay in to be considered camping.";
       case "bKickExcessiveCampers": return "Kick players that camp 4 consecutive times.";
@@ -429,6 +431,7 @@ static event string GetDescriptionText(string PropName)
       case "LightningAmmo":       return "Amount of Lightning Ammunition to give in a round.";
 
       case "EnableNewNet":                  return "Make enhanced netcode available for players.";
+      case "bDamageIndicator":    return "Enable or Disable the Damage Indicators for players";
       case "EndCeremonyEnabled":            return "Enable End Ceremony";
       case "AllowPersistentStatsWithBots":  return "Allow Persistent Stats With Bots";
       case "RoundCanTie":                   return "Rounds Can Tie";
@@ -450,7 +453,7 @@ static event string GetDescriptionText(string PropName)
       case "ServerLinkPassword":       return "ServerLink Password";
       case "EndCeremonyStatsEnabled":  return "Enable End Ceremony Stats List (ServerLink)";
 
-      case "AllowServerSaveSettings":       return "Allow Caching Player's 3SPN Settings On The Server";
+//      case "AllowServerSaveSettings":       return "Allow Caching Player's 3SPN Settings On The Server";
       case "AlwaysRestartServerWhenEmpty":  return "Always Restart Server When The Last Player Leaves";
 
       case "ScoreboardCommunityName":  return "Scoreboard Community Name";
@@ -534,8 +537,45 @@ function ParseOptions(string Options)
     InOpt = ParseOption(Options, "Timeouts");
     if(InOpt != "")
         Timeouts = int(InOpt);
-}
+		
+	InOpt = ParseOption(Options, "AssaultAmmo");
+    if(InOpt != "")
+        AssaultAmmo = int(InOpt);
 
+    InOpt = ParseOption(Options, "AssaultGrenades");
+    if(InOpt != "")
+        AssaultGrenades = int(InOpt);
+
+    InOpt = ParseOption(Options, "BioAmmo");
+    if(InOpt != "")
+        BioAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "ShockAmmo");
+    if(InOpt != "")
+        ShockAmmo = int(InOpt);
+							
+    InOpt = ParseOption(Options, "LinkAmmo");
+   																							  
+    if(InOpt != "")
+        LinkAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "MiniAmmo");
+    if(InOpt != "")
+        MiniAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "FlakAmmo");
+    if(InOpt != "")
+        FlakAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "RocketAmmo");
+    if(InOpt != "")
+        RocketAmmo = int(InOpt);
+
+    InOpt = ParseOption(Options, "LightningAmmo");
+    if(InOpt != "")
+        LightningAmmo = int(InOpt);
+}		   
+									 
 event InitGame(string Options, out string Error)
 {
   local class<TournamentModuleBase> TMClass;
@@ -798,17 +838,17 @@ function int GetTimeoutState(PlayerController caller)
     return 0;
 }
 
-function BroadcastLocalized (Actor Sender, Class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
-{
-  
-  if ( Message == Class'FirstBloodMessage' )
-  {
-    Message = Class'Message_FirstBlood';
-	
-	
-  }
-  BroadcastHandler.AllowBroadcastLocalized(Sender,Message,Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject);
-}
+//function BroadcastLocalized (Actor Sender, Class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
+//{
+// 
+//  if ( Message == Class'FirstBloodMessage' )
+//  {
+//    Message = Class'Message_FirstBlood';
+//	
+//	
+//  }
+//  BroadcastHandler.AllowBroadcastLocalized(Sender,Message,Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject);
+//}
 // check if a team has timeouts left, and if so, pause the game at the end of the current round
 function CallTimeout(PlayerController caller)
 {
@@ -930,7 +970,7 @@ function ScoreKill(Controller Killer, Controller Other)
     Super.ScoreKill(Killer, Other);
 }
 
-function BroadcastDeathMessage (Controller Killer, Controller Other, Class<DamageType> DamageType)
+/* function BroadcastDeathMessage (Controller Killer, Controller Other, Class<DamageType> DamageType)
 {
   if ( DamageType == Class'DamTypeShieldImpact' )
   {
@@ -982,6 +1022,7 @@ function BroadcastDeathMessage (Controller Killer, Controller Other, Class<Damag
   }
   Super.BroadcastDeathMessage(Killer,Other,DamageType);
 }
+*/
 
 function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector HitLocation, 
                           out vector Momentum, class<DamageType> DamageType)
@@ -1056,9 +1097,13 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                         PRI.ReverseFF = RFF;
                     }
 
-                    EyeHeight.z = instigatedBy.EyeHeight;
-                    if(Misc_Player(instigatedBy.Controller) != None && FastTrace(injured.Location, instigatedBy.Location + EyeHeight))
-                        Misc_Player(instigatedBy.Controller).HitDamage -= Score;                        
+                   EyeHeight.z = instigatedBy.EyeHeight;
+                    if(Misc_Player(instigatedBy.Controller) != None)
+                    {
+                        Misc_Player(instigatedBy.Controller).HitDamage -= Score;
+                        Misc_Player(instigatedBy.Controller).bHitContact = FastTrace(injured.Location, instigatedBy.Location + EyeHeight);
+                        Misc_Player(instigatedBy.Controller).HitPawn = injured;
+                    }
                 }
 
                 if(Misc_Player(instigatedBy.Controller) != None)
@@ -1104,9 +1149,13 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                         Misc_Player(instigatedBy.Controller).NewEnemyDamage -= int(Misc_Player(instigatedBy.Controller).NewEnemyDamage);
                     }
 
-                    EyeHeight.z = instigatedBy.EyeHeight;
-                    if(FastTrace(injured.Location, instigatedBy.Location + EyeHeight))
+                   EyeHeight.z = instigatedBy.EyeHeight;
+                    if(Misc_Player(instigatedBy.Controller) != None)
+                    {
                         Misc_Player(instigatedBy.Controller).HitDamage += Score;
+                        Misc_Player(instigatedBy.Controller).bHitContact = FastTrace(injured.Location, instigatedBy.Location + EyeHeight);
+                        Misc_Player(instigatedBy.Controller).HitPawn = injured;
+                    }
                 }
                 PRI.Score += Score * 0.01;
 
@@ -1115,7 +1164,7 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
 			
 			
 			if(Damage > (injured.Health + injured.ShieldStrength + 50) && 
-                Damage / (injured.Health + injured.ShieldStrength) > 2 && DamageType != class'DamType_Rocket')
+                Damage / (injured.Health + injured.ShieldStrength) > 2 && DamageType != class'DamType_Headshot' && DamageType != class'DamTypeSniperHeadShot')
             {
                 PRI.OverkillCount++;
                 SpecialEvent(PRI, "Overkill");
@@ -1125,7 +1174,7 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                 // overkill
             }
 
-            if((PRI.CurrentDamage > 120) && (DamageType == class'DamTypeShockBeam' || DamageType == class'DamType_ShockBeam'))
+/*            if((PRI.CurrentDamage > 90) && (DamageType == class'DamTypeShockBeam' || DamageType == class'DamType_ShockBeam' && DamageType != class'DamType_ShockCombo' && DamageType != class'DamTypeShockCombo'))
             {
               
 
@@ -1133,20 +1182,7 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                     Misc_Player(instigatedBy.Controller).ReceiveLocalizedMessage(class'Message_Shockpress',1);
                 // overkill
             }
-			
-			
-			  if(Damage == 69)
-            {
-               // PRI.OverkillCount++;
-               // SpecialEvent(PRI, "Overkill");
-
-                if(Misc_Player(instigatedBy.Controller) != None)
-                    Misc_Player(instigatedBy.Controller).ReceiveLocalizedMessage(class'Message_69', 1);
-                // overkill
-            }
-			
-			
-				
+*/
 			
 				if ((Damage > 200) && ((DamageType == class'DamTypeBioGlob') || (DamageType == class'DamType_BioGlob')))
             {
@@ -1157,16 +1193,6 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                     Misc_Player(instigatedBy.Controller).ReceiveLocalizedMessage(class'Message_Bio',1);
             }
                 // overkill
-			
-				if (damage > 150 && (DamageType == class'DamType_ShockCombo' || DamageType == class'DamTypeShockCombo' || DamageType == class'DamType_Rocket' || DamageType == class'DamType_RocketHoming'))
-            {
-               // PRI.OverkillCount++;
-               // SpecialEvent(PRI, "Overkill");
-
-                if(Misc_Player(instigatedBy.Controller) != None)
-                    Misc_Player(instigatedBy.Controller).ReceiveLocalizedMessage(class'Message_RocketKill',1);
-                // overkill
-            }
 			
 			
 			
@@ -3063,23 +3089,13 @@ function PunishCamper(Controller C, Misc_Pawn P, Misc_PRI PRI)
     {
         pri.CampCount++;
         pri.ConsecutiveCampCount++;
-		
-		
-		 if(bSpecExcessiveCampers && pri.ConsecutiveCampCount >= 4)
-        {
-                     
-			PlayerController(c).BecomeSpectator();
-			BroadcastLocalizedMessage(Class'Message_Camper');
-			
-        }
-		
+
         if(bKickExcessiveCampers && pri.ConsecutiveCampCount >= 4)
         {
-            log("Kicking Camper (Possibly Idle): "$c.PlayerReplicationInfo.PlayerName);
+            //log("Kicking Camper (Possibly Idle): "$c.PlayerReplicationInfo.PlayerName);
             AccessControl.DefaultKickReason = AccessControl.IdleKickReason;
             AccessControl.KickPlayer(PlayerController(c));
             AccessControl.DefaultKickReason = AccessControl.Default.DefaultKickReason;
-			
         }
     }
 }
@@ -3155,23 +3171,6 @@ function Killed(Controller Killer, Controller Killed, Pawn KilledPawn, class<Dam
             CheckForAlone(Killed, Killed.GetTeamNum());
         }
     }
-	
-		if(DamageType == class'DamType_Rocket' && PlayerController(Killed) != None && (Killer.PlayerReplicationInfo == Killed.PlayerReplicationInfo)) {
-	
-	
-	PlaySound(RocketSuicide, SLOT_None, 300.0);
-	
-//	TmpPRI.rocketsuicide++;
-//	PlayerController(Killed).ReceiveLocalizedMessage(class'Message_SuicideRocket');
-	PlayerController(Killer).ReceiveLocalizedMessage(class'Message_SuicideRocket');
-	Misc_Player(Killer).BroadcastAnnouncement(class'Message_SuicideRocket');
-//	Misc_Player(Killer).BroadcastAnnouncement(class'Message_SuicideRocket');
-//	Misc_Player(Killed).BroadcastAnnouncement(class'Message_SuicideRocket');
-	
-	
-	
-	}
-	
 	
 	if ((DamageType == class'DamTypeAssaultGrenade' || DamageType == class'DamType_AssaultGrenade' ) && (PlayerController(Killed) != Killer.PlayerReplicationInfo))
             {
@@ -3412,7 +3411,6 @@ function EndRound(PlayerReplicationInfo Scorer)
     Teams[WinningTeamIndex].Score += 1;
     AnnounceScoreReliable(WinningTeamIndex);
 
-
   if (  ++TeamScoreDelta[WinningTeamIndex] == 3 )
   {
   
@@ -3431,12 +3429,8 @@ function EndRound(PlayerReplicationInfo Scorer)
       
       C = C.nextController;
       goto JL02EE;
-    }
-  }
-
-
-
-
+	  }
+ }
 
     // check for darkhorse
     if(DarkHorse != None && DarkHorse.PlayerReplicationInfo != None && DarkHorse.PlayerReplicationInfo == Scorer)
@@ -3860,12 +3854,11 @@ function ResetDefaults()
 
 defaultproperties
 {
-     RocketSuicide=Sound'3SPHorstALPHA001.Sounds.selfk'
      StartingHealth=100
      MaxHealth=1.000000
      AdrenalinePerDamage=1.250000
      ScoreAwardPer10Damage=0.100000
-     bForceRUP=True
+     bForceRUP=False
      ForceSeconds=60
      testvar=True
      SecsPerRound=120
@@ -3873,8 +3866,8 @@ defaultproperties
      OTInterval=3
      CampThreshold=400.000000
      CampInterval=5
-     bKickExcessiveCampers=True
-     bSpecExcessiveCampers=True
+     bKickExcessiveCampers=False
+     bSpecExcessiveCampers=False
      TimeOutTeam=255
      TimeOutCount=60
      TimeOutDuration=60
@@ -3889,7 +3882,7 @@ defaultproperties
      FlakAmmo=15
      RocketAmmo=12
      LightningAmmo=15
-     EndOfRoundDelay=5
+     EndOfRoundDelay=2
      EndOfRoundTime=10
      RoundCanTie=True
      EnableNewNet=True
@@ -3897,38 +3890,39 @@ defaultproperties
      EndCeremonyStatsEnabled=True
      EndCeremonyStatsListDisplayTime=15
      bSpawnProtectionOnRez=True
-     AutoBalanceTeams=True
+     AutoBalanceTeams=False
      AutoBalanceSeconds=20
      AutoBalanceRandomization=50.000000
      AutoBalanceAvgPPRWeight=100.000000
-     AutoBalanceOnJoins=True
+     AutoBalanceOnJoins=False
      AllowForceAutoBalance=True
      ForceAutoBalanceCooldown=120
      ServerLinkStatus=SL_ENABLED
-     ScoreboardCommunityName="The Usual Suspects"
-     ScoreboardRedTeamName="Red rturd"
-     ScoreboardBlueTeamName="Blue rturd"
+     ScoreboardCommunityName="RU Community"
+     ScoreboardRedTeamName="Red"
+     ScoreboardBlueTeamName="Blue"
      ShowServerName=True
      FlagTextureEnabled=True
      FlagTextureShowAcronym=True
-     AllowServerSaveSettings=True
-     OvertimeSound=Sound'3SPHorstALPHA001.Sounds.overtime'
+//     AllowServerSaveSettings=True
+     OvertimeSound=Sound'3SPNRU-B1.Sounds.overtime'
      UseZAxisRadar=True
      bScoreTeamKills=False
+     bDamageIndicator=True
      FriendlyFireScale=0.500000
-     DefaultEnemyRosterClass="3SPHorstALPHA001.TAM_TeamInfo"
+     DefaultEnemyRosterClass="3SPNRU-B1.TAM_TeamInfo"
      ADR_MinorError=-5.000000
-     LoginMenuClass="3SPHorstALPHA001.Menu_TAMLoginMenu"
-     LocalStatsScreenClass=Class'3SPHorstALPHA001.Misc_StatBoard'
-     DefaultPlayerClassName="3SPHorstALPHA001.Misc_Pawn"
-     ScoreBoardType="3SPHorstALPHA001.TAM_Scoreboard"
-     HUDType="3SPHorstALPHA001.TAM_HUD"
+     LoginMenuClass="3SPNRU-B1.Menu_TAMLoginMenu"
+     LocalStatsScreenClass=Class'3SPNRU-B1.Misc_StatBoard'
+     DefaultPlayerClassName="3SPNRU-B1.Misc_Pawn"
+     ScoreBoardType="3SPNRU-B1.TAM_Scoreboard"
+     HUDType="3SPNRU-B1.TAM_HUD"
      GoalScore=10
      TimeLimit=0
-     DeathMessageClass=Class'3SPHorstALPHA001.Misc_DeathMessage'
-     MutatorClass="3SPHorstALPHA001.TAM_Mutator"
-     PlayerControllerClassName="3SPHorstALPHA001.Misc_Player"
-     GameReplicationInfoClass=Class'3SPHorstALPHA001.Misc_BaseGRI'
+     DeathMessageClass=Class'3SPNRU-B1.Misc_DeathMessage'
+     MutatorClass="3SPNRU-B1.TAM_Mutator"
+     PlayerControllerClassName="3SPNRU-B1.Misc_Player"
+     GameReplicationInfoClass=Class'3SPNRU-B1.Misc_BaseGRI'
      GameName="BASE"
      Description="One life per round. Don't waste it."
      ScreenShotName="UT2004Thumbnails.TDMShots"

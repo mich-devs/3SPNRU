@@ -13,7 +13,7 @@ var array<string> SendBuffer;
 var bool SendBufferActive;
 
 
-delegate OnReceivedStats (int PlayerIndex, float Rank, float PointsToRankUp, float AvgPPR, array<float> PPRList, int Moneyreal);
+delegate OnReceivedStats (int PlayerIndex, float Rank, float PointsToRankUp, float AvgPPR, array<float> PPRList);
 
 delegate OnReceivedListName (string ListName);
 
@@ -185,7 +185,7 @@ function HandleMessage(array<string> Params)
         Rank = float(Params[2]);
         PointsToRankUp = float(Params[3]);
         AvgPPR = float(Params[4]);
-		Moneyreal = int (Params[5]);
+//		Moneyreal = int (Params[5]);
         ParamIdx = 6;
         ParamIdx = 6;
         J0xF6:
@@ -197,7 +197,7 @@ function HandleMessage(array<string> Params)
             // [Loop Continue]
             goto J0xF6;
         }
-        OnReceivedStats(PlayerIndex, Rank, PointsToRankUp, AvgPPR, PPRList, Moneyreal);
+        OnReceivedStats(PlayerIndex, Rank, PointsToRankUp, AvgPPR, PPRList);
     }
     // End:0x276
     else

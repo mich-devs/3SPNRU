@@ -38,12 +38,12 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     GrenadeSound=Sound'3SPHorstALPHA001.Sounds.Grenade'
+     GrenadeSound=Sound'3SPNRU-B1.Sounds.Grenade'
      Grenade4="G R E N A D I E R"
      Secondmessa="Is A Grenadier"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=1
      DrawColor=(B=0,G=0)
      StackMode=SM_Down
      PosY=0.100000

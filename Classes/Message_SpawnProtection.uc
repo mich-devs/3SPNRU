@@ -46,6 +46,7 @@ defaultproperties
      bIsConsoleMessage=False
      bFadeMessage=True
      Lifetime=1
+     Fontsize=-1
      StackMode=SM_Down
      PosY=0.875000
 }

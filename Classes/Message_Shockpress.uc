@@ -3,7 +3,7 @@ class Message_Shockpress extends LocalMessage;
 #exec AUDIO IMPORT FILE=Sounds\impressive.wav GROUP=Sounds
 
 var Sound impressive;
-var localized string impressivetex;
+var localized string plopptex;
 var localized string youblow;
 
 static function string GetString(
@@ -14,7 +14,7 @@ static function string GetString(
 	)
 {
     if(SwitchNum == 1)
-	    return default.impressivetex;
+	    return default.plopptex;
     
 }
 
@@ -37,11 +37,11 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     impressive=Sound'3SPHorstALPHA001.Sounds.impressive'
-     impressivetex="I M P R E S S I V E"
+     impressive=Sound'3SPNRU-B1.Sounds.impressive'
+     plopptex="I M P R E S S I V E"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=224,G=58,R=196)
      StackMode=SM_Down
      PosY=0.150000
