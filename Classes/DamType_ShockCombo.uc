@@ -24,7 +24,4 @@ static function IncrementKills (Controller Killer)
 defaultproperties
 {
      AwardLevel=10
-     DeathString="%k ???| ???SHOCK COMBO ???| %o"
-     FemaleSuicide="%o ÿÿSuicide Shock Combo"
-     MaleSuicide="%o ÿÿSuicide Shock Combo"
 }

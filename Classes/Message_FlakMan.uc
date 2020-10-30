@@ -35,12 +35,12 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     FlakManSound=Sound'3SPHorstALPHA001.Sounds.FlakMan'
+     FlakManSound=Sound'3SPNRU-B1.Sounds.FlakMan'
      YouAreFlakMan="YOU ARE A FLAKMAN!"
      PlayerIsFlakMan="IS A FLAKMAN!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=0,G=0)
      StackMode=SM_Down
      PosY=0.100000

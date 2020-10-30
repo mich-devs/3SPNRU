@@ -189,7 +189,7 @@ function PlayerChangedName (Misc_Player P)
   }
 }
 
-function ReceiveStats (int PlayerIndex, float Rank, float PointsToRankUp, float AvgPPR, array<float> PPRList, int Moneyreal)
+function ReceiveStats (int PlayerIndex, float Rank, float PointsToRankUp, float AvgPPR, array<float> PPRList)
 {
   local Misc_PlayerData PD;
 
@@ -203,7 +203,7 @@ function ReceiveStats (int PlayerIndex, float Rank, float PointsToRankUp, float 
   PD.PointsToRankUp = int(PointsToRankUp);
   PD.PPRList = PPRList;
   PD.PPRListLength = PPRList.Length;
-  PD.Moneyreal = Moneyreal;
+//  PD.Moneyreal = Moneyreal;
   PD.StatsReceived = True;
   if ( PD.Owner != None )
   {

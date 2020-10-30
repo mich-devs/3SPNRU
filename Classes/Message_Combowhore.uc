@@ -36,12 +36,12 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     CombowhoreSound=Sound'3SPHorstALPHA001.Sounds.Combowhore'
-     YouAreCombowhore="C O M B O H O R S T"
-     PlayerIsCombowhore="IS   A   C O M B O H O R S T"
+     CombowhoreSound=Sound'3SPNRU-B1.Sounds.Combowhore'
+     YouAreCombowhore="C O M B O  W H O R E"
+     PlayerIsCombowhore="IS   A   C O M B O  W H O R E"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=1
      DrawColor=(B=224,G=58,R=196)
      StackMode=SM_Down
      PosY=0.100000

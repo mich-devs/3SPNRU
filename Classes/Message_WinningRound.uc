@@ -68,18 +68,18 @@ static function Color GetColor (optional int Switch, optional PlayerReplicationI
 
 defaultproperties
 {
-     SuddenDeathSound=Sound'3SPHorstALPHA001.Sounds.sudden_death'
-     MatchPointSound=Sound'3SPHorstALPHA001.Sounds.MatchPoint'
-     RedTeamScores="Red Haidressers Score"
-     BlueTeamScores="Blue Haidressers Score"
-     MatchPoint="Match Round - FIGHT!"
-     SuddenDeath="Sudden Death"
+     SuddenDeathSound=Sound'3SPNRU-B1.Sounds.sudden_death'
+     MatchPointSound=Sound'3SPNRU-B1.Sounds.MatchPoint'
+     RedTeamScores="Red Team Scores"
+     BlueTeamScores="Blue Team Scores"
+     MatchPoint="THIS IS A MATCH POINT ROUND!"
+     SuddenDeath="-- Teams are Tied! -- "
      RedTeamColor=(R=255,A=255)
      BlueTeamColor=(B=255,A=255)
      bIsUnique=True
      bIsConsoleMessage=False
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=1.5
      DrawColor=(B=243,G=246,R=165)
      PosY=0.450000
 }

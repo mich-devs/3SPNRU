@@ -26,7 +26,7 @@ var float Rank;
 var float AvgPPR;
 var int PointsToRankUp;
 var int PPRListLength;
-var int Moneyreal;
+//var int Moneyreal;
 var array<float> PPRList;
 var config TrackedData Current;
 

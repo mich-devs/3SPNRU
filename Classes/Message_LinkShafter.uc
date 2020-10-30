@@ -31,11 +31,11 @@ static simulated function ClientReceive (PlayerController P, optional int Switch
 
 defaultproperties
 {
-     LinkShafterSound=Sound'3SPHorstALPHA001.Sounds.LinkShafter'
+     LinkShafterSound=Sound'3SPNRU-B1.Sounds.LinkShafter'
      YouAreLinkShafter="L I N K  S H A F T E R"
      PlayerIsLinkShafter="Is A Link Shafter"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=1
      DrawColor=(R=128)
 }

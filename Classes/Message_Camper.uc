@@ -3,7 +3,7 @@
 //================================================================================
 
 class Message_Camper extends LocalMessage;
-#exec TEXTURE IMPORT NAME=camp8 FILE=Textures\chair.dds GROUP=Textures MIPS=On ALPHA=1 DXT=5
+//#exec TEXTURE IMPORT NAME=camp8 FILE=Textures\chair.dds GROUP=Textures MIPS=On ALPHA=1 DXT=5
 var localized string YouAreCampingDefault;
 var localized string YouAreCampingWarning;
 var localized string YouAreCampingFirst;
@@ -13,7 +13,7 @@ var localized string PlayerIsCampingOpen;
 var localized string PlayerIsCamping;
 var localized string Playeriscamp;
 var Sound bastard;
-var Color CamperIconColor;
+//var Color CamperIconColor;
 
 static function RenderComplexMessage (Canvas C, out float XL, out float YL, optional string MessageString, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
 {
@@ -22,7 +22,7 @@ static function RenderComplexMessage (Canvas C, out float XL, out float YL, opti
   if ( RelatedPRI_1 != None )
   {
     LocalPlayer = RelatedPRI_1.Level.GetLocalPlayerController();
-  }
+ }
   if ( LocalPlayer != None )
   {
     if ( Team_HUDBase(LocalPlayer.myHUD) != None )
@@ -39,8 +39,8 @@ static function RenderComplexMessage (Canvas C, out float XL, out float YL, opti
 static function DrawCamperIcon (Canvas C, PlayerController LocalPlayer, Vector CamperLoc)
 {
   local Vector CamLoc;
-  local Rotator CamRot;
-  local Vector ScreenPos;
+ local Rotator CamRot;
+local Vector ScreenPos;
   local float Alpha;
 
   if ( (LocalPlayer == None) || (LocalPlayer.Pawn == None) )
@@ -66,20 +66,19 @@ static function DrawCamperIcon (Canvas C, PlayerController LocalPlayer, Vector C
     return;
   }
   Alpha = C.DrawColor.A;
-  C.DrawColor = Default.CamperIconColor;
   C.DrawColor.A = byte(Alpha);
-  DrawCenteredIcon(C,Texture'camp8',ScreenPos.X,ScreenPos.Y,C.ClipX * 0.031 / 1.25,C.ClipY * 0.0417 / 1.25);
+//  DrawCenteredIcon(C,Texture'null',ScreenPos.X,ScreenPos.Y,C.ClipX * 0.031 / 1.25,C.ClipY * 0.0417 / 1.25);
   C.Font = LocalPlayer.myHUD.GetFontSizeIndex(C,-3);
   C.DrawColor = Default.DrawColor;
   C.DrawColor.A = byte(Alpha);
-  DrawCenteredText(C,"[" $ string(int(VSize(LocalPlayer.Pawn.Location - CamperLoc) * 0.01875)) $ "m]",ScreenPos.X,ScreenPos.Y + C.ClipY * 0.031);
+//  DrawCenteredText(C,"[" $ string(int(VSize(LocalPlayer.Pawn.Location - CamperLoc) * 0.01875)) $ "m]",ScreenPos.X,ScreenPos.Y + C.ClipY * 0.031);
 }
 
-static function DrawCenteredIcon (Canvas C, Texture Tex, float X, float Y, float XL, float YL)
-{
-  C.SetPos(X - XL * 0.5,Y - YL * 0.5);
-  C.DrawTile(Tex,XL,YL,0.0,0.0,256.0,256.0);
-}
+//static function DrawCenteredIcon (Canvas C, Texture Tex, float X, float Y, float XL, float YL)
+//{
+//  C.SetPos(X - XL * 0.5,Y - YL * 0.5);
+//  C.DrawTile(Tex,XL,YL,0.0,0.0,256.0,256.0);
+//}
 
 static function DrawCenteredText (Canvas C, string Text, float X, float Y)
 {
@@ -147,18 +146,18 @@ defaultproperties
 {
      YouAreCampingDefault="You Are Camping"
      YouAreCampingWarning="Camper Warning"
-     YouAreCampingFirst="FIRST OFFENSE"
+     YouAreCampingFirst="...Camping and Taking Damage -10"
      YouAreCampingSecond="SECOND OFFENSE"
      YouAreCampingThird="THIRD OFFENSE"
      PlayerIsCamping="Is Camping"
      Playeriscamp="Forced to Spec cause Camping"
-     CamperIconColor=(B=255,G=255,R=255)
+//     CamperIconColor=(B=255,G=255,R=255)
      bComplexString=True
      bIsUnique=True
      bIsConsoleMessage=False
      bFadeMessage=True
      Lifetime=5
      DrawColor=(B=206,G=178,R=138)
-     PosY=0.080000
+     PosY=0.075000
      FontSize=-1
 }

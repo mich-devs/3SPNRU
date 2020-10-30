@@ -36,11 +36,17 @@ static function string GetString (optional int Switch, optional PlayerReplicatio
 
 defaultproperties
 {
-     finishmcsound=Sound'3SPHorstALPHA001.Sounds.last_man_standing'
-     LmsString="Last Man Standing - Do it!!"
+     finishmcsound=Sound'3SPNRU-B1.Sounds.last_man_standing'
+     LmsString="Last Man Standing"
      bIsUnique=True
      bFadeMessage=True
-     DrawColor=(B=243,G=246,R=165)
-     PosY=0.120000
-     FontSize=1
+     DrawColor=(B=206,G=178,R=138)
+     PosY=0.075000
+     FontSize=0
+     Lifetime=2.5
+     StackMode=SM_Down
+//     DrawColor=(B=243,G=246,R=165)
+//     PosY=0.075000
+//     StackMode=SM_Down
+//     FontSize=1
 }

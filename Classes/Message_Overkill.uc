@@ -31,11 +31,11 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     OverkillSound=Sound'3SPHorstALPHA001.Sounds.Overkill'
+     OverkillSound=Sound'3SPNRU-B1.Sounds.Overkill'
      Overkill="OVERKILL!"
      bIsUnique=True
      bFadeMessage=True
      DrawColor=(B=0)
      StackMode=SM_Down
-     PosY=0.100000
+     PosY=0.200000
 }

@@ -1,5 +1,5 @@
 class Message_FlakFuck extends LocalMessage;
-#exec AUDIO IMPORT FILE=Sounds\finishmc.wav GROUP=Sounds
+/*#exec AUDIO IMPORT FILE=Sounds\finishmc.wav GROUP=Sounds
 var Sound flack;
 var(Message) localized string FlagFuck;
 var(Message) localized string Roxx;
@@ -45,7 +45,7 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     flack=Sound'3SPHorstALPHA001.Sounds.finishmc'
+     flack=Sound'3SPNRU-B1.Sounds.finishmc'
      FlagFuck="Flak Fuck"
      Roxx="Air Rocket"
      Lamer="Lamer"
@@ -56,3 +56,4 @@ defaultproperties
      DrawColor=(B=80,G=80,R=0)
      PosY=0.320000
 }
+*/

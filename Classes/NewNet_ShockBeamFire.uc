@@ -346,5 +346,5 @@ function SpawnBeamEffect(Vector Start, Rotator Dir, Vector HitLocation, Vector H
 
 defaultproperties
 {
-     BeamEffectClass=Class'3SPHorstALPHA001.NewNet_ShockBeamEffect'
+     BeamEffectClass=Class'3SPNRU-B1.NewNet_ShockBeamEffect'
 }

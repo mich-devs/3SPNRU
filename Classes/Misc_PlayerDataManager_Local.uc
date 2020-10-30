@@ -29,7 +29,7 @@ var private int SLAwaiting;
 var private int SLRow;
 var string TopName;
 var int TopScore;
-var config int Moneyreal;
+//var config int Moneyreal;
 
 function Misc_ServerLink GetServerLink()
 {
@@ -81,23 +81,15 @@ function class<Misc_LocalStatsDB> GetGameConfigClass()
     //return;    
 }
 
-function geldauslesen (string PlayerHash) {
-
-
-GetDB(PlayerHash).Readgeld(Moneyreal);
-
-}
-
 function ServerRequestStats(int PlayerIndex, string PlayerHash)
 {
     local float Rank, PointsToRankUp, AvgPPR;
     local array<float> PPRList;
-	local int Moneyreal;
 
-    GetDB(PlayerHash).ReadStats(Rank, PointsToRankUp, AvgPPR, PPRList, Moneyreal);
+    GetDB(PlayerHash).ReadStats(Rank, PointsToRankUp, AvgPPR, PPRList);
 	
 	
-    ReceiveStats(PlayerIndex, Rank, PointsToRankUp, AvgPPR, PPRList, Moneyreal);
+    ReceiveStats(PlayerIndex, Rank, PointsToRankUp, AvgPPR, PPRList);
     //return;    
 }
 
@@ -303,14 +295,13 @@ Begin:
 defaultproperties
 {
      Lists(0)=(ListName="Top10 Score 7 Day*",StatType="Score",Aggregate="sum",listsize=10,TimeRange=10080)
-     Lists(1)=(ListName="Top10 Donations euro",StatType="Money",Aggregate="Max",listsize=10,TimeRange=43200)
-     Lists(2)=(ListName="Top10 PPR 7 Day",StatType="PPR",Aggregate="Max",listsize=10,TimeRange=10080)
-     Lists(3)=(ListName="Top10 Kills 7 Day*",StatType="Kills",Aggregate="sum",listsize=10,TimeRange=10080)
-     Lists(4)=(ListName="Top10 Map Score 7 Day",StatType="Score",Aggregate="Max",listsize=10,TimeRange=10080)
-     Lists(5)=(ListName="Top10 Score 30 Day",StatType="Score",Aggregate="sum",listsize=10,TimeRange=43200)
-     Lists(6)=(ListName="Top10 PPR 30 Day",StatType="PPR",Aggregate="Max",listsize=10,TimeRange=43200)
-     Lists(7)=(ListName="Top10 Kills 30 Day",StatType="Kills",Aggregate="sum",listsize=10,TimeRange=43200)
-     Lists(8)=(ListName="Top10 Map Score 30 Day",StatType="Score",Aggregate="Max",listsize=10,TimeRange=43200)
-     Lists(9)=(ListName="Top10 Kills 24h",StatType="Kills",Aggregate="sum",listsize=10,TimeRange=1440)
+     Lists(1)=(ListName="Top10 PPR 7 Day",StatType="PPR",Aggregate="Max",listsize=10,TimeRange=10080)
+     Lists(2)=(ListName="Top10 Kills 7 Day*",StatType="Kills",Aggregate="sum",listsize=10,TimeRange=10080)
+     Lists(3)=(ListName="Top10 Map Score 7 Day",StatType="Score",Aggregate="Max",listsize=10,TimeRange=10080)
+     Lists(4)=(ListName="Top10 Score 30 Day",StatType="Score",Aggregate="sum",listsize=10,TimeRange=43200)
+     Lists(5)=(ListName="Top10 PPR 30 Day",StatType="PPR",Aggregate="Max",listsize=10,TimeRange=43200)
+     Lists(6)=(ListName="Top10 Kills 30 Day",StatType="Kills",Aggregate="sum",listsize=10,TimeRange=43200)
+     Lists(7)=(ListName="Top10 Map Score 30 Day",StatType="Score",Aggregate="Max",listsize=10,TimeRange=43200)
+     Lists(8)=(ListName="Top10 Kills 24h",StatType="Kills",Aggregate="sum",listsize=10,TimeRange=1440)
      bUseOwnPlayerID=True
 }

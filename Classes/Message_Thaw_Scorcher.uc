@@ -36,12 +36,12 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     ScorcherSound=Sound'3SPHorstALPHA001.Sounds.scorcher'
+     ScorcherSound=Sound'3SPNRU-B1.Sounds.scorcher'
      YouAreScorcher="YOU ARE A SCORCHER!"
      PlayerIsScorcher="IS A SCORCHER!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=0,G=150)
      StackMode=SM_Down
      PosY=0.100000

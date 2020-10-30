@@ -19,6 +19,13 @@ var config bool bDisableAmmoRegen;
 var config bool bShowTeamInfo;          // show teams info on the HUD
 var config bool bExtendedInfo;          // show extra teammate info
 
+var config enum EDamageIndicator
+	{
+		Disabled,
+		Centered,
+		Floating
+	} DamageIndicator;
+
 var config bool bMatchHUDToSkins;       // sets HUD color to brightskins color
 /* HUD related */
 
@@ -50,7 +57,13 @@ var float NewFriendlyDamage;            // friendly damage done
 var float NewEnemyDamage;               // enemy damage done
 
 var int HitDamage;
+var bool bHitContact;
+var Pawn HitPawn;
+
 var int LastDamage;
+
+var int SumDamage;
+var float SumDamageTime;
 
 var config bool bDisableAnnouncement;
 var config bool bAutoScreenShot;
@@ -159,7 +172,7 @@ replication
         ClientSendSniperStats, ClientSendComboStats, ClientSendMiscStats;
 
     reliable if(bNetDirty && Role == ROLE_Authority)
-        HitDamage, bSeeInvis;
+        HitDamage, bHitContact, HitPawn, bSeeInvis;
 
     reliable if( Role==ROLE_Authority && !bDemoRecording )
         PlayCustomRewardAnnouncement, PlayStatusAnnouncementReliable;
@@ -258,7 +271,7 @@ function LoadPlayerDataStats()
   MPRI.Rank = PlayerData.Rank;
   MPRI.AvgPPR = PlayerData.AvgPPR;
   MPRI.PointsToRankUp = PlayerData.PointsToRankUp;
-  MPRI.Moneyreal = PlayerData.Moneyreal;
+//  MPRI.Moneyreal = PlayerData.Moneyreal;
   PPRListLength = Min(30,PlayerData.PPRListLength);
   MPRI.PPRListLength = PPRListLength;
   idx = 0;
@@ -277,22 +290,22 @@ function LoadPlayerDataStats()
 }
 
 
-simulated event ReceiveLocalizedMessage (Class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
-{
-  if ( (Level.NetMode == 1) || (GameReplicationInfo == None) )
-  {
-    return;
-  }
-  if ( Message == Class'KillingSpreeMessage' )
-  {
-    Message = Class'Message_KillingSpree';
-  }
-  Message.static.ClientReceive(self,Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject);
-  if ( Message.static.IsConsoleMessage(Switch) && (Player != None) && (Player.Console != None) )
-  {
-    Player.Console.Message(Message.static.GetString(Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject),0.0);
-  }
-}
+//simulated event ReceiveLocalizedMessage (Class<LocalMessage> Message, optional int Switch, optional PlayerReplicationInfo RelatedPRI_1, optional PlayerReplicationInfo RelatedPRI_2, optional Object OptionalObject)
+//{
+//  if ( (Level.NetMode == 1) || (GameReplicationInfo == None) )
+// {
+//    return;
+//  }
+//  if ( Message == Class'KillingSpreeMessage' )
+//  {
+//    Message = Class'Message_KillingSpree';
+//  }
+//  Message.static.ClientReceive(self,Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject);
+//  if ( Message.static.IsConsoleMessage(Switch) && (Player != None) && (Player.Console != None) )
+//  {
+//    Player.Console.Message(Message.static.GetString(Switch,RelatedPRI_1,RelatedPRI_2,OptionalObject),0.0);
+//  }
+//}
 
 function LoadPlayerData()
 {
@@ -382,12 +395,12 @@ function CheckInitialMenu()
 	}
 }
 
-event PlayerTick(float DeltaTime)
+function PlayerTick(float DeltaTime)
 {
+    local int Damage;
+    
     Super.PlayerTick(DeltaTime);
 
-	CheckInitialMenu();
-	
 	if(Pawn!=None)
 	{
 		// if we have a pawn, we must be looking at it
@@ -409,18 +422,40 @@ event PlayerTick(float DeltaTime)
 		UpdateEndCeremony(DeltaTime);
 		return;
 	}
-	
+
     if(Pawn == None || !bUseHitSounds || HitDamage == LastDamage)
     {
         LastDamage = HitDamage;
         return;
     }
 
-    if(HitDamage < LastDamage)
-        Pawn.PlaySound(soundHitFriendly,, soundHitVolume,,,(48 / (LastDamage - HitDamage)), false);
-    else
-        Pawn.PlaySound(soundHit,, soundHitVolume,,,(48 / (HitDamage - LastDamage)), false);
-
+    if(HitDamage != LastDamage)
+    {
+        Damage = HitDamage - LastDamage;
+        
+        if(bHitContact)
+        {
+            if(HitDamage < LastDamage)
+                Pawn.PlaySound(soundHitFriendly,, soundHitVolume,,,(48 / (-Damage)), false);
+            else
+                Pawn.PlaySound(soundHit,, soundHitVolume,,,(48 / Damage), false);
+        }
+        
+        if(HitPawn != None && Misc_BaseGRI(GameReplicationInfo).bDamageIndicator)
+        {
+            if (DamageIndicator == Centered)
+            {
+                if ( (Level.TimeSeconds - SumDamageTime > 1) || (SumDamage > 0 ^^ Damage > 0) )
+                    SumDamage = 0;
+                SumDamage += Damage;
+                SumDamageTime = Level.TimeSeconds;
+            }
+            
+            if(DamageIndicator == Floating)
+                class'Emitter_Damage'.static.ShowDamage(HitPawn, HitPawn.Location, Damage);        
+        }        
+    }
+    
     LastDamage = HitDamage;
 }
 
@@ -662,7 +697,7 @@ simulated function InitInputSystem()
 	C = Level.GetLocalPlayerController();
 	if(C != None)
 	{
-		C.Player.InteractionMaster.AddInteraction("3SPHorstALPHA001.Menu_Interaction", C.Player);
+		C.Player.InteractionMaster.AddInteraction("3SPNRU-B1.Menu_Interaction", C.Player);
 	}
 }
 
@@ -747,7 +782,7 @@ simulated function PlayCustomRewardAnnouncement(sound ASound, byte AnnouncementL
 
 	if((AnnouncementLevel > AnnouncerLevel) || (RewardAnnouncer == None))
 		return;
-	if(!bForce && (Level.TimeSeconds - LastPlaySound < 1))
+	if(!bForce && (Level.TimeSeconds - LastPlaySound < 1.5))
 		return;
     LastPlaySound = Level.TimeSeconds;  // so voice messages won't overlap
 	LastPlaySpeech = Level.TimeSeconds;	// don't want chatter to overlap announcements
@@ -1099,9 +1134,9 @@ function bool CanDoCombo(class<Combo> ComboClass)
 function ServerDoCombo(class<Combo> ComboClass)
 {
     if(class<ComboBerserk>(ComboClass) != None)
-        ComboClass = class<Combo>(DynamicLoadObject("3SPHorstALPHA001.Misc_ComboBerserk", class'Class'));
+        ComboClass = class<Combo>(DynamicLoadObject("3SPNRU-B1.Misc_ComboBerserk", class'Class'));
     else if(class<ComboSpeed>(ComboClass) != None && class<Misc_ComboSpeed>(ComboClass) == None)
-        ComboClass = class<Combo>(DynamicLoadObject("3SPHorstALPHA001.Misc_ComboSpeed", class'Class'));
+        ComboClass = class<Combo>(DynamicLoadObject("3SPNRU-B1.Misc_ComboSpeed", class'Class'));
 
     if(Adrenaline < ComboClass.default.AdrenalineCost)
         return;
@@ -1367,7 +1402,7 @@ exec function Menu3SPN()
 	r.Pitch = 0;
 	SetRotation(r);
 
-	ClientOpenMenu("3SPHorstALPHA001.Menu_Menu3SPN");
+	ClientOpenMenu("3SPNRU-B1.Menu_Menu3SPN");
 }
 
 exec function ToggleTeamInfo()
@@ -1881,16 +1916,12 @@ function ServerLoadSettings()
 {
 	local Misc_PlayerSettings PlayerSettings;  
   local Team_GameBase TeamGame;
+  local ArenaMaster ArenaMaster;
   
 	foreach DynamicActors(class'Team_GameBase', TeamGame)
-		break; 
+	foreach DynamicActors(class'ArenaMaster', ArenaMaster)
+	break; 
     
-  if(!TeamGame.AllowServerSaveSettings)
-  {
-		Log("Loading settings disabled for player "$PlayerReplicationInfo.PlayerName);
-		ClientSettingsResult(6, PlayerReplicationInfo.PlayerName);
-    return;
-  }
     
   PlayerSettings = class'Misc_PlayerSettings'.static.LoadPlayerSettings(self);
 	if(PlayerSettings != None && PlayerSettings.Existing == True)
@@ -1908,17 +1939,12 @@ function ServerLoadSettings()
 function ServerSaveSettings(Misc_PlayerSettings.BrightSkinsSettings BrightSkins, Misc_PlayerSettings.ColoredNamesSettings ColoredNames, Misc_PlayerSettings.MiscSettings Misc)
 {
 	local Misc_PlayerSettings PlayerSettings;
-  local Team_GameBase TeamGame; 
+  local Team_GameBase TeamGame;
+  local ArenaMaster ArenaMaster;  
   
 	foreach DynamicActors(class'Team_GameBase', TeamGame)
-		break; 
-    
-  if(!TeamGame.AllowServerSaveSettings)
-  {
-		Log("Loading settings disabled for player "$PlayerReplicationInfo.PlayerName);
-		ClientSettingsResult(6, PlayerReplicationInfo.PlayerName);
-    return;
-  }
+	foreach DynamicActors(class'ArenaMaster', ArenaMaster)
+		break;     
     
   PlayerSettings = class'Misc_PlayerSettings'.static.LoadPlayerSettings(self);   
 	if(PlayerSettings != None)
@@ -2048,13 +2074,13 @@ defaultproperties
      BlueAllyModel="Jakob"
      bAnnounceOverkill=True
      bUseHitSounds=True
-     SoundHit=Sound'3SPHorstALPHA001.Sounds.HitSound'
+     SoundHit=Sound'3SPNRU-B1.Sounds.HitSound'
      SoundHitFriendly=Sound'MenuSounds.denied1'
      SoundHitVolume=0.600000
-     SoundAlone=Sound'3SPHorstALPHA001.Sounds.alone'
+     SoundAlone=Sound'3SPNRU-B1.Sounds.alone'
      SoundAloneVolume=1.000000
      SoundUnlock=Sound'NewWeaponSounds.Newclickgrenade'
-     SoundSpawnProtection=Sound'3SPHorstALPHA001.Sounds.Bleep'
+     SoundSpawnProtection=Sound'3SPNRU-B1.Sounds.Bleep'
      bEnableEnhancedNetCode=True
      ShowInitialMenu=2
      Menu3SPNKey=IK_F7
@@ -2089,31 +2115,31 @@ defaultproperties
      WhiteColor=(B=255,G=255,R=255,A=255)
      bAllowColoredMessages=True
      bEnableColoredNamesInTalk=True
-     colorname(0)=(A=255)
-     colorname(1)=(A=255)
-     colorname(2)=(R=255,A=255)
-     colorname(3)=(A=255)
-     colorname(4)=(A=255)
-     colorname(5)=(A=255)
-     colorname(6)=(A=255)
-     colorname(7)=(A=255)
-     colorname(8)=(A=255)
-     colorname(9)=(B=255,G=255,R=255,A=255)
-     colorname(10)=(B=255,G=255,R=255,A=255)
-     colorname(11)=(B=255,G=255,R=255,A=255)
-     colorname(12)=(B=255,G=255,R=255,A=255)
-     colorname(13)=(B=255,G=255,R=255,A=255)
-     colorname(14)=(B=255,G=255,R=255,A=255)
-     colorname(15)=(B=255,G=255,R=255,A=255)
-     colorname(16)=(B=255,G=255,R=255,A=255)
-     colorname(17)=(B=255,G=255,R=255,A=255)
-     colorname(18)=(B=255,G=255,R=255,A=255)
-     colorname(19)=(B=255,G=255,R=255,A=255)
-     ColoredName(0)=(SavedColor[0]=(A=255),SavedColor[1]=(A=255),SavedColor[2]=(R=255,A=255),SavedColor[3]=(A=255),SavedColor[4]=(A=255),SavedColor[5]=(A=255),SavedColor[6]=(A=255),SavedColor[7]=(A=255),SavedColor[8]=(A=255),SavedColor[9]=(B=255,G=255,R=255,A=255),SavedColor[10]=(B=255,G=255,R=255,A=255),SavedColor[11]=(B=255,G=255,R=255,A=255),SavedColor[12]=(B=255,G=255,R=255,A=255),SavedColor[13]=(B=255,G=255,R=255,A=255),SavedColor[14]=(B=255,G=255,R=255,A=255),SavedColor[15]=(B=255,G=255,R=255,A=255),SavedColor[16]=(B=255,G=255,R=255,A=255),SavedColor[17]=(B=255,G=255,R=255,A=255),SavedColor[18]=(B=255,G=255,R=255,A=255),SavedColor[19]=(B=255,G=255,R=255,A=255),SavedName="RU°MYTHIC")
-     AutoSyncSettings=True
-     LastSettingsLoadTimeSeconds=-100.000000
-     LastSettingsSaveTimeSeconds=-100.000000
-     PlayerReplicationInfoClass=Class'3SPHorstALPHA001.Misc_PRI'
-     Adrenaline=0.100000
-     AdrenalineMax=120.000000
+    CurrentSelectedColoredName=255
+    ColorName(0)=(R=255,G=255,B=255,A=255)
+    ColorName(1)=(R=255,G=255,B=255,A=255)
+    ColorName(2)=(R=255,G=255,B=255,A=255)
+    ColorName(3)=(R=255,G=255,B=255,A=255)
+    ColorName(4)=(R=255,G=255,B=255,A=255)
+    ColorName(5)=(R=255,G=255,B=255,A=255)
+    ColorName(6)=(R=255,G=255,B=255,A=255)
+    ColorName(7)=(R=255,G=255,B=255,A=255)
+    ColorName(8)=(R=255,G=255,B=255,A=255)
+    ColorName(9)=(R=255,G=255,B=255,A=255)
+    ColorName(10)=(R=255,G=255,B=255,A=255)
+    ColorName(11)=(R=255,G=255,B=255,A=255)
+    ColorName(12)=(R=255,G=255,B=255,A=255)
+    ColorName(13)=(R=255,G=255,B=255,A=255)
+    ColorName(14)=(R=255,G=255,B=255,A=255)
+    ColorName(15)=(R=255,G=255,B=255,A=255)
+    ColorName(16)=(R=255,G=255,B=255,A=255)
+    ColorName(17)=(R=255,G=255,B=255,A=255)
+    ColorName(18)=(R=255,G=255,B=255,A=255)
+    ColorName(19)=(R=255,G=255,B=255,A=255)     
+    AutoSyncSettings=True
+    LastSettingsLoadTimeSeconds=-100
+    LastSettingsSaveTimeSeconds=-100	
+    PlayerReplicationInfoClass=Class'3SPNRU-B1.Misc_PRI'
+    Adrenaline=0.100000
+    AdrenalineMax=120.000000
 }

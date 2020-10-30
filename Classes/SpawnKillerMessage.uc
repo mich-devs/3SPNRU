@@ -55,6 +55,6 @@ defaultproperties
      PlayerIsSpawnKiller="IS A SPAWN KILLER"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(R=0)
 }

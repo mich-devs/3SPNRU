@@ -21,7 +21,7 @@ var int rocketsuicide;
 var int PlayedRounds;           // the number of rounds that the player has played
 var int PPRListLength;
 var float Rank;
-var int Moneyreal;
+//var int Moneyreal;
 var float AvgPPR;
 var float DamageTime;
 var byte CurrentWeaponNum;
@@ -75,7 +75,7 @@ replication
   reliable if ( Role == 4 )
     RegisterDamage;
   unreliable if ( bNetDirty && (Role == 4) )
-    ColoredName,PlayedRounds,Rank,AvgPPR,PointsToRankUp,PPRListLength,PPRList,PawnReplicationInfo, Moneyreal;
+    ColoredName,PlayedRounds,Rank,AvgPPR,PointsToRankUp,PPRListLength,PPRList,PawnReplicationInfo;
 		
 }
 
@@ -271,5 +271,5 @@ function ProcessHitStats()
 defaultproperties
 {
      StringDeadNoRez="Dead [Inactive]"
-     PawnInfoClass=Class'3SPHorstALPHA001.Misc_PawnReplicationInfo'
+     PawnInfoClass=Class'3SPNRU-B1.Misc_PawnReplicationInfo'
 }

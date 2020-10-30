@@ -36,12 +36,12 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     ThawsomeSound=Sound'3SPHorstALPHA001.Sounds.Thawsome'
+     ThawsomeSound=Sound'3SPNRU-B1.Sounds.Thawsome'
      YouAreThawsome="YOU ARE THAWSOME!"
      PlayerIsThawsome="IS THAWSOME!"
      bIsUnique=True
      bFadeMessage=True
-     Lifetime=5
+     Lifetime=3
      DrawColor=(B=0,G=100)
      StackMode=SM_Down
      PosY=0.100000
