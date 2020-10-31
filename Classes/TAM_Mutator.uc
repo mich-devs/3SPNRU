@@ -265,7 +265,7 @@ function InitWeapons(int AssaultAmmo,int AssaultGrenades,int BioAmmo,int ShockAm
 		class'DamType_FlakChunk'.default.WeaponClass = class'NewNet_FlakCannon';
 		class'DamType_FlakShell'.default.WeaponClass = class'NewNet_FlakCannon';
 		class'DamTypeLinkPlasma'.default.WeaponClass = class'NewNet_LinkGun';
-		class'DamTypeLinkShaft'.default.WeaponClass = class'NewNet_LinkGun';
+		class'DamType_LinkShaft'.default.WeaponClass = class'NewNet_LinkGun';
 		class'DamTypeMinigunAlt'.default.WeaponClass = class'NewNet_MiniGun';
 		class'DamTypeMinigunBullet'.default.WeaponClass = class'NewNet_MiniGun';
 		class'DamType_Rocket'.default.WeaponClass = class'NewNet_RocketLauncher';
@@ -375,7 +375,7 @@ function ResetWeaponsToDefaults(bool bModifyShieldGun)
 		class'DamType_FlakChunk'.default.WeaponClass = class'xWeapons.FlakCannon';
 		class'DamType_FlakShell'.default.WeaponClass = class'xWeapons.FlakCannon';
 		class'DamTypeLinkPlasma'.default.WeaponClass = class'xWeapons.LinkGun';
-		class'DamTypeLinkShaft'.default.WeaponClass = class'xWeapons.LinkGun';
+		class'DamType_LinkShaft'.default.WeaponClass = class'xWeapons.LinkGun';
 		class'DamTypeMinigunAlt'.default.WeaponClass = class'xWeapons.MiniGun';
 		class'DamTypeMinigunBullet'.default.WeaponClass = class'xWeapons.MiniGun';
 		class'DamType_Rocket'.default.WeaponClass = class'xWeapons.RocketLauncher';

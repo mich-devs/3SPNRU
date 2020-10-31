@@ -668,14 +668,14 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
             {
                   PRI.Link.Primary.Hit++;
                   PRI.Link.Primary.Damage += Damage;
-//  swapping              PRI.Link.Secondary.Hit++;
+//                PRI.Link.Secondary.Hit++;
 //                PRI.Link.Secondary.Damage += Damage;
             }
-            else if(DamageType == class'DamTypeLinkShaft')
+            else if(DamageType == class'DamType_LinkShaft')
             {
                   PRI.Link.Secondary.Hit++;
                   PRI.Link.Secondary.Damage += Damage;
-//   swapping             PRI.Link.Primary.Hit++;
+//                PRI.Link.Primary.Hit++;
 //                PRI.Link.Primary.Damage += Damage;
             }
             else if(DamageType == class'DamType_HeadShot')
@@ -1876,7 +1876,7 @@ defaultproperties
      MutatorClass="3SPNRU-B2.TAM_Mutator"
      PlayerControllerClassName="3SPNRU-B2.Misc_Player"
      GameReplicationInfoClass=Class'3SPNRU-B2.TAM_GRI'
-     GameName="ArenaMaster RU - Beta 2"
+     GameName="ArenaMaster RU - Beta 2-2"
      Description="One life per round. Don't waste it"
      Acronym="AM"
 }

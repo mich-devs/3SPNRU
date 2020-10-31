@@ -444,4 +444,5 @@ function UnTimeTravel()
 
 defaultproperties
 {
+DamageType=Class'3SPNRU-B2.DamType_LinkShaft'
 }
