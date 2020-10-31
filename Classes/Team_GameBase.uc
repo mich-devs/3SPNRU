@@ -1550,7 +1550,7 @@ function StartMatch()
 {	
   local Controller C;
   local int CountPlayers;
-  local bool testen;
+//  local bool testen;
   
     Super(DeathMatch).StartMatch();
   
@@ -3905,24 +3905,24 @@ defaultproperties
      FlagTextureEnabled=True
      FlagTextureShowAcronym=True
 //     AllowServerSaveSettings=True
-     OvertimeSound=Sound'3SPNRU-B1.Sounds.overtime'
+     OvertimeSound=Sound'3SPNRU-B2.Sounds.overtime'
      UseZAxisRadar=True
      bScoreTeamKills=False
      bDamageIndicator=True
      FriendlyFireScale=0.500000
-     DefaultEnemyRosterClass="3SPNRU-B1.TAM_TeamInfo"
+     DefaultEnemyRosterClass="3SPNRU-B2.TAM_TeamInfo"
      ADR_MinorError=-5.000000
-     LoginMenuClass="3SPNRU-B1.Menu_TAMLoginMenu"
-     LocalStatsScreenClass=Class'3SPNRU-B1.Misc_StatBoard'
-     DefaultPlayerClassName="3SPNRU-B1.Misc_Pawn"
-     ScoreBoardType="3SPNRU-B1.TAM_Scoreboard"
-     HUDType="3SPNRU-B1.TAM_HUD"
+     LoginMenuClass="3SPNRU-B2.Menu_TAMLoginMenu"
+     LocalStatsScreenClass=Class'3SPNRU-B2.Misc_StatBoard'
+     DefaultPlayerClassName="3SPNRU-B2.Misc_Pawn"
+     ScoreBoardType="3SPNRU-B2.TAM_Scoreboard"
+     HUDType="3SPNRU-B2.TAM_HUD"
      GoalScore=10
      TimeLimit=0
-     DeathMessageClass=Class'3SPNRU-B1.Misc_DeathMessage'
-     MutatorClass="3SPNRU-B1.TAM_Mutator"
-     PlayerControllerClassName="3SPNRU-B1.Misc_Player"
-     GameReplicationInfoClass=Class'3SPNRU-B1.Misc_BaseGRI'
+     DeathMessageClass=Class'3SPNRU-B2.Misc_DeathMessage'
+     MutatorClass="3SPNRU-B2.TAM_Mutator"
+     PlayerControllerClassName="3SPNRU-B2.Misc_Player"
+     GameReplicationInfoClass=Class'3SPNRU-B2.Misc_BaseGRI'
      GameName="BASE"
      Description="One life per round. Don't waste it."
      ScreenShotName="UT2004Thumbnails.TDMShots"
