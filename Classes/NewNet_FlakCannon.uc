@@ -298,6 +298,6 @@ function NewNet_OldServerStartFire(byte Mode, float ClientTimeStamp)
 
 defaultproperties
 {
-     FireModeClass(0)=Class'3SPNRU-B1.NewNet_FlakFire'
-     FireModeClass(1)=Class'3SPNRU-B1.NewNet_FlakAltFire'
+     FireModeClass(0)=Class'3SPNRU-B2.NewNet_FlakFire'
+     FireModeClass(1)=Class'3SPNRU-B2.NewNet_FlakAltFire'
 }

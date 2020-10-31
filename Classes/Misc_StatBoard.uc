@@ -10,7 +10,7 @@ var int KillsX;
 var int DamageX;
 var int FiredX;
 var int AccX;
-var Controller HeadHunter;
+//var Controller HeadHunter;
 
 var Misc_PRI OwnerPRI;
 var Misc_PRI ViewPRI;
@@ -1086,5 +1086,5 @@ simulated event DrawScoreBoard(Canvas C)
 defaultproperties
 {
      Box=Texture'Engine.WhiteSquareTexture'
-     BaseTex=Texture'3SPNRU-B1.textures.Scoreboard_old'
+     BaseTex=Texture'3SPNRU-B2.textures.Scoreboard_old'
 }

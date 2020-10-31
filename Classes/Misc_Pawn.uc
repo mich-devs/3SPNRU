@@ -858,4 +858,16 @@ defaultproperties
      ShieldHitMatTime=0.350000
      RequiredEquipment(0)="XWeapons.ShieldGun"
      RequiredEquipment(1)="XWeapons.AssaultRifle"
+     RagdollLifeSpan=14.000000
+     RagInvInertia=4.000001
+     RagDeathVel=200.000001
+     RagShootStrength=8000.000001
+     RagSpinScale=2.500001
+     RagDeathUpKick=150.000001
+     RagGravScale=1.000001
+     RagImpactSounds(0)=Sound'GeneralImpacts.Wet.Breakbone_01'
+     RagImpactSounds(1)=Sound'GeneralImpacts.Wet.Breakbone_02'
+     RagImpactSounds(2)=Sound'GeneralImpacts.Wet.Breakbone_03'
+     RagImpactSoundInterval=0.500000
+     RagImpactVolume=2.500000
 }
