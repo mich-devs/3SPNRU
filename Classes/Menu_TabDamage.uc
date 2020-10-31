@@ -123,7 +123,7 @@ defaultproperties
          WinHeight=1.000000
          bNeverFocus=True
      End Object
-     Controls(0)=GUIImage'3SPNRU-B1.Menu_TabDamage.TabBackground'
+     Controls(0)=GUIImage'3SPNRU-B2.Menu_TabDamage.TabBackground'
 
     Begin Object Class=GUILabel Name=DamageLabel 
         Caption="Damage Indicators"
@@ -134,7 +134,7 @@ defaultproperties
         bStandardized=true
         StandardHeight=0.030
     End Object
-    Controls(1)=GUILabel'3SPNRU-B1.Menu_TabDamage.DamageLabel'
+    Controls(1)=GUILabel'3SPNRU-B2.Menu_TabDamage.DamageLabel'
 
     Begin Object Class=moCheckBox Name=DamageCheck
         Caption="Enable centered damage numbers."
@@ -145,7 +145,7 @@ defaultproperties
         WinWidth=0.600
         OnChange=OnChange
     End Object
-    Controls(2)=moCheckBox'3SPNRU-B1.Menu_TabDamage.DamageCheck'
+    Controls(2)=moCheckBox'3SPNRU-B2.Menu_TabDamage.DamageCheck'
 
     Begin Object Class=moCheckBox Name=DamageCheck2
         Caption="Enable floating damage numbers."
@@ -156,5 +156,5 @@ defaultproperties
         WinWidth=0.600
         OnChange=OnChange
     End Object
-    Controls(3)=moCheckBox'3SPNRU-B1.Menu_TabDamage.DamageCheck2'
+    Controls(3)=moCheckBox'3SPNRU-B2.Menu_TabDamage.DamageCheck2'
 }

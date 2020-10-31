@@ -38,7 +38,7 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     GrenadeSound=Sound'3SPNRU-B1.Sounds.Grenade'
+     GrenadeSound=Sound'3SPNRU-B2.Sounds.Grenade'
      Grenade4="G R E N A D I E R"
      Secondmessa="Is A Grenadier"
      bIsUnique=True
