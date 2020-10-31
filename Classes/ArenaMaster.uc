@@ -666,13 +666,17 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
             }
             else if(DamageType == class'DamTypeLinkPlasma')
             {
-                PRI.Link.Primary.Hit++;
-                PRI.Link.Primary.Damage += Damage;
+                  PRI.Link.Primary.Hit++;
+                  PRI.Link.Primary.Damage += Damage;
+//  swapping              PRI.Link.Secondary.Hit++;
+//                PRI.Link.Secondary.Damage += Damage;
             }
             else if(DamageType == class'DamTypeLinkShaft')
             {
-                PRI.Link.Secondary.Hit++;
-                PRI.Link.Secondary.Damage += Damage;
+                  PRI.Link.Secondary.Hit++;
+                  PRI.Link.Secondary.Damage += Damage;
+//   swapping             PRI.Link.Primary.Hit++;
+//                PRI.Link.Primary.Damage += Damage;
             }
             else if(DamageType == class'DamType_HeadShot')
             {
