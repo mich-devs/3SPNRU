@@ -1876,7 +1876,7 @@ defaultproperties
      MutatorClass="3SPNRU-B2.TAM_Mutator"
      PlayerControllerClassName="3SPNRU-B2.Misc_Player"
      GameReplicationInfoClass=Class'3SPNRU-B2.TAM_GRI'
-     GameName="ArenaMaster RU - Beta 2-2"
+     GameName="ArenaMaster RU - Beta 2"
      Description="One life per round. Don't waste it"
      Acronym="AM"
 }

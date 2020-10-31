@@ -327,6 +327,6 @@ defaultproperties
      MapListType="3SPNRU-B2.MapListTeamArenaMaster"
      MaxLives=1
      GameReplicationInfoClass=Class'3SPNRU-B2.TAM_GRI'
-     GameName="Team ArenaMaster RU - Beta 1"
+     GameName="Team ArenaMaster RU - Beta 2"
      Acronym="TAM"
 }
