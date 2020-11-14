@@ -1235,12 +1235,12 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                 PRI.Combo.Hit++;
                 PRI.Combo.Damage += Damage;
             }
-            else if(DamageType == class'DamTypeMinigunBullet')
+            else if(DamageType == class'DamType_MinigunBullet')
             {
                 PRI.Mini.Primary.Hit++;
                 PRI.Mini.Primary.Damage += Damage;
             }
-            else if(DamageType == class'DamTypeMinigunAlt')
+            else if(DamageType == class'DamType_MinigunAlt')
             {
                 PRI.Mini.Secondary.Hit++;
                 PRI.Mini.Secondary.Damage += Damage;

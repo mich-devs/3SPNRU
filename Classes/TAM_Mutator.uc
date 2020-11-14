@@ -266,8 +266,8 @@ function InitWeapons(int AssaultAmmo,int AssaultGrenades,int BioAmmo,int ShockAm
 		class'DamType_FlakShell'.default.WeaponClass = class'NewNet_FlakCannon';
 		class'DamType_LinkPlasma'.default.WeaponClass = class'NewNet_LinkGun';
 		class'DamType_LinkShaft'.default.WeaponClass = class'NewNet_LinkGun';
-		class'DamTypeMinigunAlt'.default.WeaponClass = class'NewNet_MiniGun';
-		class'DamTypeMinigunBullet'.default.WeaponClass = class'NewNet_MiniGun';
+		class'DamType_MinigunAlt'.default.WeaponClass = class'NewNet_MiniGun';
+		class'DamType_MinigunBullet'.default.WeaponClass = class'NewNet_MiniGun';
 		class'DamType_Rocket'.default.WeaponClass = class'NewNet_RocketLauncher';
 		class'DamType_RocketHoming'.default.WeaponClass = class'NewNet_RocketLauncher';
 		class'DamTypeShockBall'.default.WeaponClass = class'NewNet_ShockRifle';
