@@ -1245,7 +1245,7 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                 PRI.Mini.Secondary.Hit++;
                 PRI.Mini.Secondary.Damage += Damage;
             }
-            else if(DamageType == class'DamTypeLinkPlasma')
+            else if(DamageType == class'DamType_LinkPlasma')
             {
                   PRI.Link.Primary.Hit++;
                   PRI.Link.Primary.Damage += Damage;
