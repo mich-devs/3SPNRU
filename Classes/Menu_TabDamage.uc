@@ -86,11 +86,13 @@ function OnChange(GUIComponent C)
                 MP.DamageIndicator = Centered;
                 class'Misc_Player'.default.DamageIndicator = Centered;
                 moCheckBox(Controls[2]).MyCheckBox.bChecked = true;
+				Controls[3].DisableMe();
             }
             else
             {
                 MP.DamageIndicator = Disabled;
                 class'Misc_Player'.default.DamageIndicator = Disabled;
+				Controls[3].EnableMe();
             }
         }                
 
@@ -101,11 +103,13 @@ function OnChange(GUIComponent C)
                 MP.DamageIndicator = Floating;
                 class'Misc_Player'.default.DamageIndicator = Floating;
                 moCheckBox(Controls[3]).MyCheckBox.bChecked = true;
+				Controls[2].DisableMe();
             }
             else
             {
                 MP.DamageIndicator = Disabled;
                 class'Misc_Player'.default.DamageIndicator = Disabled;
+				Controls[2].EnableMe();
             }
         }                
     }
