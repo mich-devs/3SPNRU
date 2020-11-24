@@ -40,7 +40,7 @@ defaultproperties
          bNeverFocus=True
          OnPreDraw=SectionBackgObj.InternalPreDraw
      End Object
-     SectionBackg=AltSectionBackground'3SPNRU-B1.Menu_TabInfo.SectionBackgObj'
+     SectionBackg=AltSectionBackground'3SPNRU-B2.Menu_TabInfo.SectionBackgObj'
 
      Begin Object Class=GUIScrollTextBox Name=TextBoxObj
          bNoTeletype=True
@@ -55,7 +55,7 @@ defaultproperties
          bScaleToParent=True
          bNeverFocus=True
      End Object
-     TextBox=GUIScrollTextBox'3SPNRU-B1.Menu_TabInfo.TextBoxObj'
+     TextBox=GUIScrollTextBox'3SPNRU-B2.Menu_TabInfo.TextBoxObj'
 
      InfoText(0)="Greetings!"
      InfoText(1)="======="
@@ -76,7 +76,7 @@ defaultproperties
      InfoText(75)="  * Beltamaxx for his great ideas, inspiration and encouragement."
      InfoText(76)="  * SoL»Lizard for 3SPN changes and support."
      InfoText(77)="  * Attila, Horst & InhumanAimz for their work on 3SPN "
-     InfoText(78)="  * Hv, f00l, Mythic, Nolja for the 3SPN RU Version "
+     InfoText(78)="  * Hv, Viking, f00l, Mythic, Nolja for their help with 3SPN RU "
      InfoText(79)="  * The RU Community for their testing, patience, and feedback."
      InfoText(80)="All without whom this mutator and its adjustments would not be possible!"
 }
