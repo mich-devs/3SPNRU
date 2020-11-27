@@ -3522,6 +3522,12 @@ function CalculateHatTricks(Controller c)
 	}
 }
 
+// Override of TeamGame.uc to prevent HatTrick notification on 3 total goals scored
+function IncrementGoalsScored(PlayerReplicationInfo PRI)
+{
+	PRI.GoalsScored += 1;
+}
+
 function AnnounceScoreReliable(int ScoringTeam)
 {
     local Controller C;
