@@ -1184,10 +1184,10 @@ function ServerUpdateStatArrays(TeamPlayerReplicationInfo PRI)
     ClientSendSniperStats(P, P.Sniper);
     ClientSendComboStats(P, P.Combo);
     ClientSendMiscStats(P, P.HeadShots, P.EnemyDamage, P.ReverseFF, P.AveragePercent, 
-        P.FlawlessCount, P.OverkillCount, P.DarkHorseCount, P.SGDamage, P.LinkCount, P.RoxCount, P.ShieldCount, P.GrenCount);
+        P.FlawlessCount, P.OverkillCount, P.DarkHorseCount, P.HatTrickCount, P.SGDamage, P.LinkCount, P.RoxCount, P.ShieldCount, P.GrenCount);
 }
 
-function ClientSendMiscStats(Misc_PRI P, int HS, int ED, float RFF, float AP, int FC, int OC, int DHC, int SGD, int LinkCount, int RoxCount, int ShieldCount, int GrenCount)
+function ClientSendMiscStats(Misc_PRI P, int HS, int ED, float RFF, float AP, int FC, int OC, int DHC, int HTC, int SGD, int LinkCount, int RoxCount, int ShieldCount, int GrenCount)
 {
     P.HeadShots = HS;
 	P.EnemyDamage = ED;
@@ -1196,6 +1196,7 @@ function ClientSendMiscStats(Misc_PRI P, int HS, int ED, float RFF, float AP, in
     P.FlawlessCount = FC;
 	P.OverkillCount = OC;
 	P.DarkHorseCount = DHC;
+	P.HatTrickCount = HTC;
 	P.SGDamage = SGD;
 	P.LinkCount = LinkCount;
 	P.RoxCount = RoxCount;

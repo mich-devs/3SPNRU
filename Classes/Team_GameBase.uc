@@ -11,6 +11,7 @@ var config int      StartingHealth;
 var config int      StartingArmor;
 var config float    MaxHealth;
 var int TeamScoreDelta[2];
+var int LastWinTeamIndex;
 var config float    AdrenalinePerDamage;     // adrenaline per 10 damage
 var config float    ScoreAwardPer10Damage;   // score adjustment per 10 damage
 var Misc_BaseGRI GRIstat;
@@ -585,6 +586,7 @@ event InitGame(string Options, out string Error)
     // Must enable UT stats logging to get the StatsID
     bEnableStatLogging=true;
   }
+  
   DisablePersistentStatsForMatch = False;
   NoStatsForThisMatch = False;
   Super.InitGame(Options, Error);
@@ -671,6 +673,7 @@ event InitGame(string Options, out string Error)
     }
   }
   MatchStatsRegistered = False;
+  LastWinTeamIndex = -1;
   TeamScoreDelta[0] = 0;
   TeamScoreDelta[1] = 0;
   SaveConfig();
@@ -3414,27 +3417,7 @@ function EndRound(PlayerReplicationInfo Scorer)
     TeamScoreEvent(WinningTeamIndex, 1, "tdm_frag");
     Teams[WinningTeamIndex].Score += 1;
     AnnounceScoreReliable(WinningTeamIndex);
-
-  if (  ++TeamScoreDelta[WinningTeamIndex] == 3 )
-  {
-  
-    C = Level.ControllerList;
-	JL02EE:
-    if ( C != None )
-    {
-      if ( PlayerController(C) == None )
-      {
-       
-      }
-      if ( (Pawn(PlayerController(C).ViewTarget) != None) && (Pawn(PlayerController(C).ViewTarget).GetTeamNum() == WinningTeamIndex) )
-      {
-        PlayerController(C).ReceiveLocalizedMessage(Class'Message_HatTrick',0);
-      }
-      
-      C = C.nextController;
-      goto JL02EE;
-	  }
- }
+	CalculateHatTricks(C);
 
     // check for darkhorse
     if(DarkHorse != None && DarkHorse.PlayerReplicationInfo != None && DarkHorse.PlayerReplicationInfo == Scorer)
@@ -3500,6 +3483,43 @@ function EndRound(PlayerReplicationInfo Scorer)
         if(NextRoundDelay>0)
             NextRoundTime = NextRoundDelay;
     }
+}
+
+function CalculateHatTricks(Controller c)
+{
+	TeamScoreDelta[WinningTeamIndex]++;
+
+	if (LastWinTeamIndex == -1)
+	{
+		LastWinTeamIndex = WinningTeamIndex;
+		return;
+	}
+    
+	if (LastWinTeamIndex != WinningTeamIndex )
+	{
+		TeamScoreDelta[LastWinTeamIndex] = 0;
+		LastWinTeamIndex = WinningTeamIndex;
+		return;
+	}
+
+	if (TeamScoreDelta[WinningTeamIndex] == 3 )
+	{
+		TeamScoreDelta[WinningTeamIndex] = 0;
+
+		C = Level.ControllerList;
+		JL02EE:
+		if ( C != None )
+		{
+		  if( Pawn(PlayerController(C).ViewTarget) != None && Pawn(PlayerController(C).ViewTarget).GetTeamNum() == WinningTeamIndex )
+		  {
+			Misc_PRI(C.PlayerReplicationInfo).HatTrickCount++;
+			PlayerController(C).ReceiveLocalizedMessage(Class'Message_HatTrick',0);
+		  }
+      
+		  C = C.nextController;
+		  goto JL02EE;
+		}
+	}
 }
 
 function AnnounceScoreReliable(int ScoringTeam)
