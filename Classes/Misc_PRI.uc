@@ -15,6 +15,7 @@ var int MinigunCount;
 var int FlawlessCount;          // number of flawless victories - NR
 var int OverkillCount;          // number of overkills - NR
 var int DarkHorseCount;         // number of darkhorses - NR
+var int HatTrickCount;          // number of hat tricks - NR
 var int LinkCount;
 var int RoxCount;				// number of rocket kills
 var int rocketsuicide;

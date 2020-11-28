@@ -705,7 +705,7 @@ simulated event DrawScoreBoard(Canvas C)
             Awards++;
 		if(TmpPRI.LinkCount > 0) 
             Awards++;
-        if(TmpPRI.GoalsScored > 2)
+        if(TmpPRI.HatTrickCount > 0)
             Awards++;
 		if(TmpPRI.MinigunCount > 3)
             Awards++;
@@ -815,10 +815,10 @@ simulated event DrawScoreBoard(Canvas C)
                 MiscY += MiscH;
             }
 
-            if(TmpPRI.GoalsScored > 2)
+            if(TmpPRI.HatTrickCount > 0)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawTextClipped(HatTrick);
+                C.DrawText("Hat-trick!"$MakeColorCode(HUDClass.default.GoldColor * 0.7)$"x"$TmpPRI.HatTrickCount);
                 MiscY += MiscH;
             }
 			
