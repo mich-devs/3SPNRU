@@ -19,12 +19,7 @@ var config bool bDisableAmmoRegen;
 var config bool bShowTeamInfo;          // show teams info on the HUD
 var config bool bExtendedInfo;          // show extra teammate info
 
-var config enum EDamageIndicator
-	{
-		Disabled,
-		Centered,
-		Floating
-	} DamageIndicator;
+var config int DamageIndicatorType;     // 1 = Disabled, 2 = Centered, 3 = Floating
 
 var config bool bMatchHUDToSkins;       // sets HUD color to brightskins color
 /* HUD related */
@@ -443,7 +438,7 @@ function PlayerTick(float DeltaTime)
         
         if(HitPawn != None && Misc_BaseGRI(GameReplicationInfo).bDamageIndicator)
         {
-            if (DamageIndicator == Centered)
+            if (DamageIndicatorType == 2)
             {
                 if ( (Level.TimeSeconds - SumDamageTime > 1) || (SumDamage > 0 ^^ Damage > 0) )
                     SumDamage = 0;
@@ -451,7 +446,7 @@ function PlayerTick(float DeltaTime)
                 SumDamageTime = Level.TimeSeconds;
             }
             
-            if(DamageIndicator == Floating)
+            if(DamageIndicatorType == 3)
                 class'Emitter_Damage'.static.ShowDamage(HitPawn, HitPawn.Location, Damage);        
         }        
     }
@@ -1806,6 +1801,7 @@ simulated function ReloadDefaults()
 	bUseTeamModels = class'Misc_Player'.default.bUseTeamModels;
 	RedEnemyModel = class'Misc_Player'.default.RedEnemyModel;
 	BlueAllyModel = class'Misc_Player'.default.BlueAllyModel;
+    DamageIndicatorType = class'Misc_Player'.default.DamageIndicatorType;
 	
 	bDisableAnnouncement = class'Misc_Player'.default.bDisableAnnouncement;
 	bAutoScreenShot = class'Misc_Player'.default.bAutoScreenShot;
@@ -1901,6 +1897,7 @@ function ClientLoadSettings(string PlayerName, Misc_PlayerSettings.BrightSkinsSe
 	class'Misc_Player'.default.SoundHitVolume = Misc.SoundHitVolume;
 	class'Misc_Player'.default.SoundAloneVolume = Misc.SoundAloneVolume;
 	class'Misc_Player'.default.AutoSyncSettings = Misc.AutoSyncSettings;
+    class'Misc_Player'.default.DamageIndicatorType = Misc.DamageIndicatorType;
 
 	ReloadDefaults();
 	SetupCombos();
@@ -2031,6 +2028,7 @@ function SaveSettings()
 	Misc.SoundHitVolume = class'Misc_Player'.default.SoundHitVolume;
 	Misc.SoundAloneVolume = class'Misc_Player'.default.SoundAloneVolume;
 	Misc.AutoSyncSettings = class'Misc_Player'.default.AutoSyncSettings;
+    Misc.DamageIndicatorType = class'Misc_Player'.default.DamageIndicatorType;
 	
 	ServerSaveSettings(BrightSkins, ColoredNames, Misc);
 }
@@ -2072,6 +2070,7 @@ defaultproperties
      bUseTeamModels=True
      RedEnemyModel="Gorge"
      BlueAllyModel="Jakob"
+     DamageIndicatorType=1
      bAnnounceOverkill=True
      bUseHitSounds=True
      SoundHit=Sound'3SPNRU-B2.Sounds.HitSound'

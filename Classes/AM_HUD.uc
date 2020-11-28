@@ -284,7 +284,7 @@ simulated function DrawDamageIndicators(Canvas C)
     
     Super.DrawDamageIndicators(C);
     
-    if(bHideHud || Misc_Player(PlayerOwner) == None || Misc_Player(PlayerOwner).DamageIndicator != Centered)
+    if(bHideHud || Misc_Player(PlayerOwner) == None || Misc_Player(PlayerOwner).DamageIndicatorType != 2)
         return;
 
     if(Misc_Player(PlayerOwner).SumDamageTime + 1 <= Level.TimeSeconds)
