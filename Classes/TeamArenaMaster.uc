@@ -329,4 +329,5 @@ defaultproperties
      GameReplicationInfoClass=Class'3SPNRU-B1.TAM_GRI'
      GameName="Team ArenaMaster RU - Beta 1"
      Acronym="TAM"
+     MapPrefix="TAM"
 }
