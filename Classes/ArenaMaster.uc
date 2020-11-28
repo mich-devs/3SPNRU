@@ -1800,4 +1800,5 @@ defaultproperties
      GameName="ArenaMaster RU - Beta 1"
      Description="One life per round. Don't waste it"
      Acronym="AM"
+     MapPrefix="AM"
 }
