@@ -56,7 +56,7 @@ defaultproperties
          OnCreateComponent=ComboDamageIndicatorType.InternalOnCreateComponent
          WinTop=0.350000
 		 WinLeft=0.100000
-         WinWidth=0.300000
+         WinWidth=0.600000
 		 OnChange=Menu_TabDamage.InternalOnChange
      End Object
      DamageSelect=moComboBox'3SPNRU-B2.Menu_TabDamage.ComboDamageIndicatorType'
