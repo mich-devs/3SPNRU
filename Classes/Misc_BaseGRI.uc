@@ -90,7 +90,7 @@ function UpdateServerRecorder ()
 {
   local string NewText;
   local string Text;
-  local bool teste;
+//  local bool teste;
  // local bool stat;
 	//stat = TGB.NoStatsForThisMatch;
  // if (teste)
@@ -283,6 +283,6 @@ simulated function Timer()
 
 defaultproperties
 {
-     Version="3SPNRU-Beta1"
+     Version="3SPNRU-Beta2"
      EnableNewNet=True
 }

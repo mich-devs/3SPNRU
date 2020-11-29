@@ -15,6 +15,7 @@ var int MinigunCount;
 var int FlawlessCount;          // number of flawless victories - NR
 var int OverkillCount;          // number of overkills - NR
 var int DarkHorseCount;         // number of darkhorses - NR
+var int HatTrickCount;          // number of hat tricks - NR
 var int LinkCount;
 var int RoxCount;				// number of rocket kills
 var int rocketsuicide;
@@ -89,12 +90,12 @@ event PostBeginPlay()
 
 simulated function string GetColoredName()
 {
-	local Misc_PlayerDataManager_Local PD;
+//	local Misc_PlayerDataManager_Local PD;
 	
-	local string dona;
-	local string test;
-	dona = "d";
-	
+//	local string dona;
+//	local string test;
+//	dona = "d";
+//	
 	
 	if(ColoredName=="")
 		
@@ -271,5 +272,5 @@ function ProcessHitStats()
 defaultproperties
 {
      StringDeadNoRez="Dead [Inactive]"
-     PawnInfoClass=Class'3SPNRU-B1.Misc_PawnReplicationInfo'
+     PawnInfoClass=Class'3SPNRU-B2.Misc_PawnReplicationInfo'
 }

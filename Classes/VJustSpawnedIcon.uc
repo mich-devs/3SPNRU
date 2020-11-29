@@ -45,6 +45,6 @@ function Tick (float DeltaTime)
 defaultproperties
 {
      LifeSpan=4.500000
-     Texture=Texture'3SPNRU-B1.textures.SpawnKillerIcon'
+     Texture=Texture'3SPNRU-B2.textures.SpawnKillerIcon'
      DrawScale=0.150000
 }

@@ -36,7 +36,7 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     FlamerSound=Sound'3SPNRU-B1.Sounds.flamer'
+     FlamerSound=Sound'3SPNRU-B2.Sounds.flamer'
      YouAreFlamer="YOU ARE A FLAMER!"
      PlayerIsFlamer="IS A FLAMER!"
      bIsUnique=True

@@ -68,6 +68,11 @@ simulated function DrawHitStat(Canvas C, int fired, int hit, int dam, int killsw
     Acc = GetPercentage(fired, hit);
 
     C.SetPos(x + TextX, y + TextY);
+    
+    /*if(fired > 0)
+        C.DrawColor = HUDClass.default.WhiteColor * 0.7;
+    else 
+        C.DrawColor = HUDClass.default.WhiteColor * 0.3;*/
 
     C.DrawColor = HUDClass.default.WhiteColor * 0.7;
 
@@ -699,7 +704,7 @@ simulated event DrawScoreBoard(Canvas C)
             Awards++;
 		if(TmpPRI.LinkCount > 0) 
             Awards++;
-        if(TmpPRI.GoalsScored > 2)
+        if(TmpPRI.HatTrickCount > 0)
             Awards++;
 		if(TmpPRI.MinigunCount > 3)
             Awards++;
@@ -809,10 +814,10 @@ simulated event DrawScoreBoard(Canvas C)
                 MiscY += MiscH;
             }
 
-            if(TmpPRI.GoalsScored > 2)
+            if(TmpPRI.HatTrickCount > 0)
             {
                 C.SetPos(MiscX + TextX, MiscY + TextY);
-                C.DrawTextClipped(HatTrick);
+                C.DrawText("Hat-trick!"$MakeColorCode(HUDClass.default.GoldColor * 0.7)$"x"$TmpPRI.HatTrickCount);
                 MiscY += MiscH;
             }
 			

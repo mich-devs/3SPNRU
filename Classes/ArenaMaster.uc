@@ -654,25 +654,29 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
                 PRI.Combo.Hit++;
                 PRI.Combo.Damage += Damage;
             }
-            else if(DamageType == class'DamTypeMinigunBullet')
+            else if(DamageType == class'DamType_MinigunBullet')
             {
                 PRI.Mini.Primary.Hit++;
                 PRI.Mini.Primary.Damage += Damage;
             }
-            else if(DamageType == class'DamTypeMinigunAlt')
+            else if(DamageType == class'DamType_MinigunAlt')
             {
                 PRI.Mini.Secondary.Hit++;
                 PRI.Mini.Secondary.Damage += Damage;
             }
-            else if(DamageType == class'DamTypeLinkPlasma')
+            else if(DamageType == class'DamType_LinkPlasma')
             {
-                PRI.Link.Secondary.Hit++;
-                PRI.Link.Secondary.Damage += Damage;
+                  PRI.Link.Primary.Hit++;
+                  PRI.Link.Primary.Damage += Damage;
+//                PRI.Link.Secondary.Hit++;
+//                PRI.Link.Secondary.Damage += Damage;
             }
-            else if(DamageType == class'DamTypeLinkShaft')
+            else if(DamageType == class'DamType_LinkShaft')
             {
-                PRI.Link.Primary.Hit++;
-                PRI.Link.Primary.Damage += Damage;
+                  PRI.Link.Secondary.Hit++;
+                  PRI.Link.Secondary.Damage += Damage;
+//                PRI.Link.Primary.Hit++;
+//                PRI.Link.Primary.Damage += Damage;
             }
             else if(DamageType == class'DamType_HeadShot')
             {
@@ -967,9 +971,9 @@ function bool AddBot(optional string botName)
 function string SwapDefaultCombo(string ComboName)
 {
     if(ComboName ~= "xGame.ComboSpeed")
-        return "3SPNRU-B1.Misc_ComboSpeed";
+        return "3SPNRU-B2.Misc_ComboSpeed";
     else if(ComboName ~= "xGame.ComboBerserk")
-        return "3SPNRU-B1.Misc_ComboBerserk";
+        return "3SPNRU-B2.Misc_ComboBerserk";
 
     return ComboName;
 }
@@ -1589,6 +1593,7 @@ function EndRound(PlayerReplicationInfo Scorer)
     TAM_GRI(GameReplicationInfo).bEndOfRound = true;
 
     AnnounceBest();
+	AnnounceSurvivors();
 	
     if(Scorer != None)
 	{
@@ -1702,6 +1707,80 @@ function AnnounceBest()
 			Misc_Player(c).ClientListBest(acc, dam, hs);
 }
 
+function AnnounceSurvivors()
+{
+    local array<Controller> lowPlayers;
+    local Controller C;
+    local int i;
+    local Misc_PRI PRI;
+    local string Red;
+    local string Blue;
+    local string HealthCol;
+    local string Text;
+    local string Result;
+    local Color  color;
+    local int health;
+
+    for(C = Level.ControllerList; C != None; C = C.NextController)
+    {
+        if(C.PlayerReplicationInfo==None
+            || !C.bIsPlayer
+            || C.PlayerReplicationInfo.bOutOfLives
+            || C.PlayerReplicationInfo.bOnlySpectator)
+            continue;
+
+        if(C.Pawn == None)
+            continue;
+
+        for(i=0; i<lowPlayers.Length; ++i)
+        {
+          if(lowPlayers[i].Pawn.Health+lowPlayers[i].Pawn.ShieldStrength > C.Pawn.Health+C.Pawn.ShieldStrength) {
+            lowPlayers.Insert(i,1);
+            lowPlayers[i] = C;
+            break;
+          }
+        }
+
+        if(i==lowPlayers.Length) {
+          lowPlayers.Insert(i,1);
+          lowPlayers[i] = C;
+        }
+    }
+
+    if(lowPlayers.length==0)
+        return;
+		
+    Red = class'DMStatsScreen'.static.MakeColorCode(class'SayMessagePlus'.default.RedTeamColor);
+    Blue = class'DMStatsScreen'.static.MakeColorCode(class'SayMessagePlus'.default.BlueTeamColor);
+
+    color = class'Canvas'.static.MakeColor(210, 210, 210);
+    Text = class'DMStatsScreen'.static.MakeColorCode(color);
+
+    Result = "This Rounds Winner is: ";
+
+    for(i=0; i<Min(5,lowPlayers.length); ++i)
+    {
+        PRI = Misc_PRI(lowPlayers[i].PlayerReplicationInfo);
+        if(PRI == None)
+          continue;
+
+        health = Max(0,PRI.PawnReplicationInfo.Health + PRI.PawnReplicationInfo.Shield);
+        color = class'Team_HUDBase'.static.GetHealthRampColor(PRI);
+        HealthCol = class'Misc_Util'.static.MakeColorCode(color);
+
+        if(i>0)
+          Result = Result$" ";
+
+        if(PRI.Team.TeamIndex==0) {
+            Result = Result $ Red$PRI.PlayerName$" "$HealthCol$health;
+        }
+    }
+
+    for(C = Level.ControllerList; C != None; C = C.NextController)
+        if(PlayerController(C) != None)
+            PlayerController(C).ClientMessage(Result);
+}
+
 function SetMapString(Misc_Player Sender, string s)
 {
     if(Level.NetMode == NM_Standalone || Sender.PlayerReplicationInfo.bAdmin)
@@ -1782,22 +1861,22 @@ defaultproperties
      ShowServerName=True
      FlagTextureEnabled=True
      FlagTextureShowAcronym=True
-     OvertimeSound=Sound'3SPNRU-B1.Sounds.overtime'
+     OvertimeSound=Sound'3SPNRU-B2.Sounds.overtime'
      ADR_MinorError=-5.000000
-     LoginMenuClass="3SPNRU-B1.Menu_TAMLoginMenu"
-     LocalStatsScreenClass=Class'3SPNRU-B1.Misc_StatBoard'
-     DefaultPlayerClassName="3SPNRU-B1.Misc_Pawn"
-     ScoreBoardType="3SPNRU-B1.AM_Scoreboard"
-     HUDType="3SPNRU-B1.AM_HUD"
-     MapListType="3SPNRU-B1.MapListArenaMaster"
+     LoginMenuClass="3SPNRU-B2.Menu_TAMLoginMenu"
+     LocalStatsScreenClass=Class'3SPNRU-B2.Misc_StatBoard'
+     DefaultPlayerClassName="3SPNRU-B2.Misc_Pawn"
+     ScoreBoardType="3SPNRU-B2.AM_Scoreboard"
+     HUDType="3SPNRU-B2.AM_HUD"
+     MapListType="3SPNRU-B2.MapListArenaMaster"
      GoalScore=5
      MaxLives=1
      TimeLimit=0
-     DeathMessageClass=Class'3SPNRU-B1.Misc_DeathMessage'
-     MutatorClass="3SPNRU-B1.TAM_Mutator"
-     PlayerControllerClassName="3SPNRU-B1.Misc_Player"
-     GameReplicationInfoClass=Class'3SPNRU-B1.TAM_GRI'
-     GameName="ArenaMaster RU - Beta 1"
+     DeathMessageClass=Class'3SPNRU-B2.Misc_DeathMessage'
+     MutatorClass="3SPNRU-B2.TAM_Mutator"
+     PlayerControllerClassName="3SPNRU-B2.Misc_Player"
+     GameReplicationInfoClass=Class'3SPNRU-B2.TAM_GRI'
+     GameName="ArenaMaster RU - Beta 2"
      Description="One life per round. Don't waste it"
      Acronym="AM"
 }

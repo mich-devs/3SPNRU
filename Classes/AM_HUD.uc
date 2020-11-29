@@ -284,7 +284,7 @@ simulated function DrawDamageIndicators(Canvas C)
     
     Super.DrawDamageIndicators(C);
     
-    if(bHideHud || Misc_Player(PlayerOwner) == None || Misc_Player(PlayerOwner).DamageIndicator != Centered)
+    if(bHideHud || Misc_Player(PlayerOwner) == None || Misc_Player(PlayerOwner).DamageIndicatorType != 2)
         return;
 
     if(Misc_Player(PlayerOwner).SumDamageTime + 1 <= Level.TimeSeconds)
@@ -307,5 +307,5 @@ simulated function DrawDamageIndicators(Canvas C)
 defaultproperties
 {
      TeamTex=Texture'HUDContent.Generic.HUD'
-     TrackedPlayer=Texture'3SPNRU-B1.textures.chair'
+     TrackedPlayer=Texture'3SPNRU-B2.textures.chair'
 }

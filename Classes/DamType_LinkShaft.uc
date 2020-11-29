@@ -29,5 +29,10 @@ static function IncrementKills(Controller Killer)
 
 defaultproperties
 {
+     WeaponClass=Class'NewNet_LinkGun'
+     bCauseConvulsions=True
+     bLeaveBodyEffect=False
+     bCausesBlood=True
+     bSkeletize=False
      AwardLevel=5
 }

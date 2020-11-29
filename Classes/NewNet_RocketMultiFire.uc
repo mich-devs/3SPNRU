@@ -518,5 +518,5 @@ function SuperServerDoFireEffect()
 
 defaultproperties
 {
-     FakeProjectileClass=Class'3SPNRU-B1.NewNet_Fake_RocketProj'
+     FakeProjectileClass=Class'3SPNRU-B2.NewNet_Fake_RocketProj'
 }
