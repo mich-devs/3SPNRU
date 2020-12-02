@@ -10,7 +10,6 @@ var int KillsX;
 var int DamageX;
 var int FiredX;
 var int AccX;
-//var Controller HeadHunter;
 
 var Misc_PRI OwnerPRI;
 var Misc_PRI ViewPRI;
@@ -82,9 +81,9 @@ simulated function DrawHitStat(Canvas C, int fired, int hit, int dam, int killsw
     C.SetPos(x + KillsX - XL, y + TextY);
     C.DrawText(killsw, true);
 
-    C.StrLen(Fired@":", XL, YL);
+    C.StrLen(Hit@"/"@Fired@":", XL, YL);
     C.SetPos(x + FiredX - XL, y + TextY);
-    C.DrawText(Fired@":", true);
+    C.DrawText(Hit@"/"@Fired@":", true);
 
     C.StrLen(Acc, XL, YL);
     C.SetPos(x + AccX - XL, y + TextY);
@@ -100,31 +99,30 @@ simulated function DrawHitStats(Canvas C, Misc_PRI.HitStats Stats, string Weapon
     local int Acc, PriAcc, AltAcc;
     local int Dam, PriDam, AltDam;
     local int Fired, PriFired, AltFired;
+    local int Hit, PriHit, AltHit;
     local int KillsW;
     local float XL, YL;
-
-    DrawBars(C, 1, x, y, w, h);
-    if(Stats.Primary.Fired > 0)
-        PriAcc = GetPercentage(Stats.Primary.Fired, Stats.Primary.Hit);
-    if(Stats.Secondary.Fired > 0)
-        AltAcc += GetPercentage(Stats.Secondary.Fired, Stats.Secondary.Hit);
-
-    GetStatsFor(WeaponClass, TmpPRI, killsw);
 
     PriFired = Stats.Primary.Fired;
     AltFired = Stats.Secondary.Fired;
     Fired = PriFired + AltFired;
+    PriHit = Stats.Primary.Hit;
+    AltHit = Stats.Secondary.Hit;
+    Hit = PriHit + AltHit;
 
-    Acc = GetPercentage(Fired, Stats.Primary.Hit + Stats.Secondary.Hit);
+    Acc = GetPercentage(Fired, PriHit + AltHit);
     PriDam = Stats.Primary.Damage;
     AltDam = Stats.Secondary.Damage;
     Dam = PriDam + AltDam;
 
-    /* summary */
-    /*if(Stats.Primary.Fired > 0 || Stats.Secondary.Fired > 0)
-        C.DrawColor = HUDClass.default.WhiteColor * 0.7;
-    else 
-        C.DrawColor = HUDClass.default.WhiteColor * 0.3;*/
+    DrawBars(C, 1, x, y, w, h);
+
+    if(PriFired > 0)
+        PriAcc = GetPercentage(PriFired, PriHit);
+    if(AltFired > 0)
+        AltAcc += GetPercentage(AltFired, AltHit);
+
+    GetStatsFor(WeaponClass, TmpPRI, killsw);
     
     C.DrawColor = HUDClass.default.WhiteColor * 0.7;
 
@@ -133,9 +131,10 @@ simulated function DrawHitStats(Canvas C, Misc_PRI.HitStats Stats, string Weapon
 
     if(class<FlakCannon>(WeaponClass) != None)
         Fired = PriFired / 9 + AltFired;
-    C.StrLen(Fired@":", XL, YL);
+
+    C.StrLen(Hit@"/"@Fired@":", XL, YL);
     C.SetPos(x + FiredX - XL, y + TextY);
-    C.DrawText(Fired@":", true);
+    C.DrawText(Hit@"/"@Fired@":", true);
 
     C.StrLen(Acc, XL, YL);
     C.SetPos(x + AccX - XL, y + TextY);
@@ -155,9 +154,9 @@ simulated function DrawHitStats(Canvas C, Misc_PRI.HitStats Stats, string Weapon
     C.SetPos(x + TextX + TextX, y + TextY);
     C.DrawText("Pri:", true);
 
-    C.StrLen(PriFired@":", XL, YL);
+    C.StrLen(PriHit@"/"@PriFired@":", XL, YL);
     C.SetPos(x + FiredX - XL, y + TextY);
-    C.DrawText(PriFired@":", true);
+    C.DrawText(PriHit@"/"@PriFired@":", true);
 
     C.StrLen(PriAcc, XL, YL);
     C.SetPos(x + AccX - XL, y + TextY);
@@ -173,9 +172,9 @@ simulated function DrawHitStats(Canvas C, Misc_PRI.HitStats Stats, string Weapon
     C.SetPos(x + TextX + TextX, y + TextY);
     C.DrawText("Alt:", true);
 
-    C.StrLen(AltFired@":", XL, YL);
+    C.StrLen(AltHit@"/"@AltFired@":", XL, YL);
     C.SetPos(x + FiredX - XL, y + TextY);
-    C.DrawText(AltFired@":", true);
+    C.DrawText(AltHit@"/"@AltFired@":", true);
 
     C.StrLen(AltAcc, XL, YL);
     C.SetPos(x + AccX - XL, y + TextY);
@@ -967,9 +966,9 @@ simulated event DrawScoreBoard(Canvas C)
         C.StrLen("Kills", XL, YL);
         C.SetPos(MiscX + KillsX - XL, MiscY + TextY);
         C.DrawText("Kills", true);
-        C.StrLen("Fired : Acc", XL, YL);
+        C.StrLen("Shots : Acc", XL, YL);
         C.SetPos(MiscX + AccX - XL, MiscY + TextY);
-        C.DrawText("Fired : Acc%", true);
+        C.DrawText("Shots : Acc%", true);
         C.StrLen("Dam.", XL, YL);
         C.SetPos(MiscX + DamageX - XL, MiscY + TextY);
         C.DrawText("Dam.", true);

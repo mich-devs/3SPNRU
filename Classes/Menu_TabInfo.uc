@@ -76,7 +76,7 @@ defaultproperties
      InfoText(75)="  * Beltamaxx for his great ideas, inspiration and encouragement."
      InfoText(76)="  * SoL»Lizard for 3SPN changes and support."
      InfoText(77)="  * Attila, Horst & InhumanAimz for their work on 3SPN "
-     InfoText(78)="  * Hv, f00l, Mythic, Nolja for the 3SPN RU Version "
+     InfoText(78)="  * Hv, Viking, f00l, Mythic, Nolja for their help with 3SPN RU "
      InfoText(79)="  * The RU Community for their testing, patience, and feedback."
      InfoText(80)="All without whom this mutator and its adjustments would not be possible!"
 }
