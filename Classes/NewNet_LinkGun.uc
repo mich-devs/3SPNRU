@@ -132,6 +132,6 @@ simulated function DispatchClientEffect(Vector V, rotator R)
 
 defaultproperties
 {
-     FireModeClass(0)=Class'3SPNRU-B1.NewNet_LinkAltFire'
-     FireModeClass(1)=Class'3SPNRU-B1.NewNet_LinkFire'
+     FireModeClass(0)=Class'3SPNRU-B2.NewNet_LinkAltFire'
+     FireModeClass(1)=Class'3SPNRU-B2.NewNet_LinkFire'
 }

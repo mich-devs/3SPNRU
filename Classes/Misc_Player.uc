@@ -19,12 +19,7 @@ var config bool bDisableAmmoRegen;
 var config bool bShowTeamInfo;          // show teams info on the HUD
 var config bool bExtendedInfo;          // show extra teammate info
 
-var config enum EDamageIndicator
-	{
-		Disabled,
-		Centered,
-		Floating
-	} DamageIndicator;
+var config int DamageIndicatorType;     // 1 = Disabled, 2 = Centered, 3 = Floating
 
 var config bool bMatchHUDToSkins;       // sets HUD color to brightskins color
 /* HUD related */
@@ -443,7 +438,7 @@ function PlayerTick(float DeltaTime)
         
         if(HitPawn != None && Misc_BaseGRI(GameReplicationInfo).bDamageIndicator)
         {
-            if (DamageIndicator == Centered)
+            if (DamageIndicatorType == 2)
             {
                 if ( (Level.TimeSeconds - SumDamageTime > 1) || (SumDamage > 0 ^^ Damage > 0) )
                     SumDamage = 0;
@@ -451,7 +446,7 @@ function PlayerTick(float DeltaTime)
                 SumDamageTime = Level.TimeSeconds;
             }
             
-            if(DamageIndicator == Floating)
+            if(DamageIndicatorType == 3)
                 class'Emitter_Damage'.static.ShowDamage(HitPawn, HitPawn.Location, Damage);        
         }        
     }
@@ -697,7 +692,7 @@ simulated function InitInputSystem()
 	C = Level.GetLocalPlayerController();
 	if(C != None)
 	{
-		C.Player.InteractionMaster.AddInteraction("3SPNRU-B1.Menu_Interaction", C.Player);
+		C.Player.InteractionMaster.AddInteraction("3SPNRU-B2.Menu_Interaction", C.Player);
 	}
 }
 
@@ -1134,9 +1129,9 @@ function bool CanDoCombo(class<Combo> ComboClass)
 function ServerDoCombo(class<Combo> ComboClass)
 {
     if(class<ComboBerserk>(ComboClass) != None)
-        ComboClass = class<Combo>(DynamicLoadObject("3SPNRU-B1.Misc_ComboBerserk", class'Class'));
+        ComboClass = class<Combo>(DynamicLoadObject("3SPNRU-B2.Misc_ComboBerserk", class'Class'));
     else if(class<ComboSpeed>(ComboClass) != None && class<Misc_ComboSpeed>(ComboClass) == None)
-        ComboClass = class<Combo>(DynamicLoadObject("3SPNRU-B1.Misc_ComboSpeed", class'Class'));
+        ComboClass = class<Combo>(DynamicLoadObject("3SPNRU-B2.Misc_ComboSpeed", class'Class'));
 
     if(Adrenaline < ComboClass.default.AdrenalineCost)
         return;
@@ -1184,10 +1179,10 @@ function ServerUpdateStatArrays(TeamPlayerReplicationInfo PRI)
     ClientSendSniperStats(P, P.Sniper);
     ClientSendComboStats(P, P.Combo);
     ClientSendMiscStats(P, P.HeadShots, P.EnemyDamage, P.ReverseFF, P.AveragePercent, 
-        P.FlawlessCount, P.OverkillCount, P.DarkHorseCount, P.SGDamage, P.LinkCount, P.RoxCount, P.ShieldCount, P.GrenCount);
+        P.FlawlessCount, P.OverkillCount, P.DarkHorseCount, P.HatTrickCount, P.SGDamage, P.LinkCount, P.RoxCount, P.ShieldCount, P.GrenCount);
 }
 
-function ClientSendMiscStats(Misc_PRI P, int HS, int ED, float RFF, float AP, int FC, int OC, int DHC, int SGD, int LinkCount, int RoxCount, int ShieldCount, int GrenCount)
+function ClientSendMiscStats(Misc_PRI P, int HS, int ED, float RFF, float AP, int FC, int OC, int DHC, int HTC, int SGD, int LinkCount, int RoxCount, int ShieldCount, int GrenCount)
 {
     P.HeadShots = HS;
 	P.EnemyDamage = ED;
@@ -1196,6 +1191,7 @@ function ClientSendMiscStats(Misc_PRI P, int HS, int ED, float RFF, float AP, in
     P.FlawlessCount = FC;
 	P.OverkillCount = OC;
 	P.DarkHorseCount = DHC;
+	P.HatTrickCount = HTC;
 	P.SGDamage = SGD;
 	P.LinkCount = LinkCount;
 	P.RoxCount = RoxCount;
@@ -1402,7 +1398,7 @@ exec function Menu3SPN()
 	r.Pitch = 0;
 	SetRotation(r);
 
-	ClientOpenMenu("3SPNRU-B1.Menu_Menu3SPN");
+	ClientOpenMenu("3SPNRU-B2.Menu_Menu3SPN");
 }
 
 exec function ToggleTeamInfo()
@@ -1806,6 +1802,7 @@ simulated function ReloadDefaults()
 	bUseTeamModels = class'Misc_Player'.default.bUseTeamModels;
 	RedEnemyModel = class'Misc_Player'.default.RedEnemyModel;
 	BlueAllyModel = class'Misc_Player'.default.BlueAllyModel;
+    DamageIndicatorType = class'Misc_Player'.default.DamageIndicatorType;
 	
 	bDisableAnnouncement = class'Misc_Player'.default.bDisableAnnouncement;
 	bAutoScreenShot = class'Misc_Player'.default.bAutoScreenShot;
@@ -1901,6 +1898,7 @@ function ClientLoadSettings(string PlayerName, Misc_PlayerSettings.BrightSkinsSe
 	class'Misc_Player'.default.SoundHitVolume = Misc.SoundHitVolume;
 	class'Misc_Player'.default.SoundAloneVolume = Misc.SoundAloneVolume;
 	class'Misc_Player'.default.AutoSyncSettings = Misc.AutoSyncSettings;
+    class'Misc_Player'.default.DamageIndicatorType = Misc.DamageIndicatorType;
 
 	ReloadDefaults();
 	SetupCombos();
@@ -2031,6 +2029,7 @@ function SaveSettings()
 	Misc.SoundHitVolume = class'Misc_Player'.default.SoundHitVolume;
 	Misc.SoundAloneVolume = class'Misc_Player'.default.SoundAloneVolume;
 	Misc.AutoSyncSettings = class'Misc_Player'.default.AutoSyncSettings;
+    Misc.DamageIndicatorType = class'Misc_Player'.default.DamageIndicatorType;
 	
 	ServerSaveSettings(BrightSkins, ColoredNames, Misc);
 }
@@ -2072,15 +2071,16 @@ defaultproperties
      bUseTeamModels=True
      RedEnemyModel="Gorge"
      BlueAllyModel="Jakob"
+     DamageIndicatorType=1
      bAnnounceOverkill=True
      bUseHitSounds=True
-     SoundHit=Sound'3SPNRU-B1.Sounds.HitSound'
+     SoundHit=Sound'3SPNRU-B2.Sounds.HitSound'
      SoundHitFriendly=Sound'MenuSounds.denied1'
      SoundHitVolume=0.600000
-     SoundAlone=Sound'3SPNRU-B1.Sounds.alone'
+     SoundAlone=Sound'3SPNRU-B2.Sounds.alone'
      SoundAloneVolume=1.000000
      SoundUnlock=Sound'NewWeaponSounds.Newclickgrenade'
-     SoundSpawnProtection=Sound'3SPNRU-B1.Sounds.Bleep'
+     SoundSpawnProtection=Sound'3SPNRU-B2.Sounds.Bleep'
      bEnableEnhancedNetCode=True
      ShowInitialMenu=2
      Menu3SPNKey=IK_F7
@@ -2139,7 +2139,7 @@ defaultproperties
     AutoSyncSettings=True
     LastSettingsLoadTimeSeconds=-100
     LastSettingsSaveTimeSeconds=-100	
-    PlayerReplicationInfoClass=Class'3SPNRU-B1.Misc_PRI'
+    PlayerReplicationInfoClass=Class'3SPNRU-B2.Misc_PRI'
     Adrenaline=0.100000
     AdrenalineMax=120.000000
 }

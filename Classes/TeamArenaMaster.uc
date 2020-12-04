@@ -59,14 +59,14 @@ static event string GetDescriptionText(string PropName)
 function UnrealTeamInfo GetBlueTeam(int TeamBots)
 {
     if(BlueTeamName != "")
-        BlueTeamName = "3SPNRU-B1.TAM_TeamInfoBlue";
+        BlueTeamName = "3SPNRU-B2.TAM_TeamInfoBlue";
     return Super.GetBlueTeam(TeamBots);
 }
 
 function UnrealTeamInfo GetRedTeam(int TeamBots)
 {
     if(RedTeamName != "")
-        RedTeamName = "3SPNRU-B1.TAM_TeamInfoRed";
+        RedTeamName = "3SPNRU-B2.TAM_TeamInfoRed";
     return Super.GetRedTeam(TeamBots);
 }
 
@@ -265,9 +265,9 @@ function SetupPlayer(Pawn P)
 function string SwapDefaultCombo(string ComboName)
 {
     if(ComboName ~= "xGame.ComboSpeed")
-        return "3SPNRU-B1.Misc_ComboSpeed";
+        return "3SPNRU-B2.Misc_ComboSpeed";
     else if(ComboName ~= "xGame.ComboBerserk")
-        return "3SPNRU-B1.Misc_ComboBerserk";
+        return "3SPNRU-B2.Misc_ComboBerserk";
 
     return ComboName;
 }
@@ -324,9 +324,9 @@ defaultproperties
      StartingArmor=100
      MaxHealth=1.250000
      bForceRespawn=True
-     MapListType="3SPNRU-B1.MapListTeamArenaMaster"
+     MapListType="3SPNRU-B2.MapListTeamArenaMaster"
      MaxLives=1
-     GameReplicationInfoClass=Class'3SPNRU-B1.TAM_GRI'
-     GameName="Team ArenaMaster RU - Beta 1"
+     GameReplicationInfoClass=Class'3SPNRU-B2.TAM_GRI'
+     GameName="Team ArenaMaster RU - Beta 2"
      Acronym="TAM"
 }

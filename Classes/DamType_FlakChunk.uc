@@ -17,4 +17,10 @@ static function IncrementKills(Controller Killer)
 defaultproperties
 {
      AwardLevel=7
+     DeathString="%o was shredded by %k's flak cannon."
+     FemaleSuicide="%o was perforated by her own flak."
+     MaleSuicide="%o was perforated by his own flak."
+     bDelayedDamage=True
+     bBulletHit=True
+     VehicleMomentumScaling=0.500000
 }

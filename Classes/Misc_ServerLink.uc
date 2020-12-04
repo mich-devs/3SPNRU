@@ -161,7 +161,7 @@ function HandleMessage(array<string> Params)
 {
     local int PlayerIndex;
     local float Rank, AvgPPR, PointsToRankUp;
-	local int Moneyreal;
+//	local int Moneyreal;
     local string ListName, PlayerName, PlayerStat;
     local int ParamIdx;
     local array<float> PPRList;

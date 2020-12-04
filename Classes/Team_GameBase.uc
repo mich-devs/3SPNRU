@@ -11,6 +11,7 @@ var config int      StartingHealth;
 var config int      StartingArmor;
 var config float    MaxHealth;
 var int TeamScoreDelta[2];
+var int LastWinTeamIndex;
 var config float    AdrenalinePerDamage;     // adrenaline per 10 damage
 var config float    ScoreAwardPer10Damage;   // score adjustment per 10 damage
 var Misc_BaseGRI GRIstat;
@@ -585,6 +586,7 @@ event InitGame(string Options, out string Error)
     // Must enable UT stats logging to get the StatsID
     bEnableStatLogging=true;
   }
+  
   DisablePersistentStatsForMatch = False;
   NoStatsForThisMatch = False;
   Super.InitGame(Options, Error);
@@ -671,6 +673,7 @@ event InitGame(string Options, out string Error)
     }
   }
   MatchStatsRegistered = False;
+  LastWinTeamIndex = -1;
   TeamScoreDelta[0] = 0;
   TeamScoreDelta[1] = 0;
   SaveConfig();
@@ -1235,25 +1238,25 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                 PRI.Combo.Hit++;
                 PRI.Combo.Damage += Damage;
             }
-            else if(DamageType == class'DamTypeMinigunBullet')
+            else if(DamageType == class'DamType_MinigunBullet')
             {
                 PRI.Mini.Primary.Hit++;
                 PRI.Mini.Primary.Damage += Damage;
             }
-            else if(DamageType == class'DamTypeMinigunAlt')
+            else if(DamageType == class'DamType_MinigunAlt')
             {
                 PRI.Mini.Secondary.Hit++;
                 PRI.Mini.Secondary.Damage += Damage;
             }
             else if(DamageType == class'DamTypeLinkPlasma')
             {
-                PRI.Link.Secondary.Hit++;
-                PRI.Link.Secondary.Damage += Damage;
+                  PRI.Link.Primary.Hit++;
+                  PRI.Link.Primary.Damage += Damage;
             }
-            else if(DamageType == class'DamTypeLinkShaft')
+            else if(DamageType == class'DamType_LinkShaft')
             {
-                PRI.Link.Primary.Hit++;
-                PRI.Link.Primary.Damage += Damage;
+                  PRI.Link.Secondary.Hit++;
+                  PRI.Link.Secondary.Damage += Damage;
             }
             else if(DamageType == class'DamType_HeadShot')
             {
@@ -1550,7 +1553,7 @@ function StartMatch()
 {	
   local Controller C;
   local int CountPlayers;
-  local bool testen;
+//  local bool testen;
   
     Super(DeathMatch).StartMatch();
   
@@ -3410,27 +3413,7 @@ function EndRound(PlayerReplicationInfo Scorer)
     TeamScoreEvent(WinningTeamIndex, 1, "tdm_frag");
     Teams[WinningTeamIndex].Score += 1;
     AnnounceScoreReliable(WinningTeamIndex);
-
-  if (  ++TeamScoreDelta[WinningTeamIndex] == 3 )
-  {
-  
-    C = Level.ControllerList;
-	JL02EE:
-    if ( C != None )
-    {
-      if ( PlayerController(C) == None )
-      {
-       
-      }
-      if ( (Pawn(PlayerController(C).ViewTarget) != None) && (Pawn(PlayerController(C).ViewTarget).GetTeamNum() == WinningTeamIndex) )
-      {
-        PlayerController(C).ReceiveLocalizedMessage(Class'Message_HatTrick',0);
-      }
-      
-      C = C.nextController;
-      goto JL02EE;
-	  }
- }
+	CalculateHatTricks(C);
 
     // check for darkhorse
     if(DarkHorse != None && DarkHorse.PlayerReplicationInfo != None && DarkHorse.PlayerReplicationInfo == Scorer)
@@ -3496,6 +3479,49 @@ function EndRound(PlayerReplicationInfo Scorer)
         if(NextRoundDelay>0)
             NextRoundTime = NextRoundDelay;
     }
+}
+
+function CalculateHatTricks(Controller c)
+{
+	TeamScoreDelta[WinningTeamIndex]++;
+
+	if (LastWinTeamIndex == -1)
+	{
+		LastWinTeamIndex = WinningTeamIndex;
+		return;
+	}
+    
+	if (LastWinTeamIndex != WinningTeamIndex )
+	{
+		TeamScoreDelta[LastWinTeamIndex] = 0;
+		LastWinTeamIndex = WinningTeamIndex;
+		return;
+	}
+
+	if (TeamScoreDelta[WinningTeamIndex] == 3 )
+	{
+		TeamScoreDelta[WinningTeamIndex] = 0;
+
+		C = Level.ControllerList;
+		JL02EE:
+		if ( C != None )
+		{
+		  if( Pawn(PlayerController(C).ViewTarget) != None && Pawn(PlayerController(C).ViewTarget).GetTeamNum() == WinningTeamIndex )
+		  {
+			Misc_PRI(C.PlayerReplicationInfo).HatTrickCount++;
+			PlayerController(C).ReceiveLocalizedMessage(Class'Message_HatTrick',0);
+		  }
+      
+		  C = C.nextController;
+		  goto JL02EE;
+		}
+	}
+}
+
+// Override of TeamGame.uc to prevent HatTrick notification on 3 total goals scored
+function IncrementGoalsScored(PlayerReplicationInfo PRI)
+{
+	PRI.GoalsScored += 1;
 }
 
 function AnnounceScoreReliable(int ScoringTeam)
@@ -3905,24 +3931,24 @@ defaultproperties
      FlagTextureEnabled=True
      FlagTextureShowAcronym=True
 //     AllowServerSaveSettings=True
-     OvertimeSound=Sound'3SPNRU-B1.Sounds.overtime'
+     OvertimeSound=Sound'3SPNRU-B2.Sounds.overtime'
      UseZAxisRadar=True
      bScoreTeamKills=False
      bDamageIndicator=True
      FriendlyFireScale=0.500000
-     DefaultEnemyRosterClass="3SPNRU-B1.TAM_TeamInfo"
+     DefaultEnemyRosterClass="3SPNRU-B2.TAM_TeamInfo"
      ADR_MinorError=-5.000000
-     LoginMenuClass="3SPNRU-B1.Menu_TAMLoginMenu"
-     LocalStatsScreenClass=Class'3SPNRU-B1.Misc_StatBoard'
-     DefaultPlayerClassName="3SPNRU-B1.Misc_Pawn"
-     ScoreBoardType="3SPNRU-B1.TAM_Scoreboard"
-     HUDType="3SPNRU-B1.TAM_HUD"
+     LoginMenuClass="3SPNRU-B2.Menu_TAMLoginMenu"
+     LocalStatsScreenClass=Class'3SPNRU-B2.Misc_StatBoard'
+     DefaultPlayerClassName="3SPNRU-B2.Misc_Pawn"
+     ScoreBoardType="3SPNRU-B2.TAM_Scoreboard"
+     HUDType="3SPNRU-B2.TAM_HUD"
      GoalScore=10
      TimeLimit=0
-     DeathMessageClass=Class'3SPNRU-B1.Misc_DeathMessage'
-     MutatorClass="3SPNRU-B1.TAM_Mutator"
-     PlayerControllerClassName="3SPNRU-B1.Misc_Player"
-     GameReplicationInfoClass=Class'3SPNRU-B1.Misc_BaseGRI'
+     DeathMessageClass=Class'3SPNRU-B2.Misc_DeathMessage'
+     MutatorClass="3SPNRU-B2.TAM_Mutator"
+     PlayerControllerClassName="3SPNRU-B2.Misc_Player"
+     GameReplicationInfoClass=Class'3SPNRU-B2.Misc_BaseGRI'
      GameName="BASE"
      Description="One life per round. Don't waste it."
      ScreenShotName="UT2004Thumbnails.TDMShots"
