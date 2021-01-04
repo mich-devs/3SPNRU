@@ -283,6 +283,6 @@ simulated function Timer()
 
 defaultproperties
 {
-     Version="3SPNRU-Beta2"
+     Version="Cv42101"
      EnableNewNet=True
 }

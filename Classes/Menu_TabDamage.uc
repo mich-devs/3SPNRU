@@ -59,5 +59,5 @@ defaultproperties
          WinWidth=0.600000
 		 OnChange=Menu_TabDamage.InternalOnChange
      End Object
-     DamageSelect=moComboBox'3SPNRU-B2.Menu_TabDamage.ComboDamageIndicatorType'
+     DamageSelect=moComboBox'3SPNCv42101.Menu_TabDamage.ComboDamageIndicatorType'
 }

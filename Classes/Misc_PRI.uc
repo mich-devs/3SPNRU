@@ -272,5 +272,5 @@ function ProcessHitStats()
 defaultproperties
 {
      StringDeadNoRez="Dead [Inactive]"
-     PawnInfoClass=Class'3SPNRU-B2.Misc_PawnReplicationInfo'
+     PawnInfoClass=Class'3SPNCv42101.Misc_PawnReplicationInfo'
 }
