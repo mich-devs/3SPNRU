@@ -464,6 +464,6 @@ function UnTimeTravel()
 
 defaultproperties
 {
-     FakeProjectileClass=Class'3SPNRU-B2.NewNet_Fake_FlakChunk'
-     ProjectileClass=Class'3SPNRU-B2.NewNet_FlakChunk'
+     FakeProjectileClass=Class'3SPNCv42101.NewNet_Fake_FlakChunk'
+     ProjectileClass=Class'3SPNCv42101.NewNet_FlakChunk'
 }

@@ -4,5 +4,5 @@ class NewNet_ShieldGun extends ShieldGun
 
 defaultproperties
 {
-     FireModeClass(0)=Class'3SPNRU-B2.WeaponFire_Shield'
+     FireModeClass(0)=Class'3SPNCv42101.WeaponFire_Shield'
 }
