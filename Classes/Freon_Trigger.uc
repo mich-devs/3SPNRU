@@ -271,7 +271,7 @@ defaultproperties
 {
      Team=255
      ThawSound=Sound'WeaponSounds.BaseGunTech.BGrenfloor1'
-     TouchSound=Sound'3SPNRU-B2.Sounds.Touch'
+     TouchSound=Sound'3SPNCv42101.Sounds.Touch'
      ThawSpeed=5.000000
      AutoThawTime=60.000000
      FastThawModifier=1.500000

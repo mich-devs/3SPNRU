@@ -967,9 +967,9 @@ function bool AddBot(optional string botName)
 function string SwapDefaultCombo(string ComboName)
 {
     if(ComboName ~= "xGame.ComboSpeed")
-        return "3SPNRU-B2.Misc_ComboSpeed";
+        return "3SPNCv42101.Misc_ComboSpeed";
     else if(ComboName ~= "xGame.ComboBerserk")
-        return "3SPNRU-B2.Misc_ComboBerserk";
+        return "3SPNCv42101.Misc_ComboBerserk";
 
     return ComboName;
 }
@@ -1857,22 +1857,22 @@ defaultproperties
      ShowServerName=True
      FlagTextureEnabled=True
      FlagTextureShowAcronym=True
-     OvertimeSound=Sound'3SPNRU-B2.Sounds.overtime'
+     OvertimeSound=Sound'3SPNCv42101.Sounds.overtime'
      ADR_MinorError=-5.000000
-     LoginMenuClass="3SPNRU-B2.Menu_TAMLoginMenu"
-     LocalStatsScreenClass=Class'3SPNRU-B2.Misc_StatBoard'
-     DefaultPlayerClassName="3SPNRU-B2.Misc_Pawn"
-     ScoreBoardType="3SPNRU-B2.AM_Scoreboard"
-     HUDType="3SPNRU-B2.AM_HUD"
-     MapListType="3SPNRU-B2.MapListArenaMaster"
+     LoginMenuClass="3SPNCv42101.Menu_TAMLoginMenu"
+     LocalStatsScreenClass=Class'3SPNCv42101.Misc_StatBoard'
+     DefaultPlayerClassName="3SPNCv42101.Misc_Pawn"
+     ScoreBoardType="3SPNCv42101.AM_Scoreboard"
+     HUDType="3SPNCv42101.AM_HUD"
+     MapListType="3SPNCv42101.MapListArenaMaster"
      GoalScore=5
      MaxLives=1
      TimeLimit=0
-     DeathMessageClass=Class'3SPNRU-B2.Misc_DeathMessage'
-     MutatorClass="3SPNRU-B2.TAM_Mutator"
-     PlayerControllerClassName="3SPNRU-B2.Misc_Player"
-     GameReplicationInfoClass=Class'3SPNRU-B2.TAM_GRI'
-     GameName="ArenaMaster RU - Beta 2"
+     DeathMessageClass=Class'3SPNCv42101.Misc_DeathMessage'
+     MutatorClass="3SPNCv42101.TAM_Mutator"
+     PlayerControllerClassName="3SPNCv42101.Misc_Player"
+     GameReplicationInfoClass=Class'3SPNCv42101.TAM_GRI'
+     GameName="ArenaMaster v42101"
      Description="One life per round. Don't waste it"
      Acronym="AM"
 }

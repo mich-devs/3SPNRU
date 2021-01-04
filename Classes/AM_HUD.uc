@@ -307,5 +307,5 @@ simulated function DrawDamageIndicators(Canvas C)
 defaultproperties
 {
      TeamTex=Texture'HUDContent.Generic.HUD'
-     TrackedPlayer=Texture'3SPNRU-B2.textures.chair'
+     TrackedPlayer=Texture'3SPNCv42101.textures.chair'
 }
