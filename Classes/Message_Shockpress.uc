@@ -37,7 +37,7 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     impressive=Sound'3SPNRU-B2.Sounds.impressive'
+     impressive=Sound'3SPNCv42101.Sounds.impressive'
      plopptex="I M P R E S S I V E"
      bIsUnique=True
      bFadeMessage=True
