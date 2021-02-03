@@ -65,6 +65,7 @@ var config int  MiniAmmo;
 var config int  FlakAmmo;
 var config int  RocketAmmo;
 var config int  LightningAmmo;
+var config int  ClassicSniperAmmo;
 /* weapon related */
 
 /* newnet */
@@ -211,7 +212,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("3SPN", "FlakAmmo", "Flak Ammunition", 0, 67, "Text", "3;0:999",, True);
     PI.AddSetting("3SPN", "RocketAmmo", "Rocket Ammunition", 0, 68, "Text", "3;0:999",, True);
     PI.AddSetting("3SPN", "LightningAmmo", "Lightning Ammunition", 0, 69, "Text", "3;0:999",, True);
-
+    PI.AddSetting("3SPN", "ClassicSniperAmmo", "ClassicSniper Ammunition", 0, 70, "Text", "3;0:999",, True);
     PI.AddSetting("3SPN", "EnableNewNet", "Enable New Net", 0, 80, "Check");
     PI.AddSetting("3SPN", "bDamageIndicator", "Enable Damage Indicator", 0, 401, "Check"); 																						   
 }
@@ -253,7 +254,7 @@ static event string GetDescriptionText(string PropName)
         case "FlakAmmo":            return "Amount of Flak Ammunition to give in a round.";
         case "RocketAmmo":          return "Amount of Rocket Ammunition to give in a round.";
         case "LightningAmmo":       return "Amount of Lightning Ammunition to give in a round.";
-
+        case "ClassicSniperAmmo":       return "Amount of ClassicSniper Ammunition to give in a round.";
 		case "EnableNewNet":		return "Make enhanced netcode available for players.";		
         case "bDamageIndicator":    return "Make the numeric damage indicator available for players.";																												
 	}
@@ -368,7 +369,11 @@ function ParseOptions(string Options)
 
     InOpt = ParseOption(Options, "LightningAmmo");
     if(InOpt != "")
-        LightningAmmo = int(InOpt);  								   
+        LightningAmmo = int(InOpt); 		
+		
+    InOpt = ParseOption(Options, "ClassicSniperAmmo");
+    if(InOpt != "")
+        ClassicSniperAmmo = int(InOpt);  								   
 }
 
 function SpawnRandomPickupBases()
@@ -463,7 +468,7 @@ event InitGame(string Options, out string Error)
     if(bRandomPickups)
         SpawnRandomPickupBases();
 
-	MutTAM.InitWeapons(AssaultAmmo,AssaultGrenades,BioAmmo,ShockAmmo,LinkAmmo,MiniAmmo,FlakAmmo,RocketAmmo,LightningAmmo);
+	MutTAM.InitWeapons(AssaultAmmo,AssaultGrenades,BioAmmo,ShockAmmo,LinkAmmo,MiniAmmo,FlakAmmo,RocketAmmo,LightningAmmo,ClassicSniperAmmo);
 	
     if(bModifyShieldGun)
 	{
@@ -596,7 +601,7 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
             }
 
             if(Damage > (injured.Health + injured.ShieldStrength + 50) && 
-                Damage / (injured.Health + injured.ShieldStrength) > 2 && DamageType != class'DamType_Headshot' && DamageType != class'DamTypeSniperHeadShot')
+                Damage / (injured.Health + injured.ShieldStrength) > 2 && DamageType != class'DamType_Headshot' && DamageType != class'DamTypeSniperHeadShot'/* && DamageType != class'DamTypeClasssicSniperHeadShot'*/)
             {
                 PRI.OverkillCount++;
                 SpecialEvent(PRI, "Overkill");
@@ -638,6 +643,11 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
             {
                 PRI.Sniper.Hit++;
                 PRI.Sniper.Damage += Damage;
+            }
+           else if(DamageType == class'DamTypeClassicSniper')
+            {
+                PRI.ClassicSniper.Hit++;
+                PRI.ClassicSniper.Damage += Damage;
             }
             else if(DamageType == class'DamTypeShockBeam')
             {
@@ -967,9 +977,9 @@ function bool AddBot(optional string botName)
 function string SwapDefaultCombo(string ComboName)
 {
     if(ComboName ~= "xGame.ComboSpeed")
-        return "3SPNCv42101.Misc_ComboSpeed";
+        return "3SPNCv42102.Misc_ComboSpeed";
     else if(ComboName ~= "xGame.ComboBerserk")
-        return "3SPNCv42101.Misc_ComboBerserk";
+        return "3SPNCv42102.Misc_ComboBerserk";
 
     return ComboName;
 }
@@ -1853,26 +1863,27 @@ defaultproperties
      FlakAmmo=12
      RocketAmmo=12
      LightningAmmo=10
+     ClassicSniperAmmo=10
      EnableNewNet=True
      ShowServerName=True
      FlagTextureEnabled=True
      FlagTextureShowAcronym=True
-     OvertimeSound=Sound'3SPNCv42101.Sounds.overtime'
+     OvertimeSound=Sound'3SPNCv42102.Sounds.overtime'
      ADR_MinorError=-5.000000
-     LoginMenuClass="3SPNCv42101.Menu_TAMLoginMenu"
-     LocalStatsScreenClass=Class'3SPNCv42101.Misc_StatBoard'
-     DefaultPlayerClassName="3SPNCv42101.Misc_Pawn"
-     ScoreBoardType="3SPNCv42101.AM_Scoreboard"
-     HUDType="3SPNCv42101.AM_HUD"
-     MapListType="3SPNCv42101.MapListArenaMaster"
+     LoginMenuClass="3SPNCv42102.Menu_TAMLoginMenu"
+     LocalStatsScreenClass=Class'3SPNCv42102.Misc_StatBoard'
+     DefaultPlayerClassName="3SPNCv42102.Misc_Pawn"
+     ScoreBoardType="3SPNCv42102.AM_Scoreboard"
+     HUDType="3SPNCv42102.AM_HUD"
+     MapListType="3SPNCv42102.MapListArenaMaster"
      GoalScore=5
      MaxLives=1
      TimeLimit=0
-     DeathMessageClass=Class'3SPNCv42101.Misc_DeathMessage'
-     MutatorClass="3SPNCv42101.TAM_Mutator"
-     PlayerControllerClassName="3SPNCv42101.Misc_Player"
-     GameReplicationInfoClass=Class'3SPNCv42101.TAM_GRI'
-     GameName="ArenaMaster v42101"
+     DeathMessageClass=Class'3SPNCv42102.Misc_DeathMessage'
+     MutatorClass="3SPNCv42102.TAM_Mutator"
+     PlayerControllerClassName="3SPNCv42102.Misc_Player"
+     GameReplicationInfoClass=Class'3SPNCv42102.TAM_GRI'
+     GameName="ArenaMaster v42102"
      Description="One life per round. Don't waste it"
      Acronym="AM"
 }

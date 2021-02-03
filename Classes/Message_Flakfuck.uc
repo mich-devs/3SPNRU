@@ -45,7 +45,7 @@ static simulated function ClientReceive(
 
 defaultproperties
 {
-     flack=Sound'3SPNCv42101.Sounds.finishmc'
+     flack=Sound'3SPNCv42102.Sounds.finishmc'
      FlagFuck="Flak Fuck"
      Roxx="Air Rocket"
      Lamer="Lamer"
