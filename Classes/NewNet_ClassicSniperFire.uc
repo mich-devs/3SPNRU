@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 //-----------------------------------------------------------
 class NewNet_ClassicSniperFire extends ClassicSniperFire;
-
+#exec AUDIO IMPORT FILE=Sounds\ClassicSniper.wav GROUP=Sounds
 var float PingDT;
 var bool bUseEnhancedNetCode;
 
@@ -179,4 +179,12 @@ function UnTimeTravel()
 
 defaultproperties
 {
+     DamageMin=70
+     DamageMax=70
+     FireRate=1.600000
+     HeadShotDamageMult=2.000000
+     DamageTypeHeadShot=Class'UTClassic.DamTypeClassicHeadshot'
+     DamageType=Class'UTClassic.DamTypeClassicSniper'
+     FireSound=Sound'ClassicSniper'
 }
+

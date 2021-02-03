@@ -164,7 +164,7 @@ replication
         /*ClientLockWeapons,*/ ClientKillBases, ClientSendAssaultStats,
         ClientSendBioStats, ClientSendShockStats, ClientSendLinkStats,
         ClientSendMiniStats, ClientSendFlakStats, ClientSendRocketStats,
-        ClientSendSniperStats, ClientSendComboStats, ClientSendMiscStats;
+        ClientSendSniperStats, ClientSendClassicSniperStats, ClientSendComboStats, ClientSendMiscStats;
 
     reliable if(bNetDirty && Role == ROLE_Authority)
         HitDamage, bHitContact, HitPawn, bSeeInvis;
@@ -692,7 +692,7 @@ simulated function InitInputSystem()
 	C = Level.GetLocalPlayerController();
 	if(C != None)
 	{
-		C.Player.InteractionMaster.AddInteraction("3SPNCv42101.Menu_Interaction", C.Player);
+		C.Player.InteractionMaster.AddInteraction("3SPNCv42102.Menu_Interaction", C.Player);
 	}
 }
 
@@ -1129,9 +1129,9 @@ function bool CanDoCombo(class<Combo> ComboClass)
 function ServerDoCombo(class<Combo> ComboClass)
 {
     if(class<ComboBerserk>(ComboClass) != None)
-        ComboClass = class<Combo>(DynamicLoadObject("3SPNCv42101.Misc_ComboBerserk", class'Class'));
+        ComboClass = class<Combo>(DynamicLoadObject("3SPNCv42102.Misc_ComboBerserk", class'Class'));
     else if(class<ComboSpeed>(ComboClass) != None && class<Misc_ComboSpeed>(ComboClass) == None)
-        ComboClass = class<Combo>(DynamicLoadObject("3SPNCv42101.Misc_ComboSpeed", class'Class'));
+        ComboClass = class<Combo>(DynamicLoadObject("3SPNCv42102.Misc_ComboSpeed", class'Class'));
 
     if(Adrenaline < ComboClass.default.AdrenalineCost)
         return;
@@ -1177,6 +1177,7 @@ function ServerUpdateStatArrays(TeamPlayerReplicationInfo PRI)
     ClientSendFlakStats(P, P.Flak);
     ClientSendRocketStats(P, P.Rockets);
     ClientSendSniperStats(P, P.Sniper);
+    ClientSendSniperStats(P, P.ClassicSniper);
     ClientSendComboStats(P, P.Combo);
     ClientSendMiscStats(P, P.HeadShots, P.EnemyDamage, P.ReverseFF, P.AveragePercent, 
         P.FlawlessCount, P.OverkillCount, P.DarkHorseCount, P.HatTrickCount, P.SGDamage, P.LinkCount, P.RoxCount, P.ShieldCount, P.GrenCount);
@@ -1261,6 +1262,13 @@ function ClientSendSniperStats(Misc_PRI P, Misc_PRI.HitStat Sniper)
     P.Sniper.Fired = Sniper.Fired;
     P.Sniper.Hit = Sniper.Hit;
     P.Sniper.Damage = Sniper.Damage;
+}
+
+function ClientSendClassicSniperStats(Misc_PRI P, Misc_PRI.HitStat ClassicSniper)
+{
+    P.ClassicSniper.Fired = ClassicSniper.Fired;
+    P.ClassicSniper.Hit = ClassicSniper.Hit;
+    P.ClassicSniper.Damage = ClassicSniper.Damage;
 }
 
 function ClientSendBioStats(Misc_PRI P, Misc_PRI.HitStat Bio)
@@ -1398,7 +1406,7 @@ exec function Menu3SPN()
 	r.Pitch = 0;
 	SetRotation(r);
 
-	ClientOpenMenu("3SPNCv42101.Menu_Menu3SPN");
+	ClientOpenMenu("3SPNCv42102.Menu_Menu3SPN");
 }
 
 exec function ToggleTeamInfo()
@@ -2074,13 +2082,13 @@ defaultproperties
      DamageIndicatorType=1
      bAnnounceOverkill=True
      bUseHitSounds=True
-     SoundHit=Sound'3SPNCv42101.Sounds.HitSound'
+     SoundHit=Sound'3SPNCv42102.Sounds.HitSound'
      SoundHitFriendly=Sound'MenuSounds.denied1'
      SoundHitVolume=0.600000
-     SoundAlone=Sound'3SPNCv42101.Sounds.alone'
+     SoundAlone=Sound'3SPNCv42102.Sounds.alone'
      SoundAloneVolume=1.000000
      SoundUnlock=Sound'NewWeaponSounds.Newclickgrenade'
-     SoundSpawnProtection=Sound'3SPNCv42101.Sounds.Bleep'
+     SoundSpawnProtection=Sound'3SPNCv42102.Sounds.Bleep'
      bEnableEnhancedNetCode=True
      ShowInitialMenu=2
      Menu3SPNKey=IK_F7
@@ -2100,6 +2108,7 @@ defaultproperties
      EndCeremonyWeaponNames(4)="xWeapons.RocketLauncher"
      EndCeremonyWeaponNames(5)="xWeapons.SniperRifle"
      EndCeremonyWeaponNames(6)="xWeapons.BioRifle"
+	 EndCeremonyWeaponNames(7)="UTClassic.ClassicSniperRifle"
      EndCeremonyWeaponClasses(0)=Class'XWeapons.ShockRifle'
      EndCeremonyWeaponClasses(1)=Class'XWeapons.LinkGun'
      EndCeremonyWeaponClasses(2)=Class'XWeapons.Minigun'
@@ -2107,6 +2116,7 @@ defaultproperties
      EndCeremonyWeaponClasses(4)=Class'XWeapons.RocketLauncher'
      EndCeremonyWeaponClasses(5)=Class'XWeapons.SniperRifle'
      EndCeremonyWeaponClasses(6)=Class'XWeapons.BioRifle'
+     EndCeremonyWeaponClasses(7)=Class'UTClassic.ClassicSniperRifle'	 
      RedMessageColor=(B=64,G=64,R=255,A=200)
      GreenMessageColor=(B=128,G=200,R=128,A=200)
      BlueMessageColor=(B=253,G=200,R=125,A=200)
@@ -2139,7 +2149,7 @@ defaultproperties
     AutoSyncSettings=True
     LastSettingsLoadTimeSeconds=-100
     LastSettingsSaveTimeSeconds=-100	
-    PlayerReplicationInfoClass=Class'3SPNCv42101.Misc_PRI'
+    PlayerReplicationInfoClass=Class'3SPNCv42102.Misc_PRI'
     Adrenaline=0.100000
     AdrenalineMax=120.000000
 }

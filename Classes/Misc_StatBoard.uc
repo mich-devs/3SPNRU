@@ -1055,6 +1055,14 @@ simulated event DrawScoreBoard(Canvas C)
         }
         MiscY += MiscH * 1.275;
 
+        // ClassicSniper
+        if(TmpPRI.ClassicSniper.Fired > 0)
+        {
+            GetStatsFor(class'ClassicSniperRifle', TmpPRI, killsw);
+            DrawHitStat(C, TmpPRI.ClassicSniper.Fired, TmpPRI.ClassicSniper.Hit, TmpPRI.ClassicSniper.Damage, killsw, "ClassicSniper", MiscX, MiscY, MiscW, MiscH, TextX, TextY);
+        }
+        MiscY += MiscH * 1.275;
+				
         // headshots
         if(TmpPRI.Sniper.Hit > 0)
             DrawHitStat(C, TmpPRI.Sniper.Hit, TmpPRI.HeadShots, TmpPRI.HeadShots * 140, TmpPRI.HeadCount, "Headshot", MiscX, MiscY, MiscW, MiscH, TextX, TextY);
@@ -1085,5 +1093,5 @@ simulated event DrawScoreBoard(Canvas C)
 defaultproperties
 {
      Box=Texture'Engine.WhiteSquareTexture'
-     BaseTex=Texture'3SPNCv42101.textures.Scoreboard_old'
+     BaseTex=Texture'3SPNCv42102.textures.Scoreboard_old'
 }

@@ -60,6 +60,7 @@ var HitStats    Mini;
 var HitStats    Flak;
 var HitStat     Rockets;
 var HitStat     Sniper;
+var HitStat     ClassicSniper;
 
 var int         SGDamage;
 var int         HeadShots;
@@ -265,6 +266,12 @@ function ProcessHitStats()
         count++;
     }
 
+    if(ClassicSniper.Fired > 2)
+    {
+        AveragePercent += class'Misc_StatBoard'.static.GetPercentage(ClassicSniper.Fired, ClassicSniper.Hit);
+        count++;
+    }
+
     if(count > 0)
         AveragePercent /= count;
 }
@@ -272,5 +279,5 @@ function ProcessHitStats()
 defaultproperties
 {
      StringDeadNoRez="Dead [Inactive]"
-     PawnInfoClass=Class'3SPNCv42101.Misc_PawnReplicationInfo'
+     PawnInfoClass=Class'3SPNCv42102.Misc_PawnReplicationInfo'
 }
