@@ -86,6 +86,7 @@ var config int  MiniAmmo;
 var config int  FlakAmmo;
 var config int  RocketAmmo;
 var config int  LightningAmmo;
+var config int  ClassicSniperAmmo;
 /* weapon related */
 
 /* extended functionality */
@@ -354,6 +355,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("3SPN", "FlakAmmo", "Flak Ammunition", 0, Weight++, "Text", "3;0:999",, True);
     PI.AddSetting("3SPN", "RocketAmmo", "Rocket Ammunition", 0, Weight++, "Text", "3;0:999",, True);
     PI.AddSetting("3SPN", "LightningAmmo", "Lightning Ammunition", 0, Weight++, "Text", "3;0:999",, True);
+    PI.AddSetting("3SPN", "ClassicSniperAmmo", "ClassicSniper Ammunition", 0, Weight++, "Text", "3;0:999",, True);
 
     PI.AddSetting("3SPN", "EnableNewNet", "Enable New Net", 0, Weight++, "Check");
     PI.AddSetting("3SPN", "bDamageIndicator", "Enable Damage Indicator", 0, 401, "Check");  
@@ -430,7 +432,8 @@ static event string GetDescriptionText(string PropName)
       case "FlakAmmo":            return "Amount of Flak Ammunition to give in a round.";
       case "RocketAmmo":          return "Amount of Rocket Ammunition to give in a round.";
       case "LightningAmmo":       return "Amount of Lightning Ammunition to give in a round.";
-
+      case "ClassicSniperAmmo":       return "Amount of ClassicSniper Ammunition to give in a round.";
+	  
       case "EnableNewNet":                  return "Make enhanced netcode available for players.";
       case "bDamageIndicator":    return "Enable or Disable the Damage Indicators for players";
       case "EndCeremonyEnabled":            return "Enable End Ceremony";
@@ -572,6 +575,10 @@ function ParseOptions(string Options)
     if(InOpt != "")
         RocketAmmo = int(InOpt);
 
+    InOpt = ParseOption(Options, "ClassicSniperAmmo");
+    if(InOpt != "")
+        ClassicSniperAmmo = int(InOpt);		
+		
     InOpt = ParseOption(Options, "LightningAmmo");
     if(InOpt != "")
         LightningAmmo = int(InOpt);
@@ -623,7 +630,7 @@ event InitGame(string Options, out string Error)
     TeamTimeOuts[0] = TimeOuts;
     TeamTimeOuts[1] = TimeOuts;
 
-    MutTAM.InitWeapons(AssaultAmmo,AssaultGrenades,BioAmmo,ShockAmmo,LinkAmmo,MiniAmmo,FlakAmmo,RocketAmmo,LightningAmmo);
+    MutTAM.InitWeapons(AssaultAmmo,AssaultGrenades,BioAmmo,ShockAmmo,LinkAmmo,MiniAmmo,FlakAmmo,RocketAmmo,LightningAmmo,ClassicSniperAmmo);
 
     if(bModifyShieldGun)
     {
@@ -3908,6 +3915,7 @@ defaultproperties
      FlakAmmo=15
      RocketAmmo=12
      LightningAmmo=15
+	 ClassicSniperAmmo=10
      EndOfRoundDelay=2
      EndOfRoundTime=10
      RoundCanTie=True
@@ -3931,24 +3939,24 @@ defaultproperties
      FlagTextureEnabled=True
      FlagTextureShowAcronym=True
 //     AllowServerSaveSettings=True
-     OvertimeSound=Sound'3SPNCv42101.Sounds.overtime'
+     OvertimeSound=Sound'3SPNCv42102.Sounds.overtime'
      UseZAxisRadar=True
      bScoreTeamKills=False
      bDamageIndicator=True
      FriendlyFireScale=0.500000
-     DefaultEnemyRosterClass="3SPNCv42101.TAM_TeamInfo"
+     DefaultEnemyRosterClass="3SPNCv42102.TAM_TeamInfo"
      ADR_MinorError=-5.000000
-     LoginMenuClass="3SPNCv42101.Menu_TAMLoginMenu"
-     LocalStatsScreenClass=Class'3SPNCv42101.Misc_StatBoard'
-     DefaultPlayerClassName="3SPNCv42101.Misc_Pawn"
-     ScoreBoardType="3SPNCv42101.TAM_Scoreboard"
-     HUDType="3SPNCv42101.TAM_HUD"
+     LoginMenuClass="3SPNCv42102.Menu_TAMLoginMenu"
+     LocalStatsScreenClass=Class'3SPNCv42102.Misc_StatBoard'
+     DefaultPlayerClassName="3SPNCv42102.Misc_Pawn"
+     ScoreBoardType="3SPNCv42102.TAM_Scoreboard"
+     HUDType="3SPNCv42102.TAM_HUD"
      GoalScore=10
      TimeLimit=0
-     DeathMessageClass=Class'3SPNCv42101.Misc_DeathMessage'
-     MutatorClass="3SPNCv42101.TAM_Mutator"
-     PlayerControllerClassName="3SPNCv42101.Misc_Player"
-     GameReplicationInfoClass=Class'3SPNCv42101.Misc_BaseGRI'
+     DeathMessageClass=Class'3SPNCv42102.Misc_DeathMessage'
+     MutatorClass="3SPNCv42102.TAM_Mutator"
+     PlayerControllerClassName="3SPNCv42102.Misc_Player"
+     GameReplicationInfoClass=Class'3SPNCv42102.Misc_BaseGRI'
      GameName="BASE"
      Description="One life per round. Don't waste it."
      ScreenShotName="UT2004Thumbnails.TDMShots"

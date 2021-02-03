@@ -35,8 +35,8 @@ struct WeaponData
     var int Ammo[2];                        // 0 = primary ammo, 1 = alt ammo
     var float MaxAmmo[2];                   // 1 is only used for WeaponDefaults
 };
-var WeaponData  WeaponInfo[9];
-var WeaponData  WeaponDefaults[9];
+var WeaponData  WeaponInfo[10];
+var WeaponData  WeaponDefaults[10];
 /* weapons */
 	
 /* newnet */
@@ -49,9 +49,9 @@ var array<float> DeltaHistory;
 var NewNet_FakeProjectileManager FPM;
 const AVERDT_SEND_PERIOD = 4.00;
 var float LastReplicatedAverDT;
-var class<Weapon> WeaponClasses[9];
-var class<weapon> NewNetWeaponClasses[9];
-var string NewNetWeaponNames[9];
+var class<Weapon> WeaponClasses[10];
+var class<weapon> NewNetWeaponClasses[10];
+var string NewNetWeaponNames[10];
 /* newnet */
 
 replication
@@ -164,7 +164,7 @@ simulated function Tick(float DeltaTime)
 	}
 }
 
-function InitWeapons(int AssaultAmmo,int AssaultGrenades,int BioAmmo,int ShockAmmo,int LinkAmmo,int MiniAmmo,int FlakAmmo,int RocketAmmo,int LightningAmmo)
+function InitWeapons(int AssaultAmmo,int AssaultGrenades,int BioAmmo,int ShockAmmo,int LinkAmmo,int MiniAmmo,int FlakAmmo,int RocketAmmo,int LightningAmmo, int ClassicSniperAmmo)
 {
     local int i;
     local class<Weapon> WeaponClass;
@@ -193,7 +193,9 @@ function InitWeapons(int AssaultAmmo,int AssaultGrenades,int BioAmmo,int ShockAm
             WeaponInfo[i].Ammo[0] = RocketAmmo;
         else if(WeaponInfo[i].WeaponName ~= "xWeapons.SniperRifle")
             WeaponInfo[i].Ammo[0] = LightningAmmo;
-
+        else if(WeaponInfo[i].WeaponName ~= "UTClassic.ClassicSniperRifle")
+            WeaponInfo[i].Ammo[0] = ClassicSniperAmmo;			
+			
         WeaponClass = class<Weapon>(DynamicLoadObject(WeaponInfo[i].WeaponName, class'Class'));
 
         if(WeaponClass == None)
@@ -364,7 +366,7 @@ function ResetWeaponsToDefaults(bool bModifyShieldGun)
 		class'xWeapons.RocketLauncher'.default.FireModeClass[0] = Class'xWeapons.RocketFire';
 		class'xWeapons.RocketLauncher'.default.FireModeClass[1] = Class'xWeapons.RocketMultiFire';
 		class'xWeapons.SniperRifle'.default.FireModeClass[0]= Class'xWeapons.SniperFire';
-		class'UTClassic.ClassicSniperRifle'.default.FireModeClass[0]= Class'UTClassic.ClassicSniperFire';
+		class'UTClassic.ClassicSniperRifle'.default.FireModeClass[0]= Class'Weaponfire_ClassicSniper';
 		class'xWeapons.SuperShockRifle'.default.FireModeClass[0]=class'xWeapons.SuperShockBeamFire';
 		class'xWeapons.SuperShockRifle'.default.FireModeClass[1]=class'xWeapons.SuperShockBeamFire';
 		
@@ -476,6 +478,10 @@ function bool CheckReplacement(Actor Other, out byte bSuperRelevant)
 				RocketLauncher(Other).FireModeClass[0] = class'WeaponFire_Rocket';
 				RocketLauncher(Other).FireModeClass[1] = class'WeaponFire_RocketAlt';
 			}
+			else if(Other.IsA('ClassicSniperRifle'))
+			{
+				ClassicSniperRifle(Other).FireModeClass[0] = class'WeaponFire_ClassicSniper';
+			}			
 			else if(Other.IsA('SniperRifle'))
 			{
 				SniperRifle(Other).FireModeClass[0] = class'WeaponFire_Lightning';
@@ -607,6 +613,7 @@ defaultproperties
      WeaponInfo(6)=(WeaponName="xWeapons.BioRifle",Ammo[0]=20,MaxAmmo[0]=1.500000)
      WeaponInfo(7)=(WeaponName="xWeapons.AssaultRifle",Ammo[0]=999,Ammo[1]=5,MaxAmmo[0]=1.500000)
      WeaponInfo(8)=(WeaponName="xWeapons.ShieldGun",Ammo[1]=100,MaxAmmo[0]=1.000000,MaxAmmo[1]=1.000000)
+	 WeaponInfo(9)=(WeaponName="UTClassic.ClassicSniperRifle",Ammo[0]=10,MaxAmmo[0]=1.500000)
      EnableNewNet=True
      WeaponClasses(0)=Class'XWeapons.ShockRifle'
      WeaponClasses(1)=Class'XWeapons.LinkGun'
@@ -617,24 +624,27 @@ defaultproperties
      WeaponClasses(6)=Class'XWeapons.BioRifle'
      WeaponClasses(7)=Class'XWeapons.AssaultRifle'
      WeaponClasses(8)=Class'XWeapons.ShieldGun'
-     NewNetWeaponClasses(0)=Class'3SPNCv42101.NewNet_ShockRifle'
-     NewNetWeaponClasses(1)=Class'3SPNCv42101.NewNet_LinkGun'
-     NewNetWeaponClasses(2)=Class'3SPNCv42101.NewNet_MiniGun'
-     NewNetWeaponClasses(3)=Class'3SPNCv42101.NewNet_FlakCannon'
-     NewNetWeaponClasses(4)=Class'3SPNCv42101.NewNet_RocketLauncher'
-     NewNetWeaponClasses(5)=Class'3SPNCv42101.NewNet_SniperRifle'
-     NewNetWeaponClasses(6)=Class'3SPNCv42101.NewNet_BioRifle'
-     NewNetWeaponClasses(7)=Class'3SPNCv42101.NewNet_AssaultRifle'
-     NewNetWeaponClasses(8)=Class'3SPNCv42101.NewNet_ShieldGun'
-     NewNetWeaponNames(0)="3SPNCv42101.NewNet_ShockRifle"
-     NewNetWeaponNames(1)="3SPNCv42101.NewNet_LinkGun"
-     NewNetWeaponNames(2)="3SPNCv42101.NewNet_MiniGun"
-     NewNetWeaponNames(3)="3SPNCv42101.NewNet_FlakCannon"
-     NewNetWeaponNames(4)="3SPNCv42101.NewNet_RocketLauncher"
-     NewNetWeaponNames(5)="3SPNCv42101.NewNet_SniperRifle"
-     NewNetWeaponNames(6)="3SPNCv42101.NewNet_BioRifle"
-     NewNetWeaponNames(7)="3SPNCv42101.NewNet_AssaultRifle"
-     NewNetWeaponNames(8)="3SPNCv42101.NewNet_ShieldGun"
+	 WeaponClasses(9)=Class'UTClassic.ClassicSniperRifle'
+     NewNetWeaponClasses(0)=Class'3SPNCv42102.NewNet_ShockRifle'
+     NewNetWeaponClasses(1)=Class'3SPNCv42102.NewNet_LinkGun'
+     NewNetWeaponClasses(2)=Class'3SPNCv42102.NewNet_MiniGun'
+     NewNetWeaponClasses(3)=Class'3SPNCv42102.NewNet_FlakCannon'
+     NewNetWeaponClasses(4)=Class'3SPNCv42102.NewNet_RocketLauncher'
+     NewNetWeaponClasses(5)=Class'3SPNCv42102.NewNet_SniperRifle'
+     NewNetWeaponClasses(6)=Class'3SPNCv42102.NewNet_BioRifle'
+     NewNetWeaponClasses(7)=Class'3SPNCv42102.NewNet_AssaultRifle'
+     NewNetWeaponClasses(8)=Class'3SPNCv42102.NewNet_ShieldGun'
+     NewNetWeaponClasses(9)=Class'3SPNCv42102.NewNet_ClassicSniperRifle'	 
+     NewNetWeaponNames(0)="3SPNCv42102.NewNet_ShockRifle"
+     NewNetWeaponNames(1)="3SPNCv42102.NewNet_LinkGun"
+     NewNetWeaponNames(2)="3SPNCv42102.NewNet_MiniGun"
+     NewNetWeaponNames(3)="3SPNCv42102.NewNet_FlakCannon"
+     NewNetWeaponNames(4)="3SPNCv42102.NewNet_RocketLauncher"
+     NewNetWeaponNames(5)="3SPNCv42102.NewNet_SniperRifle"
+     NewNetWeaponNames(6)="3SPNCv42102.NewNet_BioRifle"
+     NewNetWeaponNames(7)="3SPNCv42102.NewNet_AssaultRifle"
+     NewNetWeaponNames(8)="3SPNCv42102.NewNet_ShieldGun"
+     NewNetWeaponNames(9)="3SPNCv42102.NewNet_ClassicSniperRifle"	 
      bAddToServerPackages=True
      FriendlyName="3SPN"
      Description="3SPN"
