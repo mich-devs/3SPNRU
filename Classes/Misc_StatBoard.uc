@@ -1051,12 +1051,10 @@ simulated event DrawScoreBoard(Canvas C)
         if(TmpPRI.ClassicSniper.Fired > 0)
         {
             GetStatsFor(class'ClassicSniperRifle', TmpPRI, killsw);
-            DrawHitStat(C, TmpPRI.ClassicSniper.Fired, TmpPRI.ClassicSniper.Hit, TmpPRI.ClassicSniper.Damage, killsw, "ClassicSniper", MiscX, MiscY, MiscW, MiscH, TextX, TextY);
+            DrawHitStat(C, TmpPRI.ClassicSniper.Fired, TmpPRI.ClassicSniper.Hit, TmpPRI.ClassicSniper.Damage, killsw, "Sniper", MiscX, MiscY, MiscW, MiscH, TextX, TextY);
         }
-        MiscY += MiscH * 1.275;
-
         // LG
-        if(TmpPRI.Sniper.Fired > 0)
+        else if(TmpPRI.Sniper.Fired > 0)
         {
             GetStatsFor(class'SniperRifle', TmpPRI, killsw);
             DrawHitStat(C, TmpPRI.Sniper.Fired, TmpPRI.Sniper.Hit, TmpPRI.Sniper.Damage, killsw, "Lightning", MiscX, MiscY, MiscW, MiscH, TextX, TextY);

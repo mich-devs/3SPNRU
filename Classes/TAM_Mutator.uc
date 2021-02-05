@@ -277,6 +277,7 @@ function InitWeapons(int AssaultAmmo,int AssaultGrenades,int BioAmmo,int ShockAm
 		class'DamType_ShockCombo'.default.WeaponClass = class'NewNet_ShockRifle';
 		class'DamTypeSniperHeadShot'.default.WeaponClass = class'NewNet_SniperRifle';
 		class'DamTypeSniperShot'.default.WeaponClass = class'NewNet_SniperRifle';
+		class'DamType_ClassicSniperShot'.default.WeaponClass = class'NewNet_ClassicSniperRifle';
 		class'DamType_LinkShaft'.Default.WeaponClass = Class'NewNet_LinkGun';
 		class'DamType_LinkPlasma'.Default.WeaponClass = Class'NewNet_LinkGun';
 		class'NewNet_LinkFire'.Default.DamageType = Class'DamType_LinkShaft';
@@ -386,7 +387,8 @@ function ResetWeaponsToDefaults(bool bModifyShieldGun)
 		class'DamTypeShockBeam'.default.WeaponClass = class'xWeapons.ShockRifle';
 		class'DamType_ShockCombo'.default.WeaponClass = class'xWeapons.ShockRifle';
 		class'DamTypeSniperHeadShot'.default.WeaponClass = class'xWeapons.SniperRifle';
-		class'DamTypeSniperShot'.default.WeaponClass = class'xWeapons.SniperRifle';		
+		class'DamTypeSniperShot'.default.WeaponClass = class'xWeapons.SniperRifle';
+		class'DamType_ClassicSniperShot'.default.WeaponClass = class'NewNet_ClassicSniperRifle';		
 	}
 }
 	
