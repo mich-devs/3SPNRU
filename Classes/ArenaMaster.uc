@@ -644,7 +644,7 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
                 PRI.Sniper.Hit++;
                 PRI.Sniper.Damage += Damage;
             }
-           else if(DamageType == class'DamTypeClassicSniper')
+           else if(DamageType == class'UTClassic.DamTypeClassicSniper')
             {
                 PRI.ClassicSniper.Hit++;
                 PRI.ClassicSniper.Damage += Damage;

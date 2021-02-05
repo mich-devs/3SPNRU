@@ -266,7 +266,7 @@ function ProcessHitStats()
         count++;
     }
 
-    if(ClassicSniper.Fired > 2)
+    if(ClassicSniper.Fired < 0)
     {
         AveragePercent += class'Misc_StatBoard'.static.GetPercentage(ClassicSniper.Fired, ClassicSniper.Hit);
         count++;

@@ -1177,7 +1177,7 @@ function ServerUpdateStatArrays(TeamPlayerReplicationInfo PRI)
     ClientSendFlakStats(P, P.Flak);
     ClientSendRocketStats(P, P.Rockets);
     ClientSendSniperStats(P, P.Sniper);
-    ClientSendSniperStats(P, P.ClassicSniper);
+    ClientSendClassicSniperStats(P, P.ClassicSniper);
     ClientSendComboStats(P, P.Combo);
     ClientSendMiscStats(P, P.HeadShots, P.EnemyDamage, P.ReverseFF, P.AveragePercent, 
         P.FlawlessCount, P.OverkillCount, P.DarkHorseCount, P.HatTrickCount, P.SGDamage, P.LinkCount, P.RoxCount, P.ShieldCount, P.GrenCount);
