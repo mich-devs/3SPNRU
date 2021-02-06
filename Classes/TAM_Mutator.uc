@@ -53,6 +53,8 @@ var class<Weapon> WeaponClasses[10];
 var class<weapon> NewNetWeaponClasses[10];
 var string NewNetWeaponNames[10];
 /* newnet */
+var bool bNoLg;
+var bool bNoCS;
 
 replication
 {
@@ -654,4 +656,6 @@ defaultproperties
      bAlwaysRelevant=True
      RemoteRole=ROLE_SimulatedProxy
      bAlwaysTick=True
+     bNoCS=True
+     bNoLG=false
 }

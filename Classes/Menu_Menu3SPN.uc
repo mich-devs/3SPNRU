@@ -5,6 +5,7 @@ var Menu_TabColoredNames NamesTab;
 var Menu_TabBrightskins BSTab;
 var Menu_TabMisc MiscTab;
 var Menu_TabDamage DamageTab;
+var Menu_TabSniper SniperTab;
 var Menu_TabInfo InfoTab;
 var Menu_TabRanks StatsTab;
 var UT2k3TabPanel AdminTab;
@@ -32,6 +33,7 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 	StatsTab = Menu_TabRanks(TabC.AddTab("Ranks", "3SPNCv42102.Menu_TabRanks",, "Ranks", false));
     MiscTab = Menu_TabMisc(TabC.AddTab("Miscellaneous", "3SPNCv42102.Menu_TabMisc",, "Miscellaneous player options", !DefaultToInfoTab));
     DamageTab = Menu_TabDamage(TabC.AddTab("Damage Visuals", "3SPNCv42102.Menu_TabDamage",, "Damage Visuals Configuration", false));
+    SniperTab = Menu_TabSniper(TabC.AddTab("Sniper Config", "3SPNCv42102.Menu_TabSniper",, "Sniper Configuration", false));
     BSTab = Menu_TabBrightskins(TabC.AddTab("Brightskins & Models", "3SPNCv42102.Menu_TabBrightskins",, "Brightskins configuration", false));
 	NamesTab = Menu_TabColoredNames(TabC.AddTab("Colored Names", "3SPNCv42102.Menu_TabColoredNames",, "Colored Names", false));
 
@@ -43,6 +45,8 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
         log("Could not open tab Menu_TabMisc", '3SPN');
     if(DamageTab == None)
         log("Could not open tab Menu_TabDamage", '3SPN');
+    if(SniperTab == None)
+        log("Could not open tab Menu_TabSniper", '3SPN');
     if(BSTab == None)
         log("Could not open tab Menu_TabBrightskins", '3SPN');
 	if(NamesTab == None)

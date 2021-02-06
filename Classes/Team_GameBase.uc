@@ -1276,6 +1276,13 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                 PRI.Sniper.Hit++;
                 PRI.Sniper.Damage += Damage;
             }
+
+	    else if(DamageType == class'DamTypeClassicHeadShot')
+            {
+                PRI.HeadShots++;
+                PRI.ClassicSniper.Hit++;
+                PRI.ClassicSniper.Damage += Damage;
+            }
             else if(DamageType == class'DamType_BioGlob')
             {
                 PRI.Bio.Hit++;
