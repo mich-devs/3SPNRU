@@ -1054,6 +1054,10 @@ simulated event DrawScoreBoard(Canvas C)
             DrawHitStat(C, TmpPRI.ClassicSniper.Fired, TmpPRI.ClassicSniper.Hit, TmpPRI.ClassicSniper.Damage, killsw, "Sniper", MiscX, MiscY, MiscW, MiscH, TextX, TextY);
         }
         MiscY += MiscH * 1.275;
+        
+if(TmpPRI.ClassicSniper.Hit > 0)
+            DrawHitStat(C, TmpPRI.ClassicSniper.Hit, TmpPRI.HeadShots, TmpPRI.HeadShots * 140, TmpPRI.HeadCount, "^ Headshots", MiscX, MiscY, MiscW, MiscH, TextX, TextY);             
+         MiscY += MiscH * 1.275;
 
         // LG
         if(TmpPRI.Sniper.Fired > 0)
@@ -1066,7 +1070,7 @@ simulated event DrawScoreBoard(Canvas C)
         // headshots
         if(TmpPRI.Sniper.Hit > 0)
             DrawHitStat(C, TmpPRI.Sniper.Hit, TmpPRI.HeadShots, TmpPRI.HeadShots * 140, TmpPRI.HeadCount, "^ Headshots", MiscX, MiscY, MiscW, MiscH, TextX, TextY);
-       MiscY += MiscH * 1.275;
+         MiscY += MiscH * 1.275;
 
         // total
         DrawBars(C, 1, MiscX, MiscY, MiscW, MiscH);
