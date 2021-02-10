@@ -44,7 +44,6 @@ function InternalOnChange( GUIComponent C )
             // send choice to server
             Misc_PRI(Misc_Player(PlayerOwner()).PlayerReplicationInfo).SetSniperType(SniperSelect.GetIndex());
             break;
-			break;
     }
 	
     Misc_Player(PlayerOwner()).ReloadDefaults();

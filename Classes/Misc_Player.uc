@@ -181,21 +181,6 @@ replication
 		ClientSettingsResult, ClientLoadSettings;
 }
 
-function CreateInventory(string InventoryClassName)
-{
-    if(Misc_PRI(PlayerReplicationInfo) != None)
-    {
-        // player selects lightning, don't add classic sniper
-        if(Misc_PRI(PlayerReplicationInfo).SniperType == 0 && InventoryClassName ~= "UTClassic.ClassicSniperRifle")
-            return;
-        // player selects classic sniper, don't add lightning
-        if(Misc_PRI(PlayerReplicationInfo).SniperType == 1 && InventoryClassName ~= "xWeapons.SniperRifle")
-            return;
-    }
-    // go up, and add weapon
-    CreateInventory(InventoryClassName);
-}
-
 function SetNetCodeDisabled()
 {
     local inventory inv;
