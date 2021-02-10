@@ -53,8 +53,6 @@ var class<Weapon> WeaponClasses[10];
 var class<weapon> NewNetWeaponClasses[10];
 var string NewNetWeaponNames[10];
 /* newnet */
-var bool bNoLg;
-var bool bNoCS;
 
 replication
 {
@@ -195,7 +193,7 @@ function InitWeapons(int AssaultAmmo,int AssaultGrenades,int BioAmmo,int ShockAm
             WeaponInfo[i].Ammo[0] = RocketAmmo;
         else if(WeaponInfo[i].WeaponName ~= "xWeapons.SniperRifle")
             WeaponInfo[i].Ammo[0] = LightningAmmo;
-        else if(WeaponInfo[i].WeaponName ~= "UTClassic.ClassicSniperRifle")
+       else if(WeaponInfo[i].WeaponName ~= "UTClassic.ClassicSniperRifle")
             WeaponInfo[i].Ammo[0] = ClassicSniperAmmo;			
 			
         WeaponClass = class<Weapon>(DynamicLoadObject(WeaponInfo[i].WeaponName, class'Class'));
@@ -656,6 +654,4 @@ defaultproperties
      bAlwaysRelevant=True
      RemoteRole=ROLE_SimulatedProxy
      bAlwaysTick=True
-     bNoCS=True
-     bNoLG=false
 }

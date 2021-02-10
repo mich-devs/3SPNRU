@@ -70,6 +70,8 @@ var float       AveragePercent;
 var class<Misc_PawnReplicationInfo> PawnInfoClass;
 var Misc_PawnReplicationInfo PawnReplicationInfo;
 
+var byte SniperType;
+
 replication
 {
       reliable if ( Role < 4 )
@@ -78,7 +80,13 @@ replication
     RegisterDamage;
   unreliable if ( bNetDirty && (Role == 4) )
     ColoredName,PlayedRounds,Rank,AvgPPR,PointsToRankUp,PPRListLength,PPRList,PawnReplicationInfo;
-		
+  reliable if ( Role < ROLE_Authority)
+    SetSniperType;		
+}
+
+function SetSniperType(byte NewSniperType)
+{
+    SniperType = NewSniperType;
 }
 
 event PostBeginPlay()

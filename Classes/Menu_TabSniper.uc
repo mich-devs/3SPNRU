@@ -29,7 +29,7 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 	SniperSelect.AddItem("Lightning Gun");
 	SniperSelect.AddItem("NEW ClassicSniper");
 	SniperSelect.ReadOnly(True);
-	//SniperSelect.SetIndex(class'TAM_Mutator'.default.SniperType - 1);
+        SniperSelect.SetIndex(Misc_PRI(Misc_Player(PlayerOwner()).PlayerReplicationInfo).SniperType);
 
 	class'Menu_Menu3SPN'.default.SettingsDirty = OldDirty;
 }
@@ -38,14 +38,18 @@ function InternalOnChange( GUIComponent C )
 {
     Switch(C)
     {	
-		case SniperSelect:
-			//class'TAM_Mutator'.default.SniperType = SniperSelect.GetIndex() + 1;
+            case SniperSelect:
+            // client display(menu reopen)
+            Misc_PRI(Misc_Player(PlayerOwner()).PlayerReplicationInfo).SniperType = SniperSelect.GetIndex();
+            // send choice to server
+            Misc_PRI(Misc_Player(PlayerOwner()).PlayerReplicationInfo).SetSniperType(SniperSelect.GetIndex());
+            break;
 			break;
     }
 	
     Misc_Player(PlayerOwner()).ReloadDefaults();
     class'Misc_Player'.Static.StaticSaveConfig();	
-	class'Menu_Menu3SPN'.default.SettingsDirty = true;
+    class'Menu_Menu3SPN'.default.SettingsDirty = true;
 }
 
 defaultproperties
