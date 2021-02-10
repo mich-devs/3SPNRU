@@ -30,7 +30,7 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 	SniperSelect.AddItem("NEW ClassicSniper");
 	SniperSelect.ReadOnly(True);
         SniperSelect.SetIndex(Misc_PRI(Misc_Player(PlayerOwner()).PlayerReplicationInfo).SniperType);
-
+	SniperSelect.SetIndex(class'Misc_Player'.default.SniperType - 1);
 	class'Menu_Menu3SPN'.default.SettingsDirty = OldDirty;
 }
 
@@ -55,7 +55,7 @@ defaultproperties
 {
 	Begin Object Class=moComboBox Name=ComboSniperType
          Caption="Sniper Selection:"
-         OnCreateComponent=ComboDamageIndicatorType.InternalOnCreateComponent
+         OnCreateComponent=ComboSniperType.InternalOnCreateComponent
          WinTop=0.350000
 		 WinLeft=0.100000
          WinWidth=0.600000

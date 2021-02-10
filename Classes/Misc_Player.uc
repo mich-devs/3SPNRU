@@ -20,6 +20,7 @@ var config bool bShowTeamInfo;          // show teams info on the HUD
 var config bool bExtendedInfo;          // show extra teammate info
 
 var config int DamageIndicatorType;     // 1 = Disabled, 2 = Centered, 3 = Floating
+var config int SniperType;     // 1 = Lightning, 2 = ClassicSniper
 
 var config bool bMatchHUDToSkins;       // sets HUD color to brightskins color
 /* HUD related */
@@ -1811,7 +1812,7 @@ simulated function ReloadDefaults()
 	RedEnemyModel = class'Misc_Player'.default.RedEnemyModel;
 	BlueAllyModel = class'Misc_Player'.default.BlueAllyModel;
     DamageIndicatorType = class'Misc_Player'.default.DamageIndicatorType;
-	
+    SniperType = class'Misc_Player'.default.SniperType;	
 	bDisableAnnouncement = class'Misc_Player'.default.bDisableAnnouncement;
 	bAutoScreenShot = class'Misc_Player'.default.bAutoScreenShot;
 	
@@ -1907,7 +1908,8 @@ function ClientLoadSettings(string PlayerName, Misc_PlayerSettings.BrightSkinsSe
 	class'Misc_Player'.default.SoundAloneVolume = Misc.SoundAloneVolume;
 	class'Misc_Player'.default.AutoSyncSettings = Misc.AutoSyncSettings;
     class'Misc_Player'.default.DamageIndicatorType = Misc.DamageIndicatorType;
-
+    class'Misc_Player'.default.SniperType = Misc.SniperType;
+	
 	ReloadDefaults();
 	SetupCombos();
 	SetColoredNameOldStyleCustom(,0);
@@ -2038,7 +2040,7 @@ function SaveSettings()
 	Misc.SoundAloneVolume = class'Misc_Player'.default.SoundAloneVolume;
 	Misc.AutoSyncSettings = class'Misc_Player'.default.AutoSyncSettings;
     Misc.DamageIndicatorType = class'Misc_Player'.default.DamageIndicatorType;
-	
+    Misc.SniperType = class'Misc_Player'.default.SniperType;	
 	ServerSaveSettings(BrightSkins, ColoredNames, Misc);
 }
 
