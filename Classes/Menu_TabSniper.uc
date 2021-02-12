@@ -30,7 +30,6 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 	SniperSelect.AddItem("NEW ClassicSniper");
 	SniperSelect.ReadOnly(True);
         SniperSelect.SetIndex(Misc_PRI(Misc_Player(PlayerOwner()).PlayerReplicationInfo).SniperType);
-	SniperSelect.SetIndex(class'Misc_Player'.default.SniperType - 1);
 	class'Menu_Menu3SPN'.default.SettingsDirty = OldDirty;
 }
 
@@ -47,6 +46,7 @@ function InternalOnChange( GUIComponent C )
     }
 	
     Misc_Player(PlayerOwner()).ReloadDefaults();
+    Misc_PRI(Misc_Player(PlayerOwner()).PlayerReplicationInfo).SaveConfig();  
     class'Misc_Player'.Static.StaticSaveConfig();	
     class'Menu_Menu3SPN'.default.SettingsDirty = true;
 }

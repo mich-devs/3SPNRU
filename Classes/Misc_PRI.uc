@@ -30,7 +30,7 @@ var float PPRList[30];
 var float PointsToRankUp;
 var int ShieldCount;
 var int GrenCount;
-
+var config byte SniperType;
 
 var int CurrentDamage;
 var int CurrentDamage2;
@@ -70,8 +70,6 @@ var float       AveragePercent;
 var class<Misc_PawnReplicationInfo> PawnInfoClass;
 var Misc_PawnReplicationInfo PawnReplicationInfo;
 
-var byte SniperType;
-
 replication
 {
       reliable if ( Role < 4 )
@@ -91,10 +89,15 @@ function SetSniperType(byte NewSniperType)
 
 event PostBeginPlay()
 {
-    Super.PostBeginPlay();
-
     if(!bDeleteMe && Level.NetMode != NM_Client)
         PawnReplicationInfo = Spawn(PawnInfoClass, self,, vect(0,0,0), rot(0,0,0));
+}
+
+simulated function PostNetBeginPlay()
+{
+    Super.PostNetBeginPlay();
+    if (Role < ROLE_Authority)
+        SetSniperType(SniperType);
 }
 
 simulated function string GetColoredName()
