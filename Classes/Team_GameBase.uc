@@ -1174,7 +1174,9 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
 			
 			
 			if(Damage > (injured.Health + injured.ShieldStrength + 50) && 
-                Damage / (injured.Health + injured.ShieldStrength) > 2 && DamageType != class'DamType_Headshot' && DamageType != class'DamTypeSniperHeadShot')
+                Damage / (injured.Health + injured.ShieldStrength) > 2 && 
+                DamageType != class'DamType_Headshot' && DamageType != class'DamTypeSniperHeadShot' && 
+                DamageType != class'DamType_ClassicHeadshot' && DamageType != class'DamTypeClassicHeadShot')
             {
                 PRI.OverkillCount++;
                 SpecialEvent(PRI, "Overkill");
@@ -1276,8 +1278,7 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                 PRI.Sniper.Hit++;
                 PRI.Sniper.Damage += Damage;
             }
-
-	    else if(DamageType == class'DamTypeClassicHeadShot')
+	        else if(DamageType == class'DamType_ClassicHeadShot')
             {
                 PRI.HeadShots++;
                 PRI.ClassicSniper.Hit++;
