@@ -286,6 +286,7 @@ function InitWeapons(int AssaultAmmo,int AssaultGrenades,int BioAmmo,int ShockAm
 		class'NewNet_MiniGunFire'.Default.DamageType = Class'DamType_MinigunBullet';
 		class'NewNet_MiniGunAltFire'.Default.DamageType = Class'DamType_MinigunAlt';
 		
+		
 	}
 }
 	
@@ -390,7 +391,7 @@ function ResetWeaponsToDefaults(bool bModifyShieldGun)
 		class'DamTypeSniperShot'.default.WeaponClass = class'xWeapons.SniperRifle';
 		class'DamType_ClassicSniperShot'.default.WeaponClass = class'NewNet_ClassicSniperRifle';	
 		class'DamType_ClassicHeadshot'.default.WeaponClass = class'NewNet_ClassicSniperRifle';	
-	}
+			}
 }
 	
 function bool CheckReplacement(Actor Other, out byte bSuperRelevant)
