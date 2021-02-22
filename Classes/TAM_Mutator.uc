@@ -258,8 +258,9 @@ function InitWeapons(int AssaultAmmo,int AssaultGrenades,int BioAmmo,int ShockAm
 		class'NewNet_FlakShell'.default.MyDamageType = class'DamType_FlakShell';
 		class'NewNet_RocketProj'.default.MyDamageType = class'DamType_Rocket';
 		class'NewNet_SeekingRocketProj'.default.MyDamageType = class'DamType_RocketHoming';
-
-		class'DamType_ShieldImpact'.default.WeaponClass = class'NewNet_ShieldGun';
+		
+		
+        class'DamType_ShieldImpact'.default.WeaponClass = class'NewNet_ShieldGun';
 		class'DamTypeAssaultBullet'.default.WeaponClass = class'NewNet_AssaultRifle';
 		//class'DamTypeAssaultGrenade'.default.WeaponClass = class'DamType_AssaultGrenade';
 		class'DamType_BioGlob'.default.WeaponClass = class'NewNet_BioRifle';
@@ -284,6 +285,8 @@ function InitWeapons(int AssaultAmmo,int AssaultGrenades,int BioAmmo,int ShockAm
 		class'NewNet_LinkProjectile'.Default.MyDamageType = Class'DamType_LinkPlasma';
 		class'NewNet_MiniGunFire'.Default.DamageType = Class'DamType_MinigunBullet';
 		class'NewNet_MiniGunAltFire'.Default.DamageType = Class'DamType_MinigunAlt';
+		
+		
 	}
 }
 	
