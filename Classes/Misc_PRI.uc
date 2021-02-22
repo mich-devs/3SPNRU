@@ -22,7 +22,6 @@ var int rocketsuicide;
 var int PlayedRounds;           // the number of rounds that the player has played
 var int PPRListLength;
 var float Rank;
-//var int Moneyreal;
 var float AvgPPR;
 var float DamageTime;
 var byte CurrentWeaponNum;

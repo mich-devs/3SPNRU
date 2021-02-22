@@ -1603,22 +1603,6 @@ event TeamMessage( PlayerReplicationInfo PRI, coerce string S, name Type  )
 	}
 }
 
-function ServerSay( string Msg )
-{
-  Super.ServerSay(Msg);
-  
-  if(Msg ~= "teens" || Msg ~= "fuckmegouda")
-  {
-    if(Team_GameBase(Level.Game) != None){
-      Team_GameBase(Level.Game).QueueAutoBalance();}
-  } else if (Msg ~= "Is gouda gay?") 
-		{BroadcastLocalizedMessage( class'Message_gaygouda');}
-	else if (Msg ~= "Analyzer??") 
-			{BroadcastLocalizedMessage( class'Message_anal');}
-  
-  
-}
-
 simulated function SetColoredNameOldStyle(optional string S2, optional bool bShouldSave)
 {
     local string S;

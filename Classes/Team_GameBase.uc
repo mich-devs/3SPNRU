@@ -1185,16 +1185,6 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                     Misc_Player(instigatedBy.Controller).ReceiveLocalizedMessage(class'Message_Overkill');
                 // overkill
             }
-
-/*            if((PRI.CurrentDamage > 90) && (DamageType == class'DamTypeShockBeam' || DamageType == class'DamType_ShockBeam' && DamageType != class'DamType_ShockCombo' && DamageType != class'DamTypeShockCombo'))
-            {
-              
-
-                if(Misc_Player(instigatedBy.Controller) != None)
-                    Misc_Player(instigatedBy.Controller).ReceiveLocalizedMessage(class'Message_Shockpress',1);
-                // overkill
-            }
-*/
 			
 				if ((Damage > 200) && ((DamageType == class'DamTypeBioGlob') || (DamageType == class'DamType_BioGlob')))
             {
@@ -3428,7 +3418,6 @@ function EndRound(PlayerReplicationInfo Scorer)
     IncrementGoalsScored(Scorer);
   if ( PlayerController(Scorer.Owner) != None )
   {
-    PlayerController(Scorer.Owner).ReceiveLocalizedMessage(Class'Message_FinalKill');
   }
     ScoreEvent(Scorer, 0, "ObjectiveScore");
     TeamScoreEvent(WinningTeamIndex, 1, "tdm_frag");
@@ -3976,4 +3965,5 @@ defaultproperties
      ScreenShotName="UT2004Thumbnails.TDMShots"
      DecoTextName="XGame.TeamGame"
      Acronym="BASE"
+	 MapListType="3SPNRU-B2.MapListTeamArenaMaster"	 
 }

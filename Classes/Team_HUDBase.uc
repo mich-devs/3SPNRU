@@ -523,25 +523,6 @@ simulated function DrawSpawnEffect (Canvas C)
   }
 }
 
-/*simulated function DrawDamageAwards (int Damage, byte WeaponNum)
-{
-  if (  !bHadFlakhug && (WeaponNum == 7) && (Damage >= 110) )
-  {
-    bHadFlakhug = True;
-    LocalizedMessage(Class'Message_FlakFuck',1);
-  }
-  if (  !bHadAirRox && (WeaponNum == 78) )
-  {
-    bHadAirRox = True;
-    LocalizedMessage(Class'Message_FlakFuck',2);
-  }
-  if (  !bHadTerminator && (WeaponNum == 6) && (Damage >= 80) )
-  {
-    bHadTerminator = True;
-    LocalizedMessage(Class'Message_FlakFuck',3);
-  }
-}
-*/  
 simulated function DrawResWarningIcon (Canvas C)
 {
   local float XL;
@@ -562,9 +543,6 @@ simulated function DrawResWarningIcon (Canvas C)
     Class'Message_Grave'.static.RenderComplexMessage(C,XL,YL,,0,PlayerOwner.PlayerReplicationInfo);
   }
 }
-
-
-
 
 simulated function CullDeathMessages ()
 {

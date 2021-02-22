@@ -73,7 +73,7 @@ defaultproperties
      RedTeamScores="Red Team Scores"
      BlueTeamScores="Blue Team Scores"
      MatchPoint="THIS IS A MATCH POINT ROUND!"
-     SuddenDeath="-- Teams are Tied! -- "
+     SuddenDeath="-- FINAL ROUND & Teams are Tied! -- "
      RedTeamColor=(R=255,A=255)
      BlueTeamColor=(B=255,A=255)
      bIsUnique=True
