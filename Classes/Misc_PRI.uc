@@ -89,6 +89,8 @@ function SetSniperType(byte NewSniperType)
 
 event PostBeginPlay()
 {
+    Super.PostBeginPlay();
+
     if(!bDeleteMe && Level.NetMode != NM_Client)
         PawnReplicationInfo = Spawn(PawnInfoClass, self,, vect(0,0,0), rot(0,0,0));
 }
