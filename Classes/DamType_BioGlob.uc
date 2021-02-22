@@ -19,6 +19,6 @@ static function IncrementKills(Controller Killer)
 
 defaultproperties
 {
-     BukkakeSound=Sound'3SPNCv42101.Sounds.Bukkake'
+     BukkakeSound=Sound'3SPNCv42102.Sounds.Bukkake'
      AwardLevel=5
 }

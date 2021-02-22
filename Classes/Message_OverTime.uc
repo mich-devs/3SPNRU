@@ -21,7 +21,7 @@ static simulated function ClientReceive (PlayerController P, optional int Switch
 
 defaultproperties
 {
-     OvertimeSound=Sound'3SPNCv42101.Sounds.overtime'
+     OvertimeSound=Sound'3SPNCv42102.Sounds.overtime'
      overtime="Overtime"
      bIsUnique=True
      bFadeMessage=True

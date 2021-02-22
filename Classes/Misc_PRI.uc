@@ -22,7 +22,6 @@ var int rocketsuicide;
 var int PlayedRounds;           // the number of rounds that the player has played
 var int PPRListLength;
 var float Rank;
-//var int Moneyreal;
 var float AvgPPR;
 var float DamageTime;
 var byte CurrentWeaponNum;
@@ -30,7 +29,7 @@ var float PPRList[30];
 var float PointsToRankUp;
 var int ShieldCount;
 var int GrenCount;
-
+var config byte SniperType;
 
 var int CurrentDamage;
 var int CurrentDamage2;
@@ -60,6 +59,7 @@ var HitStats    Mini;
 var HitStats    Flak;
 var HitStat     Rockets;
 var HitStat     Sniper;
+var HitStat     ClassicSniper;
 
 var int         SGDamage;
 var int         HeadShots;
@@ -77,7 +77,13 @@ replication
     RegisterDamage;
   unreliable if ( bNetDirty && (Role == 4) )
     ColoredName,PlayedRounds,Rank,AvgPPR,PointsToRankUp,PPRListLength,PPRList,PawnReplicationInfo;
-		
+  reliable if ( Role < ROLE_Authority)
+    SetSniperType;		
+}
+
+function SetSniperType(byte NewSniperType)
+{
+    SniperType = NewSniperType;
 }
 
 event PostBeginPlay()
@@ -86,6 +92,13 @@ event PostBeginPlay()
 
     if(!bDeleteMe && Level.NetMode != NM_Client)
         PawnReplicationInfo = Spawn(PawnInfoClass, self,, vect(0,0,0), rot(0,0,0));
+}
+
+simulated function PostNetBeginPlay()
+{
+    Super.PostNetBeginPlay();
+    if (Role < ROLE_Authority)
+        SetSniperType(SniperType);
 }
 
 simulated function string GetColoredName()
@@ -265,6 +278,12 @@ function ProcessHitStats()
         count++;
     }
 
+    if(ClassicSniper.Fired > 2)
+    {
+        AveragePercent += class'Misc_StatBoard'.static.GetPercentage(ClassicSniper.Fired, ClassicSniper.Hit);
+        count++;
+    }
+
     if(count > 0)
         AveragePercent /= count;
 }
@@ -272,5 +291,5 @@ function ProcessHitStats()
 defaultproperties
 {
      StringDeadNoRez="Dead [Inactive]"
-     PawnInfoClass=Class'3SPNCv42101.Misc_PawnReplicationInfo'
+     PawnInfoClass=Class'3SPNCv42102.Misc_PawnReplicationInfo'
 }

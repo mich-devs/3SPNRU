@@ -46,7 +46,8 @@ struct MiscSettings
 	var float SoundHitVolume;
 	var float SoundAloneVolume;
 	var bool AutoSyncSettings;
-    var int DamageIndicatorType;
+        var int DamageIndicatorType;
+        var int SniperType;
 };
 
 var config bool Existing;

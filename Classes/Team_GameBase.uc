@@ -86,6 +86,7 @@ var config int  MiniAmmo;
 var config int  FlakAmmo;
 var config int  RocketAmmo;
 var config int  LightningAmmo;
+var config int  ClassicSniperAmmo;
 /* weapon related */
 
 /* extended functionality */
@@ -354,6 +355,7 @@ static function FillPlayInfo(PlayInfo PI)
     PI.AddSetting("3SPN", "FlakAmmo", "Flak Ammunition", 0, Weight++, "Text", "3;0:999",, True);
     PI.AddSetting("3SPN", "RocketAmmo", "Rocket Ammunition", 0, Weight++, "Text", "3;0:999",, True);
     PI.AddSetting("3SPN", "LightningAmmo", "Lightning Ammunition", 0, Weight++, "Text", "3;0:999",, True);
+    PI.AddSetting("3SPN", "ClassicSniperAmmo", "ClassicSniper Ammunition", 0, Weight++, "Text", "3;0:999",, True);
 
     PI.AddSetting("3SPN", "EnableNewNet", "Enable New Net", 0, Weight++, "Check");
     PI.AddSetting("3SPN", "bDamageIndicator", "Enable Damage Indicator", 0, 401, "Check");  
@@ -430,7 +432,8 @@ static event string GetDescriptionText(string PropName)
       case "FlakAmmo":            return "Amount of Flak Ammunition to give in a round.";
       case "RocketAmmo":          return "Amount of Rocket Ammunition to give in a round.";
       case "LightningAmmo":       return "Amount of Lightning Ammunition to give in a round.";
-
+      case "ClassicSniperAmmo":       return "Amount of ClassicSniper Ammunition to give in a round.";
+	  
       case "EnableNewNet":                  return "Make enhanced netcode available for players.";
       case "bDamageIndicator":    return "Enable or Disable the Damage Indicators for players";
       case "EndCeremonyEnabled":            return "Enable End Ceremony";
@@ -572,6 +575,10 @@ function ParseOptions(string Options)
     if(InOpt != "")
         RocketAmmo = int(InOpt);
 
+    InOpt = ParseOption(Options, "ClassicSniperAmmo");
+    if(InOpt != "")
+        ClassicSniperAmmo = int(InOpt);		
+		
     InOpt = ParseOption(Options, "LightningAmmo");
     if(InOpt != "")
         LightningAmmo = int(InOpt);
@@ -623,7 +630,7 @@ event InitGame(string Options, out string Error)
     TeamTimeOuts[0] = TimeOuts;
     TeamTimeOuts[1] = TimeOuts;
 
-    MutTAM.InitWeapons(AssaultAmmo,AssaultGrenades,BioAmmo,ShockAmmo,LinkAmmo,MiniAmmo,FlakAmmo,RocketAmmo,LightningAmmo);
+    MutTAM.InitWeapons(AssaultAmmo,AssaultGrenades,BioAmmo,ShockAmmo,LinkAmmo,MiniAmmo,FlakAmmo,RocketAmmo,LightningAmmo,ClassicSniperAmmo);
 
     if(bModifyShieldGun)
     {
@@ -1167,7 +1174,9 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
 			
 			
 			if(Damage > (injured.Health + injured.ShieldStrength + 50) && 
-                Damage / (injured.Health + injured.ShieldStrength) > 2 && DamageType != class'DamType_Headshot' && DamageType != class'DamTypeSniperHeadShot')
+                Damage / (injured.Health + injured.ShieldStrength) > 2 && 
+                DamageType != class'DamType_Headshot' && DamageType != class'DamTypeSniperHeadShot' && 
+                DamageType != class'DamType_ClassicHeadshot' && DamageType != class'DamTypeClassicHeadShot')
             {
                 PRI.OverkillCount++;
                 SpecialEvent(PRI, "Overkill");
@@ -1176,16 +1185,6 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                     Misc_Player(instigatedBy.Controller).ReceiveLocalizedMessage(class'Message_Overkill');
                 // overkill
             }
-
-/*            if((PRI.CurrentDamage > 90) && (DamageType == class'DamTypeShockBeam' || DamageType == class'DamType_ShockBeam' && DamageType != class'DamType_ShockCombo' && DamageType != class'DamTypeShockCombo'))
-            {
-              
-
-                if(Misc_Player(instigatedBy.Controller) != None)
-                    Misc_Player(instigatedBy.Controller).ReceiveLocalizedMessage(class'Message_Shockpress',1);
-                // overkill
-            }
-*/
 			
 				if ((Damage > 200) && ((DamageType == class'DamTypeBioGlob') || (DamageType == class'DamType_BioGlob')))
             {
@@ -1222,6 +1221,11 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
             {
                 PRI.Sniper.Hit++;
                 PRI.Sniper.Damage += Damage;
+            }
+            else if(DamageType == class'UTClassic.DamTypeClassicSniper')
+            {
+                PRI.ClassicSniper.Hit++;
+                PRI.ClassicSniper.Damage += Damage;
             }
             else if(DamageType == class'DamTypeShockBeam')
             {
@@ -1263,6 +1267,13 @@ function int ReduceDamageOld(int Damage, pawn injured, pawn instigatedBy, vector
                 PRI.HeadShots++;
                 PRI.Sniper.Hit++;
                 PRI.Sniper.Damage += Damage;
+            }
+
+	    else if(DamageType == class'DamTypeClassicHeadShot')
+            {
+                PRI.HeadShots++;
+                PRI.ClassicSniper.Hit++;
+                PRI.ClassicSniper.Damage += Damage;
             }
             else if(DamageType == class'DamType_BioGlob')
             {
@@ -3407,7 +3418,6 @@ function EndRound(PlayerReplicationInfo Scorer)
     IncrementGoalsScored(Scorer);
   if ( PlayerController(Scorer.Owner) != None )
   {
-    PlayerController(Scorer.Owner).ReceiveLocalizedMessage(Class'Message_FinalKill');
   }
     ScoreEvent(Scorer, 0, "ObjectiveScore");
     TeamScoreEvent(WinningTeamIndex, 1, "tdm_frag");
@@ -3908,6 +3918,7 @@ defaultproperties
      FlakAmmo=15
      RocketAmmo=12
      LightningAmmo=15
+	 ClassicSniperAmmo=10
      EndOfRoundDelay=2
      EndOfRoundTime=10
      RoundCanTie=True
@@ -3931,27 +3942,28 @@ defaultproperties
      FlagTextureEnabled=True
      FlagTextureShowAcronym=True
 //     AllowServerSaveSettings=True
-     OvertimeSound=Sound'3SPNCv42101.Sounds.overtime'
+     OvertimeSound=Sound'3SPNCv42102.Sounds.overtime'
      UseZAxisRadar=True
      bScoreTeamKills=False
      bDamageIndicator=True
      FriendlyFireScale=0.500000
-     DefaultEnemyRosterClass="3SPNCv42101.TAM_TeamInfo"
+     DefaultEnemyRosterClass="3SPNCv42102.TAM_TeamInfo"
      ADR_MinorError=-5.000000
-     LoginMenuClass="3SPNCv42101.Menu_TAMLoginMenu"
-     LocalStatsScreenClass=Class'3SPNCv42101.Misc_StatBoard'
-     DefaultPlayerClassName="3SPNCv42101.Misc_Pawn"
-     ScoreBoardType="3SPNCv42101.TAM_Scoreboard"
-     HUDType="3SPNCv42101.TAM_HUD"
+     LoginMenuClass="3SPNCv42102.Menu_TAMLoginMenu"
+     LocalStatsScreenClass=Class'3SPNCv42102.Misc_StatBoard'
+     DefaultPlayerClassName="3SPNCv42102.Misc_Pawn"
+     ScoreBoardType="3SPNCv42102.TAM_Scoreboard"
+     HUDType="3SPNCv42102.TAM_HUD"
      GoalScore=10
      TimeLimit=0
-     DeathMessageClass=Class'3SPNCv42101.Misc_DeathMessage'
-     MutatorClass="3SPNCv42101.TAM_Mutator"
-     PlayerControllerClassName="3SPNCv42101.Misc_Player"
-     GameReplicationInfoClass=Class'3SPNCv42101.Misc_BaseGRI'
+     DeathMessageClass=Class'3SPNCv42102.Misc_DeathMessage'
+     MutatorClass="3SPNCv42102.TAM_Mutator"
+     PlayerControllerClassName="3SPNCv42102.Misc_Player"
+     GameReplicationInfoClass=Class'3SPNCv42102.Misc_BaseGRI'
      GameName="BASE"
      Description="One life per round. Don't waste it."
      ScreenShotName="UT2004Thumbnails.TDMShots"
      DecoTextName="XGame.TeamGame"
      Acronym="BASE"
+	 MapListType="3SPNRU-B2.MapListTeamArenaMaster"	 
 }
