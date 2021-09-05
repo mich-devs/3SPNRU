@@ -40,6 +40,23 @@ replication
         SpawnProtectionEnabled,SpawnedIcon;
 }
 
+function CreateInventory(string InventoryClassName)
+{
+    if(Misc_PRI(PlayerReplicationInfo) != None)
+    {
+        if(class'Team_GameBase'.default.bNoClassicSniper == True)
+            Misc_PRI(PlayerReplicationInfo).SniperType = 0;
+        // player selects lightning, don't add classic sniper
+        if(Misc_PRI(PlayerReplicationInfo).SniperType == 0 && InventoryClassName ~= "UTClassic.ClassicSniperRifle")
+            return;
+        // player selects classic sniper, don't add lightning
+        if(Misc_PRI(PlayerReplicationInfo).SniperType == 1 && InventoryClassName ~= "xWeapons.SniperRifle")
+            return;
+    }
+    // go up, and add weapon
+    Super.CreateInventory(InventoryClassName);
+}
+
 function SendAdrenReminder ()
 {
   local Controller C;

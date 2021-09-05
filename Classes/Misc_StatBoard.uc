@@ -536,7 +536,7 @@ simulated event DrawScoreBoard(Canvas C)
       
       if ( pprIdx < TmpPRI.PPRListLength - 1 )
       {
-        if ( (TmpPRI.PPRListLength == 21) && (pprIdx == 0) )
+        if ( (TmpPRI.PPRListLength == 25) && (pprIdx == 0) )
         {
           C.DrawColor = HudClass.Default.RedColor * 0.89999998;
         } else {
@@ -1000,7 +1000,7 @@ simulated event DrawScoreBoard(Canvas C)
             C.DrawText(killsw, true);
         }
         MiscY += MiscH * 1.275;
-
+		
         // assault
         if(TmpPRI.Assault.Primary.Fired > 0 || TmpPRI.Assault.Secondary.Fired > 0)
             DrawHitStats(C, TmpPRI.Assault, "Assault", MiscX, MiscY, MiscW, MiscH, TextX, TextY, TmpPRI, class'AssaultRifle');
@@ -1047,6 +1047,14 @@ simulated event DrawScoreBoard(Canvas C)
         }
         MiscY += MiscH * 1.275;
 
+        // SNIPER
+        if(TmpPRI.ClassicSniper.Fired > 0)
+        {
+            GetStatsFor(class'ClassicSniperRifle', TmpPRI, killsw);
+            DrawHitStat(C, TmpPRI.ClassicSniper.Fired, TmpPRI.ClassicSniper.Hit, TmpPRI.ClassicSniper.Damage, killsw, "Sniper", MiscX, MiscY, MiscW, MiscH, TextX, TextY);
+        }
+        MiscY += MiscH * 1.275;  
+
         // LG
         if(TmpPRI.Sniper.Fired > 0)
         {
@@ -1054,11 +1062,11 @@ simulated event DrawScoreBoard(Canvas C)
             DrawHitStat(C, TmpPRI.Sniper.Fired, TmpPRI.Sniper.Hit, TmpPRI.Sniper.Damage, killsw, "Lightning", MiscX, MiscY, MiscW, MiscH, TextX, TextY);
         }
         MiscY += MiscH * 1.275;
-
-        // headshots
-        if(TmpPRI.Sniper.Hit > 0)
-            DrawHitStat(C, TmpPRI.Sniper.Hit, TmpPRI.HeadShots, TmpPRI.HeadShots * 140, TmpPRI.HeadCount, "Headshot", MiscX, MiscY, MiscW, MiscH, TextX, TextY);
-        MiscY += MiscH * 1.275;
+				
+       // headshots
+       if(TmpPRI.Sniper.Hit > 0 || TmpPRI.ClassicSniper.Hit > 0)
+       DrawHitStat(C, TmpPRI.Sniper.Hit + TmpPRI.ClassicSniper.Hit, TmpPRI.HeadShots, TmpPRI.HeadShots * 140, TmpPRI.HeadCount, "Headshots", MiscX, MiscY, MiscW, MiscH, TextX, TextY);
+       MiscY += MiscH * 1.275;
 
         // total
         DrawBars(C, 1, MiscX, MiscY, MiscW, MiscH);
@@ -1085,5 +1093,5 @@ simulated event DrawScoreBoard(Canvas C)
 defaultproperties
 {
      Box=Texture'Engine.WhiteSquareTexture'
-     BaseTex=Texture'3SPNCv42101.textures.Scoreboard_old'
+     BaseTex=Texture'3SPNCv42102.textures.Scoreboard_old'
 }
